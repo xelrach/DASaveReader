@@ -12,7 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Result strings
+# Landsmeet choices
 
-DEFAULT = "Quest Incomplete"
-INCOMPLETE = "Code is not yet complete on this quest"
+import quest_guid
+import result
+
+class landsmeet:
+	ORDER = 0
+	TITLE = "Who now rules Ferelden?"
+	ALISTAIR = "Alistair rules"
+	ALISTAIR_ANORA = "Alistair & Anora rule"
+	ALISTAIR_WARDEN = "Alistair & the Warden rule"
+	ANORA = "Anora rules"
+	ANORA_WARDEN = "Anora & the Warden rule"

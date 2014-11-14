@@ -12,14 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import inspect
+class side_quest_response:
+	def __init__(self, order, title):
+		self.order = order
+		self.title = title
 
-class Hero:
-	pass
-
-class NatureOfTheBeast:
-	def getName(self):
-		return "Nature of the Beast"
-
-	def getFunctions(self):
-		return inspect.getmembers("NatureOfTheBeast", inspect.isfunction)
+	def __repr__(self):
+		return self.title + ": " + self.result

@@ -12,7 +12,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Result strings
-
-DEFAULT = "Quest Incomplete"
-INCOMPLETE = "Code is not yet complete on this quest"
+def has_flag(data, flag):
+	return (2**flag) & data

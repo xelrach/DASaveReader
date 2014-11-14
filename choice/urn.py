@@ -12,7 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Result strings
+# The Urn of Sacred Ashes choices
 
-DEFAULT = "Quest Incomplete"
-INCOMPLETE = "Code is not yet complete on this quest"
+import quest_guid
+import result
+
+class urn:
+	ORDER = 0
+	TITLE = "Did the Warden poison the Urn of Sacred Ashes?"
+	NOT_POISONED = "Urn not poisoned"
+	POISONED = "Urn poisoned"

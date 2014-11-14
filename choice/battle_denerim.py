@@ -12,7 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Result strings
+# Battle of Denerim choices
 
-DEFAULT = "Quest Incomplete"
-INCOMPLETE = "Code is not yet complete on this quest"
+import quest_guid
+import result
+
+class battle_denerim:
+	ORDER = 0
+	TITLE = "Who killed the Archdemon?"
+	WARDEN = "Warden killed Archdemon"
+	ALISTAIR = "Alistair killed Archdemon"
+	LOGHAIN = "Loghain killed Archdemon"

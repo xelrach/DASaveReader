@@ -34,6 +34,7 @@ class broken_circle:
 		response = responses.side_quest_response(broken_circle.ORDER, broken_circle.TITLE)
 
 		quest_data = data.get(quest_guid.BROKEN_CIRCLE, 0)
+
 		if has_flag(quest_data, broken_circle.MAGE_FLAG):
 			response.result = broken_circle.MAGES
 		elif has_flag(quest_data, broken_circle.TEMPLAR_FLAG):
@@ -57,6 +58,7 @@ class irving:
 		response = responses.side_quest_response(irving.ORDER, irving.TITLE)
 
 		quest_data = data.get(quest_guid.CODEX_IRVING, 0)
+
 		if has_flag(quest_data, irving.IRVING_DEAD_FLAG):
 			response.result = irving.DEAD
 		else:
@@ -78,8 +80,10 @@ class cullen:
 	def get_result(data):
 		response = responses.side_quest_response(irving.ORDER, irving.TITLE)
 
-		quest_data = data.get(quest_guid.BROKEN_CIRCLE, 0)
-		if has_flag(quest_data, cullen.AGREED_FLAG):
+		cullen_data = data.get(quest_guid.BROKEN_CIRCLE, 0)
+		circle_data = data.get(quest_guid.BROKEN_CIRCLE, 0)
+
+		if has_flag(cullen_data, cullen.AGREED_FLAG) and has_flag(circle_data, cullen.MAGES_DEAD_FLAG):
 			response.result = cullen.YES
 		else:
 			response.result = cullen.NO

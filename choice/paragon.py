@@ -36,6 +36,7 @@ class anvil_of_the_void:
 		response = responses.side_quest_response(anvil_of_the_void.ORDER, anvil_of_the_void.TITLE)
 
 		quest_data = data.get(quest_guid.ANVIL_OF_THE_VOID, 0)
+
 		if has_flag(quest_data, anvil_of_the_void.BRANKA_ALIVE_FLAG):
 			response.result = anvil_of_the_void.CARIDIN_DEFEATED
 		elif has_flag(quest_data, anvil_of_the_void.BRANKA_SUICIDE_FLAG):
@@ -63,6 +64,7 @@ class paragon_of_her_kind:
 		response = responses.side_quest_response(paragon_of_her_kind.ORDER, paragon_of_her_kind.TITLE)
 
 		quest_data = data.get(quest_guid.A_PARAGON_OF_HER_KIND, 0)
+
 		if has_flag(quest_data, paragon_of_her_kind.BHELEN_FLAG):
 			response.result = paragon_of_her_kind.BHELEN
 		elif has_flag(quest_data, paragon_of_her_kind.HARROWMONT_FLAG):
@@ -97,6 +99,7 @@ class the_chant_in_the_deeps:
 		response = responses.side_quest_response(the_chant_in_the_deeps.ORDER, the_chant_in_the_deeps.TITLE)
 
 		quest_data = data.get(quest_guid.THE_CHANT_IN_THE_DEEPS, 0)
+
 		if has_flag(quest_data, the_chant_in_the_deeps.HELPED_FLAG):
 			response.result = the_chant_in_the_deeps.YES
 		else:
@@ -128,6 +131,7 @@ class orta:
 		response = responses.side_quest_response(orta.ORDER, orta.TITLE)
 
 		quest_data = data.get(quest_guid.LOST_TO_THE_MEMORIES, 0)
+
 		if has_flag(quest_data, orta.ORTA_RETURNS_FLAG):
 			response.result = orta.YES
 		else:
@@ -177,6 +181,7 @@ class legion_of_dead:
 		response = responses.side_quest_response(legion_of_dead.ORDER, legion_of_dead.TITLE)
 
 		quest_data = data.get(quest_guid.THE_DEAD_CASTE, 0)
+
 		if has_flag(quest_data, legion_of_dead.ADDED_TO_MEMORIES_FLAG):
 			response.result = legion_of_dead.YES
 		else:
@@ -201,9 +206,10 @@ class shaperate_tome:
 		response = responses.side_quest_response(shaperate_tome.ORDER, shaperate_tome.TITLE)
 
 		quest_data = data.get(quest_guid.THIEF_IN_THE_HOUSE_OF_LEARNING, 0)
+
 		if has_flag(quest_data, shaperate_tome.RETURNED_FLAG):
 			response.result = shaperate_tome.RETURNED
-		elif has_flag(quest_data, shaperate_tome.SOLD_FLAG:
+		elif has_flag(quest_data, shaperate_tome.SOLD_FLAG):
 			response.result = shaperate_tome.SOLD
 		else:
 			response.result = shaperate_tome.NOTHING
@@ -224,6 +230,7 @@ class rogek:
 		response = responses.side_quest_response(rogek.ORDER, rogek.TITLE)
 
 		quest_data = data.get(quest_guid.PRECIOUS_METALS, 0)
+
 		if has_flag(quest_data, rogek.COMPLETED_FLAG):
 			response.result = rogek.YES
 		else:

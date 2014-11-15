@@ -88,7 +88,7 @@ class LazyGFF4(object):
             kind = field.type
             if issubclass(kind, List):
                 elem_type = kind.elem_type
-                if issubclass(elem_type, Structure):
+                if elem_type is not None and issubclass(elem_type, Structure):
                     elem_type = make_structure(headerstructs.index(elem_type))
                 if (elem_type, kind.indirect) in lists:
                     kind = lists[(elem_type, kind.indirect)]

@@ -16,20 +16,70 @@
 
 import quest_guid
 import result
+import responses
+from flag import has_flag
 
 class prisoner:
 	ORDER = 0
 	TITLE = "What did the Warden do with the hungry deserter in Ostagar?"
-	LEFT = "Ostagar prisoner left alone"
+
+	KILLED_FLAG = 1
+	KEY_FLAG = 5
+	BRIBED_FLAG = 6
+	FOOD_FLAG = 7
+
+	NOTHING = "Ostagar prisoner left alone"
 	KILLED = "Ostagar prisoner killed"
 	FED_STOLEN = "Fed Ostagar prisoner stolen food"
 	FED_SHARED = "Fed Ostagar prisoner guard's lunch"
 	FED_BOUGHT = "Bought food to feed Ostagar prisoner"
 	STOLE = "Key stolen from Ostagar prisoner"
 
+	@staticmethod
+	def get_result(data):
+		response = responses.side_quest_response(prisoner.ORDER, prisoner.TITLE)
+
+		quest_data = data.get(quest_guid.THE_HUNGRY_DESERTER, 0)
+
+		if has_flag(quest_data, prisoner.KILLED_FLAG):
+			response.result = prisoner.KILLED
+		else:
+			if has_flag(quest_data, prisoner.KEY_FLAG):
+				if has_flag(quest_data, prisoner.BRIBED_FLAG):
+					response.result = prisoner.FED_BOUGHT
+				elif has_flag(quest_data, prisoner.FOOD_FLAG):
+					# Not sure how to differentiate between these
+					response.result = 'Either "' + prisoner.FED_SHARED + '" or "' + prisoner.FED_STOLEN + '"'
+				else:
+					response.result = prisoner.STOLE
+			else:
+				response.result = prisoner.NOTHING
+
+		return response
+
 class mabari:
 	ORDER = 1
 	TITLE = "What did the Warden do with the mabari hound in Ostagar?"
+
+	HEALED_FLAG = 4
+	KILLED_FLAG = 5
+	FLOWER_NO_QUEST_FLAG = 9
+
 	NOTHING = "Didn't help mabari hound"
 	CURED = "Cured mabari hound"
 	KILLED = "Put mabari hound out of its misery"
+
+	@staticmethod
+	def get_result(data):
+		response = responses.side_quest_response(mabari.ORDER, mabari.TITLE)
+
+		quest_data = data.get(quest_guid.THE_MABARI_HOUND, 0)
+
+		if has_flag(quest_data, mabari.HEALED_FLAG) or has_flag(quest_data, mabari.FLOWER_NO_QUEST_FLAG):
+			response.result = mabari.CURED
+		elif has_flag(quest_data, mabari.KILLED_FLAG):
+			response.result = mabari.KILLED
+		else:
+			response.result = mabari.NOTHING
+
+		return response

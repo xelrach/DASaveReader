@@ -16,9 +16,10 @@ import inspect
 import sys
 
 import choice.quests
+import convert
 
 def main(args):
-	data = {}
+	data = convert.convert_file(args[1])
 	results = get_results(data)
 	print_results(results)
 

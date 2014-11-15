@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Nature of the Beast choices
+"""Nature of the Beast choices"""
 
 import quest_guid
 import result
@@ -89,6 +89,7 @@ class elora:
 		response = responses.side_quest_response(elora.ORDER, elora.TITLE)
 
 		quest_data = data.get(quest_guid.ELORAS_HALLA, 0)
+
 		if has_flag(quest_data, elora.MISSING_MATE_FLAG):
 			response.result = elora.SAVED
 		elif has_flag(quest_data, elora.KILLED_FLAG):

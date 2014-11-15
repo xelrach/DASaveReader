@@ -35,6 +35,15 @@ class Hero:
 	def get_side_quests():
 		return inspect.getmembers(hero, inspect.isclass)
 
+class Prolog:
+	@staticmethod
+	def get_name():
+		return "Prolog"
+
+	@staticmethod
+	def get_side_quests():
+		return inspect.getmembers(prologue, inspect.isclass)
+
 class NatureOfTheBeast:
 	@staticmethod
 	def get_name():
@@ -60,4 +69,14 @@ class ParagonOfHerKind:
 
 	@staticmethod
 	def get_side_quests():
-		return inspect.getmembers(paragon, inspect.isclass)
+		return []
+#		return inspect.getmembers(paragon, inspect.isclass)
+
+class TheArlOfRedcliff:
+	@staticmethod
+	def get_name():
+		return "The Arl of Redcliff"
+
+	@staticmethod
+	def get_side_quests():
+		return inspect.getmembers(redcliffe, inspect.isclass)

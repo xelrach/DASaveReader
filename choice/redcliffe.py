@@ -24,7 +24,7 @@ class fight:
 	TITLE = "Did the Warden help the village of Redcliffe fight the undead hordes at nightfall?"
 
 	SAVED_FLAG = 0
-	DESTROYED_FLAG = 0
+	DESTROYED_FLAG = 7
 
 	NO = "Didn't help Redcliffe fight"
 	YES = "Helped Redcliffe fight"
@@ -200,7 +200,8 @@ class isolde:
 	ORDER = 6
 	TITLE = "What happened to Isolde?"
 
-	ISOLDE_SACRIFICE_FLAG = 21
+	# ISOLDE_SACRIFICE_FLAG = 21
+	ISOLDE_DIES_FLAG = 2
 
 	ALIVE = "Isolde is alive"
 	SACRIFICED = "Isolde sacrificed herself"
@@ -209,9 +210,10 @@ class isolde:
 	def get_result(data):
 		response = responses.side_quest_response(isolde.ORDER, isolde.TITLE)
 
-		quest_data = data.get(quest_guid.THE_POSSESSED_CHILD, 0)
+		connor_data = data.get(quest_guid.THE_POSSESSED_CHILD, 0)
+		isolde_codex = data.get(quest_guid.CODEX_ISOLDE, 0)
 
-		if has_flag(quest_data, isolde.ISOLDE_SACRIFICE_FLAG):
+		if has_flag(isolde_codex, isolde.ISOLDE_DIES_FLAG):
 			response.result = isolde.SACRIFICED
 		else:
 			response.result = isolde.ALIVE

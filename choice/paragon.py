@@ -18,6 +18,7 @@ import quest_guid
 import result
 import responses
 from flag import has_flag
+import circle
 
 class anvil_of_the_void:
 	ORDER = 0
@@ -78,12 +79,44 @@ class filda:
 	ORDER = 2
 	TITLE = "How did the Warden complete Filda's quest to find her son Ruck in the Deep Roads?"
 
+	RUCK_NOT_KILLED_FLAG = 6
+	RUCK_KILLED_FLAG = 7
+	RUCK_FOUND_FLAG = 8
+	TOLD_RUCK_DEAD_FLAG = 1
+	TOLD_RUCK_KILLED_FLAG = 2
+	FILDA_DEEP_ROADS_FLAG = 4
+	TOLD_NOT_FIND_RUCK_FLAG = 11
+
 	NOTHING = "Didn't speak to Filda"
 	SAID_RUCK_DIED = "Said Ruck died"
 	ALIVE_TRUTH = "Told truth about Ruck"
 	KILLED_LIED = "Killed Ruck & lied"
 	KILLED_TRUTH = "Killed Ruck & told truth"
 	KILLED_HERO = "Killed Ruck, said he died heroically"
+
+	@staticmethod
+	def get_result(data):
+		response = responses.side_quest_response(filda.ORDER, filda.TITLE)
+
+		quest_data = data.get(quest_guid.A_MOTHERS_HOPE, 0)
+
+		if has_flag(quest_data, filda.RUCK_KILLED_FLAG):
+			if has_flag(quest_data, filda.TOLD_RUCK_DEAD_FLAG):
+				response.result = filda.KILLED_HERO
+			elif has_flag(quest_data, filda.TOLD_RUCK_KILLED_FLAG):
+				response.result = filda.KILLED_TRUTH
+			else:
+				response.result = filda.KILLED_LIED
+		elif has_flag(quest_data, filda.RUCK_NOT_KILLED_FLAG) or has_flag(quest_data, filda.RUCK_FOUND_FLAG):
+			if has_flag(quest_data, filda.TOLD_RUCK_DEAD_FLAG):
+				response.result = filda.SAID_RUCK_DIED
+			else:
+				response.result = filda.ALIVE_TRUTH
+		else:
+			response.result = filda.NOTHING
+
+		return response
+
 
 class the_chant_in_the_deeps:
 	ORDER = 3
@@ -111,11 +144,35 @@ class zerlinda:
 	ORDER = 4
 	TITLE = "What was the fate of Zerlinda and her son?"
 
+	CONVINCED_FLAG = 2
+	CHANTRY_FLAG = 3
+	FAMILY_FLAG = 5
+	SURFACE_FLAG = 12
+
 	REMAINED = "Zerlinda remained in Dust Town"
 	FAMILY = "Helped Zerlinda reconcile with family"
 	SURFACE = "Zerlinda left for the surface"
 	CHANTRY = "Zerlinda taken in by Burkel's chantry"
 	DEEP_ROADS = "Zerlinda left son in the Deep Roads"
+
+	@staticmethod
+	def get_result(data):
+		response = responses.side_quest_response(zerlinda.ORDER, zerlinda.TITLE)
+
+		quest_data = data.get(quest_guid.ZERLINDAS_WOE, 0)
+
+		if has_flag(quest_data, zerlinda.CONVINCED_FLAG):
+			response.result = zerlinda.DEEP_ROADS
+		elif has_flag(quest_data, zerlinda.FAMILY_FLAG):
+			response.result = zerlinda.FAMILY
+		elif has_flag(quest_data, zerlinda.SURFACE_FLAG):
+			response.result = zerlinda.SURFACE
+		elif has_flag(quest_data, zerlinda.CHANTRY_FLAG):
+			response.result = zerlinda.CHANTRY
+		else:
+			response.result = zerlinda.REMAINED
+
+		return response
 
 class orta:
 	ORDER = 5
@@ -141,8 +198,13 @@ class orta:
 
 
 class dagna:
+	# Don't see stay with father
 	ORDER = 6
 	TITLE = "How did the Warden deal with Dagna's request to become a scholar at the Circle Tower?"
+
+	CIRCLE_FLAG = 2
+	REFUSED_FLAG = 6
+	GREAGOIR_REFUSED_FLAG = 14
 
 	NOTHING = "Didn't talk to Dagna"
 	REFUSED = "Refused to help Dagna"
@@ -150,22 +212,40 @@ class dagna:
 	CIRCLE = "Dagna left to study"
 	CIRCLE_DESTROYED = "Told Dagna the Circle destroyed"
 
-class mardy:
-	ORDER = 7
-	TITLE = "Did the Warden have relations with Mardy before being cast out of Orzammar?"
+	@staticmethod
+	def get_result(data):
+		response = responses.side_quest_response(dagna.ORDER, dagna.TITLE)
 
-	NOTHING = "Didn't encounter Mardy"
-	NO = "Didn't have relations with Mardy"
-	YES = "Had relations with Mardy"
+		circle_data = data.get(quest_guid.BROKEN_CIRCLE, 0)
+		quest_data = data.get(quest_guid.AN_UNLIKELY_SCHOLAR, 0)
 
-class mardy_son:
-	ORDER = 8
-	TITLE = "Did the Warden restore Mardy's son's birthright?"
+		if has_flag(quest_data, dagna.GREAGOIR_REFUSED_FLAG) or circle.mages_dead(data):
+			response.result = dagna.CIRCLE_DESTROYED
+		elif has_flag(quest_data, dagna.CIRCLE_FLAG):
+			response.result = dagna.CIRCLE
+		elif has_flag(quest_data, dagna.REFUSED_FLAG):
+			response.result = dagna.REFUSED
+		else:
+			response.result = dagna.NOTHING
 
-	NO_SON = "Didn't have son with Mardy"
-	NO = "Didn't restore Mardy's son's birthright"
-	YES = "Restored Mardy's son's birthright"
-	NO_MEET = "Didn't encounter Mardy's son"
+		return response
+
+#class mardy:
+#	ORDER = 7
+#	TITLE = "Did the Warden have relations with Mardy before being cast out of Orzammar?"
+
+#	NOTHING = "Didn't encounter Mardy"
+#	NO = "Didn't have relations with Mardy"
+#	YES = "Had relations with Mardy"
+
+#class mardy_son:
+#	ORDER = 8
+#	TITLE = "Did the Warden restore Mardy's son's birthright?"
+
+#	NO_SON = "Didn't have son with Mardy"
+#	NO = "Didn't restore Mardy's son's birthright"
+#	YES = "Restored Mardy's son's birthright"
+#	NO_MEET = "Didn't encounter Mardy's son"
 
 class legion_of_dead:
 	ORDER = 9

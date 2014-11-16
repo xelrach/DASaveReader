@@ -19,6 +19,10 @@ import result
 import responses
 from flag import has_flag
 
+def mages_dead(data):
+	circle_data = data.get(quest_guid.BROKEN_CIRCLE, 0)
+	return has_flag(circle_data, cullen.MAGES_DEAD_FLAG)
+
 class broken_circle:
 	ORDER = 0
 	TITLE = "Who did the Warden support at the Broken Circle?"
@@ -83,7 +87,7 @@ class cullen:
 		cullen_data = data.get(quest_guid.BROKEN_CIRCLE, 0)
 		circle_data = data.get(quest_guid.BROKEN_CIRCLE, 0)
 
-		if has_flag(cullen_data, cullen.AGREED_FLAG) and has_flag(circle_data, cullen.MAGES_DEAD_FLAG):
+		if has_flag(cullen_data, cullen.AGREED_FLAG) and mages_dead(data):
 			response.result = cullen.YES
 		else:
 			response.result = cullen.NO

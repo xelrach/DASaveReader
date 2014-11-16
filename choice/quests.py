@@ -69,8 +69,7 @@ class ParagonOfHerKind:
 
 	@staticmethod
 	def get_side_quests():
-		return []
-#		return inspect.getmembers(paragon, inspect.isclass)
+		return inspect.getmembers(paragon, inspect.isclass)
 
 class TheArlOfRedcliff:
 	@staticmethod

@@ -38,7 +38,6 @@ def get_results(data):
 	for quest_name, quest in quests:
 		quest_results = []
 		for side_quest_name, side_quest in quest.get_side_quests():
-#			quest_results[side_quest.TITLE] = side_quest.get_result(data)
 			result = side_quest.get_result(data)
 			quest_results.append(result)
 		quest_results.sort(key=lambda result: result.order)

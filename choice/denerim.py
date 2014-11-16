@@ -33,7 +33,6 @@ class ser_landry:
 		response = responses.side_quest_response(ser_landry.ORDER, ser_landry.TITLE)
 
 		quest_data = data.get(quest_guid.HONOR_BOUND, 0)
-		print(str(quest_data))
 
 		if has_flag(quest_data, ser_landry.KILLED_IN_DUEL_FLAG):
 			response.result = ser_landry.DEAD

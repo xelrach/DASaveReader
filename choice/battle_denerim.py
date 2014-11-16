@@ -16,10 +16,40 @@
 
 import quest_guid
 import result
+import responses
+from flag import has_flag
+
+def alistair_killed_archdemon(data):
+	quest_data = data.get(quest_guid.CLIMAX_ARCHDEMON, 0)
+	return has_flag(quest_data, battle_denerim.ALISTAIR_KILL_FLAG) \
+			or has_flag(quest_data, battle_denerim.ALISTAIR_KISS_KILL_FLAG)
 
 class battle_denerim:
 	ORDER = 0
 	TITLE = "Who killed the Archdemon?"
+
+	ALISTAIR_KILL_FLAG = 2
+	ALISTAIR_KISS_KILL_FLAG = 3
+	PC_KILL_FLAG = 4
+	LOGHAIN_KILL_FLAG = 5
+
 	WARDEN = "Warden killed Archdemon"
 	ALISTAIR = "Alistair killed Archdemon"
 	LOGHAIN = "Loghain killed Archdemon"
+
+	@staticmethod
+	def get_result(data):
+		response = responses.side_quest_response(battle_denerim.ORDER, battle_denerim.TITLE)
+
+		quest_data = data.get(quest_guid.CLIMAX_ARCHDEMON, 0)
+
+		if alistair_killed_archdemon(data):
+			response.result = battle_denerim.ALISTAIR
+		elif has_flag(quest_data, battle_denerim.LOGHAIN_KILL_FLAG):
+			response.result = battle_denerim.LOGHAIN
+		elif has_flag(quest_data, battle_denerim.PC_KILL_FLAG):
+			response.result = battle_denerim.WARDEN
+		else:
+			result.DEFAULT
+
+		return response

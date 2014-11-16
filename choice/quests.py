@@ -97,3 +97,21 @@ class Denerim:
 	@staticmethod
 	def get_side_quests():
 		return inspect.getmembers(denerim, inspect.isclass)
+
+class Landsmeet:
+	@staticmethod
+	def get_name():
+		return "Landsmeet"
+
+	@staticmethod
+	def get_side_quests():
+		return inspect.getmembers(landsmeet, inspect.isclass)
+
+class BattleOfDenerim:
+	@staticmethod
+	def get_name():
+		return "Battle of Denerim"
+
+	@staticmethod
+	def get_side_quests():
+		return inspect.getmembers(battle_denerim, inspect.isclass)

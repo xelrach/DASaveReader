@@ -18,11 +18,16 @@ import sys
 from pygff.lazy import LazyGFF4
 from cStringIO import StringIO
 
+import plot
+
 PARTY_LIST = 16003
 PLOT_MANAGER = 16400
 PLOT_LIST = 16401
 PLOT_GUID = 16402
-PLOT_FLAGS = 16403
+PLOT_FLAGS_1 = 16403
+PLOT_FLAGS_2 = 16404
+PLOT_FLAGS_3 = 16405
+PLOT_FLAGS_4 = 16406
 
 def convert_file(filename):
   data, header = open_file(filename)
@@ -40,8 +45,8 @@ def convert_data(data):
   quests = data[PARTY_LIST][PLOT_MANAGER][PLOT_LIST]
   for quest in quests:
     guid = str(quest[PLOT_GUID]).rstrip("\0")
-    flags = quest[PLOT_FLAGS]
-    results[guid] = flags
+    p = plot.plot(quest[PLOT_FLAGS_1], quest[PLOT_FLAGS_2], quest[PLOT_FLAGS_3], quest[PLOT_FLAGS_4])
+    results[guid] = p
   return results
 
 if __name__ == '__main__':

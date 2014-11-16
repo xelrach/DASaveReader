@@ -16,6 +16,24 @@
 
 import quest_guid
 import result
+import responses
+from flag import has_flag
+import battle_denerim
+import landsmeet
+
+def morrgans_ritual_completed(data):
+	quest_data = data.get(quest_guid.MORRIGANS_RITUAL, 0)
+
+	return has_flag(quest_data, morrigan_baby.ALISTAIR_FLAG) \
+			or has_flag(quest_data, morrigan_baby.LOGHAIN_FLAG) \
+			or has_flag(quest_data, morrigan_baby.PC_FLAG)
+
+def alistair_died_killing_archdemon(data):
+	return battle_denerim.alistair_killed_archdemon(data) \
+			and not morrgans_ritual_completed(data)
+
+def alistair_dead(data):
+	return alistair_died_killing_archdemon(data) or landsmeet.alistair_executed(data)
 
 class romance:
 	ORDER = 0
@@ -69,11 +87,35 @@ class wynne_fate:
 class morrigan_baby:
 	ORDER = 7
 	TITLE = "Did Morrigan have a baby?"
+
+	ALISTAIR_FLAG = 2
+	PC_FLAG = 4
+	LOGHAIN_FLAG = 12
+
 	NO = "Morrigan did not have a baby"
 	WARDEN_OLD_GOD = "Morrigan had an old god baby with the Warden"
 	ALISTAIR_OLD_GOD = "Morrigan had an old god baby with Alistair"
 	LOGHAIN_OLD_GOD = "Morrigan had an old god baby with Loghain"
 	WARDEN_HUMAN = "Morrigan had a human baby with the Warden"
+
+	@staticmethod
+	def get_result(data):
+		response = responses.side_quest_response(morrigan_baby.ORDER, morrigan_baby.TITLE)
+
+		quest_data = data.get(quest_guid.TORTURD_NOBLE, 0)
+
+		if has_flag(quest_data, morrigan_baby.ALISTAIR_FLAG):
+			response.result = morrigan_baby.ALISTAIR_OLD_GOD
+		elif has_flag(quest_data, morrigan_baby.LOGHAIN_FLAG):
+			response.result = morrigan_baby.LOGHAIN_FLAG
+		elif has_flag(quest_data, morrigan_baby.PC_FLAG):
+			response.result = morrigan_baby.WARDEN_OLD_GOD
+		elif morrigan_romanced(data):
+			response.result = morrigan_baby.WARDEN_HUMAN
+		else:
+			response.result = morrigan_baby.NO
+
+		return response
 
 class loghain:
 	ORDER = 8
@@ -126,8 +168,7 @@ class leliana_fate:
 	NOT_RECRUITED = "Didn't recruit Leliana"
 	ALIVE = "Leliana alive & well"
 	KILLED = "Killed Leliana after poisoning the Urn"
-	LEFt = "Leliana Left"
-
+	LEFT = "Leliana Left"
 
 class grimoire:
 	ORDER = 15

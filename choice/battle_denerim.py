@@ -24,6 +24,10 @@ def alistair_killed_archdemon(data):
 	return has_flag(quest_data, battle_denerim.ALISTAIR_KILL_FLAG) \
 			or has_flag(quest_data, battle_denerim.ALISTAIR_KISS_KILL_FLAG)
 
+def warden_killed_archdemon(data):
+	quest_data = get_plot(data, quest_guid.CLIMAX_ARCHDEMON)
+	return has_flag(quest_data, battle_denerim.PC_KILL_FLAG)
+
 class battle_denerim:
 	ORDER = 0
 	TITLE = "Who killed the Archdemon?"

@@ -18,25 +18,48 @@ import quest_guid
 import result
 import responses
 from utils import has_flag, get_plot
-
-def is_human(data):
-	quest_data = data.get(quest_guid.HERO_RGC, 0)
+import battle_denerim
+import companions
 
 def is_human_noble(data):
-	pass
+	origin_data = get_plot(data, quest_guid.HERO_ORIGIN)
+	return has_flag(origin_data, hero.HUMAN_NOBLE_FLAG)
 
 class hero:
 	ORDER = 0
 	TITLE = "Hero"
 
+	CIRCLE_FLAG = 0
+	DWARF_COMMON_FLAG = 1
+	DWARF_NOBLE_FLAG = 2
+	ELF_CITY_FLAG = 3
+	ELF_DALISH_FLAG = 4
+	HUMAN_NOBLE_FLAG = 7
+
 	@staticmethod
 	def get_result(data):
 		response = responses.side_quest_response(hero.ORDER, hero.TITLE)
 
-		response.result = result.INCOMPLETE
+		origin_data = get_plot(data, quest_guid.HERO_ORIGIN)
+
+		if has_flag(origin_data, hero.HUMAN_NOBLE_FLAG):
+			response.result = "Human Noble"
+		elif has_flag(origin_data, hero.DWARF_COMMON_FLAG):
+			response.result = "Dwarf Commoner"
+		elif has_flag(origin_data, hero.DWARF_NOBLE_FLAG):
+			response.result = "Dwarf Noble"
+		elif has_flag(origin_data, hero.ELF_CITY_FLAG):
+			respponse.result = "City Elf"
+		elif has_flag(origin_data, hero.ELF_DALISH_FLAG):
+			response.result = "Dalish Elf"
+		elif has_flag(origin_data, hero.CIRCLE_FLAG):
+			response.result = "Circle Mage"
+		else:
+			response.result = result.DEFAULT
+
 		return response
 
-class hero_alive:
+class hero_fate:
 	ORDER = 1
 	TITLE = "What happened to the Warden at the end of Dragon Age Origins?"
 
@@ -45,7 +68,11 @@ class hero_alive:
 
 	@staticmethod
 	def get_result(data):
-		response = responses.side_quest_response(hero_alive.ORDER, hero_alive.TITLE)
+		response = responses.side_quest_response(hero_fate.ORDER, hero_fate.TITLE)
 
-		response.result = result.INCOMPLETE
+		if battle_denerim.warden_killed_archdemon(data) and not companions.morrgans_ritual_completed(data):
+			response.result = hero_fate.DEAD
+		else:
+			response.result = hero_fate.ALIVE
+
 		return response

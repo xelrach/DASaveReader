@@ -16,9 +16,28 @@
 
 import quest_guid
 import result
+import responses
+from flag import has_flag
 
 class urn:
 	ORDER = 0
 	TITLE = "Did the Warden poison the Urn of Sacred Ashes?"
+
+	POORED_BLOOD_FLAG = 8
+	CULT_FLAG = 0
+
 	NOT_POISONED = "Urn not poisoned"
 	POISONED = "Urn poisoned"
+
+	@staticmethod
+	def get_result(data):
+		response = responses.side_quest_response(urn.ORDER, urn.TITLE)
+
+		quest_data = data.get(quest_guid.THE_HIGH_DRAGONS_CHAMPION, 0)
+
+		if has_flag(quest_data, urn.CULT_FLAG):
+			response.result = urn.POISONED
+		else:
+			response.result = urn.NOT_POISONED
+
+		return response

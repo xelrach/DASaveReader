@@ -196,7 +196,6 @@ class orta:
 
 		return response
 
-
 class dagna:
 	# Don't see stay with father
 	ORDER = 6

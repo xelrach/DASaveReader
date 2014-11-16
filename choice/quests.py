@@ -79,3 +79,12 @@ class TheArlOfRedcliff:
 	@staticmethod
 	def get_side_quests():
 		return inspect.getmembers(redcliffe, inspect.isclass)
+
+class TheUrnOfSacredAshes:
+	@staticmethod
+	def get_name():
+		return "The Urn Of Sacred Ashes"
+
+	@staticmethod
+	def get_side_quests():
+		return inspect.getmembers(urn, inspect.isclass)

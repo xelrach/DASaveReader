@@ -18,7 +18,7 @@ import sys
 from pygff.lazy import LazyGFF4
 from cStringIO import StringIO
 
-import plot
+import choice.plot
 
 PARTY_LIST = 16003
 PLOT_MANAGER = 16400
@@ -45,7 +45,7 @@ def convert_data(data):
   quests = data[PARTY_LIST][PLOT_MANAGER][PLOT_LIST]
   for quest in quests:
     guid = str(quest[PLOT_GUID]).rstrip("\0")
-    p = plot.plot(quest[PLOT_FLAGS_1], quest[PLOT_FLAGS_2], quest[PLOT_FLAGS_3], quest[PLOT_FLAGS_4])
+    p = choice.plot.plot(quest[PLOT_FLAGS_1], quest[PLOT_FLAGS_2], quest[PLOT_FLAGS_3], quest[PLOT_FLAGS_4])
     results[guid] = p
   return results
 

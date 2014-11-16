@@ -17,7 +17,7 @@
 import quest_guid
 import result
 import responses
-from flag import has_flag
+from utils import has_flag, get_plot
 
 class prisoner:
 	ORDER = 0
@@ -39,7 +39,7 @@ class prisoner:
 	def get_result(data):
 		response = responses.side_quest_response(prisoner.ORDER, prisoner.TITLE)
 
-		quest_data = data.get(quest_guid.THE_HUNGRY_DESERTER, 0)
+		quest_data = get_plot(data, quest_guid.THE_HUNGRY_DESERTER)
 
 		if has_flag(quest_data, prisoner.KILLED_FLAG):
 			response.result = prisoner.KILLED
@@ -73,7 +73,7 @@ class mabari:
 	def get_result(data):
 		response = responses.side_quest_response(mabari.ORDER, mabari.TITLE)
 
-		quest_data = data.get(quest_guid.THE_MABARI_HOUND, 0)
+		quest_data = get_plot(data, quest_guid.THE_MABARI_HOUND)
 
 		if has_flag(quest_data, mabari.HEALED_FLAG) or has_flag(quest_data, mabari.FLOWER_NO_QUEST_FLAG):
 			response.result = mabari.CURED

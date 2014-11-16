@@ -17,10 +17,10 @@
 import quest_guid
 import result
 import responses
-from flag import has_flag
+from utils import has_flag, get_plot
 
 def mages_dead(data):
-	circle_data = data.get(quest_guid.BROKEN_CIRCLE, 0)
+	circle_data = get_plot(data, quest_guid.BROKEN_CIRCLE)
 	return has_flag(circle_data, cullen.MAGES_DEAD_FLAG)
 
 class broken_circle:
@@ -37,7 +37,7 @@ class broken_circle:
 	def get_result(data):
 		response = responses.side_quest_response(broken_circle.ORDER, broken_circle.TITLE)
 
-		quest_data = data.get(quest_guid.BROKEN_CIRCLE, 0)
+		quest_data = get_plot(data, quest_guid.BROKEN_CIRCLE)
 
 		if has_flag(quest_data, broken_circle.MAGE_FLAG):
 			response.result = broken_circle.MAGES
@@ -61,7 +61,7 @@ class irving:
 	def get_result(data):
 		response = responses.side_quest_response(irving.ORDER, irving.TITLE)
 
-		quest_data = data.get(quest_guid.CODEX_IRVING, 0)
+		quest_data = get_plot(data, quest_guid.CODEX_IRVING)
 
 		if has_flag(quest_data, irving.IRVING_DEAD_FLAG):
 			response.result = irving.DEAD
@@ -84,10 +84,9 @@ class cullen:
 	def get_result(data):
 		response = responses.side_quest_response(irving.ORDER, irving.TITLE)
 
-		cullen_data = data.get(quest_guid.BROKEN_CIRCLE, 0)
-		circle_data = data.get(quest_guid.BROKEN_CIRCLE, 0)
+		circle_data = get_plot(data, quest_guid.BROKEN_CIRCLE)
 
-		if has_flag(cullen_data, cullen.AGREED_FLAG) and mages_dead(data):
+		if has_flag(circle_data, cullen.AGREED_FLAG) and mages_dead(data):
 			response.result = cullen.YES
 		else:
 			response.result = cullen.NO

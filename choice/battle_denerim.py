@@ -17,10 +17,10 @@
 import quest_guid
 import result
 import responses
-from flag import has_flag
+from utils import has_flag, get_plot
 
 def alistair_killed_archdemon(data):
-	quest_data = data.get(quest_guid.CLIMAX_ARCHDEMON, 0)
+	quest_data = get_plot(data, quest_guid.CLIMAX_ARCHDEMON)
 	return has_flag(quest_data, battle_denerim.ALISTAIR_KILL_FLAG) \
 			or has_flag(quest_data, battle_denerim.ALISTAIR_KISS_KILL_FLAG)
 
@@ -41,7 +41,7 @@ class battle_denerim:
 	def get_result(data):
 		response = responses.side_quest_response(battle_denerim.ORDER, battle_denerim.TITLE)
 
-		quest_data = data.get(quest_guid.CLIMAX_ARCHDEMON, 0)
+		quest_data = get_plot(data, quest_guid.CLIMAX_ARCHDEMON)
 
 		if alistair_killed_archdemon(data):
 			response.result = battle_denerim.ALISTAIR

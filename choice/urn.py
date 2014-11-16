@@ -17,7 +17,7 @@
 import quest_guid
 import result
 import responses
-from flag import has_flag
+from utils import has_flag, get_plot
 
 class urn:
 	ORDER = 0
@@ -33,7 +33,7 @@ class urn:
 	def get_result(data):
 		response = responses.side_quest_response(urn.ORDER, urn.TITLE)
 
-		quest_data = data.get(quest_guid.THE_HIGH_DRAGONS_CHAMPION, 0)
+		quest_data = get_plot(data, quest_guid.THE_HIGH_DRAGONS_CHAMPION)
 
 		if has_flag(quest_data, urn.CULT_FLAG):
 			response.result = urn.POISONED

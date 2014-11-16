@@ -12,7 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Quest GUIDs
+"""Quest GUIDs"""
+
+# Hero
+HERO_RGC = "64F06DB1ED4B49F18DF326A0B1C2D06C"
 
 # Prologue
 THE_HUNGRY_DESERTER = "F0CCF894E7F844A99BDF263D6DBB618A"

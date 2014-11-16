@@ -17,7 +17,7 @@
 import quest_guid
 import result
 import responses
-from flag import has_flag
+from utils import has_flag, get_plot
 import circle
 
 class anvil_of_the_void:
@@ -36,7 +36,7 @@ class anvil_of_the_void:
 	def get_result(data):
 		response = responses.side_quest_response(anvil_of_the_void.ORDER, anvil_of_the_void.TITLE)
 
-		quest_data = data.get(quest_guid.ANVIL_OF_THE_VOID, 0)
+		quest_data = get_plot(data, quest_guid.ANVIL_OF_THE_VOID)
 
 		if has_flag(quest_data, anvil_of_the_void.BRANKA_ALIVE_FLAG):
 			response.result = anvil_of_the_void.CARIDIN_DEFEATED
@@ -64,7 +64,7 @@ class paragon_of_her_kind:
 	def get_result(data):
 		response = responses.side_quest_response(paragon_of_her_kind.ORDER, paragon_of_her_kind.TITLE)
 
-		quest_data = data.get(quest_guid.A_PARAGON_OF_HER_KIND, 0)
+		quest_data = get_plot(data, quest_guid.A_PARAGON_OF_HER_KIND)
 
 		if has_flag(quest_data, paragon_of_her_kind.BHELEN_FLAG):
 			response.result = paragon_of_her_kind.BHELEN
@@ -98,7 +98,7 @@ class filda:
 	def get_result(data):
 		response = responses.side_quest_response(filda.ORDER, filda.TITLE)
 
-		quest_data = data.get(quest_guid.A_MOTHERS_HOPE, 0)
+		quest_data = get_plot(data, quest_guid.A_MOTHERS_HOPE)
 
 		if has_flag(quest_data, filda.RUCK_KILLED_FLAG):
 			if has_flag(quest_data, filda.TOLD_RUCK_DEAD_FLAG):
@@ -131,7 +131,7 @@ class the_chant_in_the_deeps:
 	def get_result(data):
 		response = responses.side_quest_response(the_chant_in_the_deeps.ORDER, the_chant_in_the_deeps.TITLE)
 
-		quest_data = data.get(quest_guid.THE_CHANT_IN_THE_DEEPS, 0)
+		quest_data = get_plot(data, quest_guid.THE_CHANT_IN_THE_DEEPS)
 
 		if has_flag(quest_data, the_chant_in_the_deeps.HELPED_FLAG):
 			response.result = the_chant_in_the_deeps.YES
@@ -159,7 +159,7 @@ class zerlinda:
 	def get_result(data):
 		response = responses.side_quest_response(zerlinda.ORDER, zerlinda.TITLE)
 
-		quest_data = data.get(quest_guid.ZERLINDAS_WOE, 0)
+		quest_data = get_plot(data, quest_guid.ZERLINDAS_WOE)
 
 		if has_flag(quest_data, zerlinda.CONVINCED_FLAG):
 			response.result = zerlinda.DEEP_ROADS
@@ -187,7 +187,7 @@ class orta:
 	def get_result(data):
 		response = responses.side_quest_response(orta.ORDER, orta.TITLE)
 
-		quest_data = data.get(quest_guid.LOST_TO_THE_MEMORIES, 0)
+		quest_data = get_plot(data, quest_guid.LOST_TO_THE_MEMORIES)
 
 		if has_flag(quest_data, orta.ORTA_RETURNS_FLAG):
 			response.result = orta.YES
@@ -215,8 +215,8 @@ class dagna:
 	def get_result(data):
 		response = responses.side_quest_response(dagna.ORDER, dagna.TITLE)
 
-		circle_data = data.get(quest_guid.BROKEN_CIRCLE, 0)
-		quest_data = data.get(quest_guid.AN_UNLIKELY_SCHOLAR, 0)
+		circle_data = get_plot(data, quest_guid.BROKEN_CIRCLE)
+		quest_data = get_plot(data, quest_guid.AN_UNLIKELY_SCHOLAR)
 
 		if has_flag(quest_data, dagna.GREAGOIR_REFUSED_FLAG) or circle.mages_dead(data):
 			response.result = dagna.CIRCLE_DESTROYED
@@ -259,7 +259,7 @@ class legion_of_dead:
 	def get_result(data):
 		response = responses.side_quest_response(legion_of_dead.ORDER, legion_of_dead.TITLE)
 
-		quest_data = data.get(quest_guid.THE_DEAD_CASTE, 0)
+		quest_data = get_plot(data, quest_guid.THE_DEAD_CASTE)
 
 		if has_flag(quest_data, legion_of_dead.ADDED_TO_MEMORIES_FLAG):
 			response.result = legion_of_dead.YES
@@ -284,7 +284,7 @@ class shaperate_tome:
 	def get_result(data):
 		response = responses.side_quest_response(shaperate_tome.ORDER, shaperate_tome.TITLE)
 
-		quest_data = data.get(quest_guid.THIEF_IN_THE_HOUSE_OF_LEARNING, 0)
+		quest_data = get_plot(data, quest_guid.THIEF_IN_THE_HOUSE_OF_LEARNING)
 
 		if has_flag(quest_data, shaperate_tome.RETURNED_FLAG):
 			response.result = shaperate_tome.RETURNED
@@ -308,7 +308,7 @@ class rogek:
 	def get_result(data):
 		response = responses.side_quest_response(rogek.ORDER, rogek.TITLE)
 
-		quest_data = data.get(quest_guid.PRECIOUS_METALS, 0)
+		quest_data = get_plot(data, quest_guid.PRECIOUS_METALS)
 
 		if has_flag(quest_data, rogek.COMPLETED_FLAG):
 			response.result = rogek.YES

@@ -12,14 +12,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import plot
+
 def has_flag(plot, flag):
 	if flag < 32:
 		return (2**flag) & plot.flags1
 	elif flag < 64:
-		return (2**(flag-32)) & plot.flags2
+		return (2**(flag - 32)) & plot.flags2
 	elif flag < 96:
-		return (2**(flag-64)) & plot.flags3
+		return (2**(flag - 64)) & plot.flags3
 	elif flag < 128:
-		return (2**(flag-96)) & plot.flags4
+		return (2**(flag - 96)) & plot.flags4
 	else:
 		raise ValueError("flag is over 127")
+
+def get_plot(data, guid):
+	return data.get(guid, plot.plot(0, 0, 0, 0))

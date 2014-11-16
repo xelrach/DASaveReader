@@ -17,11 +17,11 @@
 import quest_guid
 import result
 import responses
-from flag import has_flag
+from utils import has_flag, get_plot
 import companions
 
 def alistair_executed(data):
-		quest_data = data.get(quest_guid.THE_LANDSMEET, 0)
+		quest_data = get_plot(data, quest_guid.THE_LANDSMEET)
 		return has_flag(quest_data, landsmeet.ALISTAIR_KILLED_FLAG)
 
 class landsmeet:
@@ -46,7 +46,7 @@ class landsmeet:
 		response = responses.side_quest_response(landsmeet.ORDER, landsmeet.TITLE)
 		response.result = result.DEFAULT
 
-		quest_data = data.get(quest_guid.THE_LANDSMEET, 0)
+		quest_data = get_plot(data, quest_guid.THE_LANDSMEET)
 
 		if companions.alistair_dead(data):
 				if has_flag(quest_data, landsmeet.ALISTAIR_FLAG) \

@@ -12,11 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Hero choices
+"""Hero choices"""
 
 import quest_guid
 import result
 import responses
+from utils import has_flag, get_plot
+
+def is_human(data):
+	quest_data = data.get(quest_guid.HERO_RGC, 0)
+
+def is_human_noble(data):
+	pass
 
 class hero:
 	ORDER = 0
@@ -32,6 +39,7 @@ class hero:
 class hero_alive:
 	ORDER = 1
 	TITLE = "What happened to the Warden at the end of Dragon Age Origins?"
+
 	ALIVE = "Warden alive & well"
 	DEAD = "Warden died killing Archdemon"
 

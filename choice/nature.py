@@ -17,7 +17,7 @@
 import quest_guid
 import result
 import responses
-from flag import has_flag
+from utils import has_flag, get_plot
 
 class nature_of_the_beast:
 	ORDER = 0
@@ -35,7 +35,8 @@ class nature_of_the_beast:
 	def get_result(data):
 		response = responses.side_quest_response(nature_of_the_beast.ORDER, nature_of_the_beast.TITLE)
 
-		quest_data = data.get(quest_guid.NATURE_OF_THE_BEAST, 0)
+		quest_data = get_plot(data, quest_guid.NATURE_OF_THE_BEAST)
+
 		if has_flag(quest_data, nature_of_the_beast.ZATHRIAN_FLAG):
 			response.result = nature_of_the_beast.PEACE
 		elif has_flag(quest_data, nature_of_the_beast.ELF_FLAG):
@@ -63,7 +64,8 @@ class cammen:
 	def get_result(data):
 		response = responses.side_quest_response(cammen.ORDER, cammen.TITLE)
 
-		quest_data = data.get(quest_guid.CAMMENS_LAMENT, 0)
+		quest_data = get_plot(data, quest_guid.CAMMENS_LAMENT)
+
 		if has_flag(quest_data, cammen.SEDUCED_FLAG) or has_flag(quest_data, cammen.BROKE_UP_FLAG) or has_flag(quest_data, cammen.BROKE_UP_2_FLAG):
 			response.result = cammen.BROKE_UP
 		elif has_flag(quest_data, cammen.TOGETHER_FLAG):
@@ -88,7 +90,7 @@ class elora:
 	def get_result(data):
 		response = responses.side_quest_response(elora.ORDER, elora.TITLE)
 
-		quest_data = data.get(quest_guid.ELORAS_HALLA, 0)
+		quest_data = get_plot(data, quest_guid.ELORAS_HALLA)
 
 		if has_flag(quest_data, elora.MISSING_MATE_FLAG):
 			response.result = elora.SAVED
@@ -112,7 +114,8 @@ class athras:
 	def get_result(data):
 		response = responses.side_quest_response(athras.ORDER, athras.TITLE)
 
-		quest_data = data.get(quest_guid.LOST_TO_THE_CURSE, 0)
+		quest_data = get_plot(data, quest_guid.LOST_TO_THE_CURSE)
+
 		if has_flag(quest_data, athras.TELL_FLAG):
 			response.result = athras.TOLD
 		else:
@@ -133,7 +136,8 @@ class ironbark:
 	def get_result(data):
 		response = responses.side_quest_response(ironbark.ORDER, ironbark.TITLE)
 
-		quest_data = data.get(quest_guid.RARE_IRONBARK, 0)
+		quest_data = get_plot(data, quest_guid.RARE_IRONBARK)
+
 		if has_flag(quest_data, ironbark.BROUGHT_FLAG) or has_flag(quest_data, ironbark.BROUGHT_NO_CRAFTING_FLAG):
 			response.result = ironbark.YES
 		else:
@@ -157,7 +161,8 @@ class deygan:
 	def get_result(data):
 		response = responses.side_quest_response(deygan.ORDER, deygan.TITLE)
 
-		quest_data = data.get(quest_guid.WOUNDED_IN_THE_FOREST, 0)
+		quest_data = get_plot(data, quest_guid.WOUNDED_IN_THE_FOREST)
+
 		if has_flag(quest_data, deygan.COPRSE_CAMP_FLAG) or has_flag(quest_data, deygan.KILLED_LEFT_FLAG):
 			response.result = deygan.KILLED
 		elif has_flag(quest_data, deygan.ALIVE_CAMP_FLAG) or has_flag(quest_data, deygan.HEALED_FLAG):

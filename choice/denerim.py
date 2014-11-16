@@ -17,7 +17,7 @@
 import quest_guid
 import result
 import responses
-from flag import has_flag
+from utils import has_flag, get_plot
 
 class ser_landry:
 	ORDER = 0
@@ -32,7 +32,7 @@ class ser_landry:
 	def get_result(data):
 		response = responses.side_quest_response(ser_landry.ORDER, ser_landry.TITLE)
 
-		quest_data = data.get(quest_guid.HONOR_BOUND, 0)
+		quest_data = get_plot(data, quest_guid.HONOR_BOUND)
 
 		if has_flag(quest_data, ser_landry.KILLED_IN_DUEL_FLAG):
 			response.result = ser_landry.DEAD
@@ -56,7 +56,7 @@ class oswyn:
 	def get_result(data):
 		response = responses.side_quest_response(oswyn.ORDER, oswyn.TITLE)
 
-		quest_data = data.get(quest_guid.TORTURD_NOBLE, 0)
+		quest_data = get_plot(data, quest_guid.TORTURD_NOBLE)
 
 		if has_flag(quest_data, oswyn.TOLD_REWARD_FLAG) or has_flag(quest_data, oswyn.TOLD_NO_REWARD_FLAG):
 			response.result = oswyn.YES
@@ -78,7 +78,7 @@ class crime_wave:
 	def get_result(data):
 		response = responses.side_quest_response(crime_wave.ORDER, crime_wave.TITLE)
 
-		quest_data = data.get(quest_guid.CRIME_WAVE, 0)
+		quest_data = get_plot(data, quest_guid.CRIME_WAVE)
 
 		if has_flag(quest_data, crime_wave.DONE_FLAG):
 			response.result = crime_wave.YES
@@ -101,7 +101,7 @@ class irminric_ring:
 	def get_result(data):
 		response = responses.side_quest_response(irminric_ring.ORDER, irminric_ring.TITLE)
 
-		quest_data = data.get(quest_guid.LOST_TEMPLAR, 0)
+		quest_data = get_plot(data, quest_guid.LOST_TEMPLAR)
 
 		if has_flag(quest_data, irminric_ring.GAVE_RING_LOCATION_FLAG) or has_flag(quest_data, irminric_ring.GAVE_RING_NO_LOCATION_FLAG):
 			response.result = irminric_ring.YES
@@ -123,7 +123,7 @@ class amulet:
 	def get_result(data):
 		response = responses.side_quest_response(amulet.ORDER, amulet.TITLE)
 
-		quest_data = data.get(quest_guid.HEARING_VOICES, 0)
+		quest_data = get_plot(data, quest_guid.HEARING_VOICES)
 
 		if has_flag(quest_data, amulet.GAVE_FLAG):
 			response.result = amulet.YES
@@ -148,7 +148,7 @@ class goldanna:
 	def get_result(data):
 		response = responses.side_quest_response(goldanna.ORDER, goldanna.TITLE)
 
-		quest_data = data.get(quest_guid.ALISTAIRS_FAMILY, 0)
+		quest_data = get_plot(data, quest_guid.ALISTAIRS_FAMILY)
 
 		if has_flag(quest_data, goldanna.MET_GOLDANNA):
 			response.result = goldanna.YES
@@ -172,7 +172,7 @@ class scroll:
 	def get_result(data):
 		response = responses.side_quest_response(scroll.ORDER, scroll.TITLE)
 
-		quest_data = data.get(quest_guid.FORGOTTEN_VERSES, 0)
+		quest_data = get_plot(data, quest_guid.FORGOTTEN_VERSES)
 
 		if has_flag(quest_data, scroll.BROUGHT_SCROLL_FLAG):
 			response.result = scroll.YES
@@ -195,7 +195,7 @@ class pearl:
 	def get_result(data):
 		response = responses.side_quest_response(pearl.ORDER, pearl.TITLE)
 
-		quest_data = data.get(quest_guid.PEARLS_BEFORE_SWINE, 0)
+		quest_data = get_plot(data, quest_guid.PEARLS_BEFORE_SWINE)
 
 		if has_flag(quest_data, pearl.MERCENARIES_LEFT_FLAG):
 			response.result = pearl.YES
@@ -217,7 +217,7 @@ class crimson_oars:
 	def get_result(data):
 		response = responses.side_quest_response(crimson_oars.ORDER, crimson_oars.TITLE)
 
-		quest_data = data.get(quest_guid.THE_CRIMSON_OARS, 0)
+		quest_data = get_plot(data, quest_guid.THE_CRIMSON_OARS)
 
 		if has_flag(quest_data, crimson_oars.OARS_GONE_OR_DEAD_FLAG):
 			response.result = crimson_oars.YES
@@ -241,8 +241,8 @@ class ignacio:
 	def get_result(data):
 		response = responses.side_quest_response(ignacio.ORDER, ignacio.TITLE)
 
-		ransom_data = data.get(quest_guid.THE_RANSOM, 0)
-		crow_data = data.get(quest_guid.THE_TRIAL_OF_CROWS, 0)
+		ransom_data = get_plot(data, quest_guid.THE_RANSOM)
+		crow_data = get_plot(data, quest_guid.THE_TRIAL_OF_CROWS)
 
 		if has_flag(crow_data, ignacio.KILLED_IGNACIO_FLAG):
 			response.result = ignacio.KILLED_IGNACIO
@@ -268,7 +268,7 @@ class marjolaine:
 	def get_result(data):
 		response = responses.side_quest_response(marjolaine.ORDER, marjolaine.TITLE)
 
-		quest_data = data.get(quest_guid.LELIANAS_PAST, 0)
+		quest_data = get_plot(data, quest_guid.LELIANAS_PAST)
 
 		if has_flag(quest_data, marjolaine.KILLED_FLAG):
 			response.result = marjolaine.KILLED

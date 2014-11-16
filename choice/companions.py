@@ -17,12 +17,12 @@
 import quest_guid
 import result
 import responses
-from flag import has_flag
+from utils import has_flag, get_plot
 import battle_denerim
 import landsmeet
 
 def morrgans_ritual_completed(data):
-	quest_data = data.get(quest_guid.MORRIGANS_RITUAL, 0)
+	quest_data = get_plot(data, quest_guid.MORRIGANS_RITUAL)
 
 	return has_flag(quest_data, morrigan_baby.ALISTAIR_FLAG) \
 			or has_flag(quest_data, morrigan_baby.LOGHAIN_FLAG) \
@@ -102,7 +102,7 @@ class morrigan_baby:
 	def get_result(data):
 		response = responses.side_quest_response(morrigan_baby.ORDER, morrigan_baby.TITLE)
 
-		quest_data = data.get(quest_guid.TORTURD_NOBLE, 0)
+		quest_data = get_plot(data, quest_guid.MORRIGANS_RITUAL)
 
 		if has_flag(quest_data, morrigan_baby.ALISTAIR_FLAG):
 			response.result = morrigan_baby.ALISTAIR_OLD_GOD

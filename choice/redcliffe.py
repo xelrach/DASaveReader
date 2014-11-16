@@ -17,7 +17,7 @@
 import quest_guid
 import result
 import responses
-from flag import has_flag
+from utils import has_flag, get_plot
 
 class fight:
 	ORDER = 0
@@ -33,7 +33,7 @@ class fight:
 	def get_result(data):
 		response = responses.side_quest_response(fight.ORDER, fight.TITLE)
 
-		quest_data = data.get(quest_guid.THE_ATTACK_AT_NIGHTFALL, 0)
+		quest_data = get_plot(data, quest_guid.THE_ATTACK_AT_NIGHTFALL)
 
 		if has_flag(quest_data, fight.SAVED_FLAG):
 			response.result = fight.YES
@@ -58,7 +58,7 @@ class prepare:
 	def get_result(data):
 		response = responses.side_quest_response(prepare.ORDER, prepare.TITLE)
 
-		quest_data = data.get(quest_guid.A_VILLAGE_UNDER_SIEGE, 0)
+		quest_data = get_plot(data, quest_guid.A_VILLAGE_UNDER_SIEGE)
 
 		if has_flag(quest_data, prepare.READY_FLAG):
 			response.result = prepare.YES
@@ -85,8 +85,8 @@ class connor:
 	def get_result(data):
 		response = responses.side_quest_response(connor.ORDER, connor.TITLE)
 
-		connor_data = data.get(quest_guid.THE_POSSESSED_CHILD, 0)
-		fade_data = data.get(quest_guid.INTO_THE_FADE, 0)
+		connor_data = get_plot(data, quest_guid.THE_POSSESSED_CHILD)
+		fade_data = get_plot(data, quest_guid.INTO_THE_FADE)
 
 		if has_flag(connor_data, connor.CONNOR_FREED_FLAG):
 			if has_flag(fade_data, connor.DEMON_OFFER_ACCEPTED_FLAG) and not has_flag(fade_data, connor.DEMON_INTEMIDATED_FLAG):
@@ -99,8 +99,9 @@ class connor:
 		return response
 
 def village_destroyed(data):
-	prep_data = data.get(quest_guid.A_VILLAGE_UNDER_SIEGE, 0)
-	fight_data = data.get(quest_guid.THE_ATTACK_AT_NIGHTFALL, 0)
+	prep_data = get_plot(data, quest_guid.A_VILLAGE_UNDER_SIEGE)
+	fight_data = get_plot(data, quest_guid.THE_ATTACK_AT_NIGHTFALL)
+
 	return has_flag(prep_data, prepare.ABANDONED_FLAG) or has_flag(fight_data, fight.DESTROYED_FLAG)
 
 class bella:
@@ -120,7 +121,7 @@ class bella:
 	def get_result(data):
 		response = responses.side_quest_response(bella.ORDER, bella.TITLE)
 
-		quest_data = data.get(quest_guid.A_STIFF_DRINK, 0)
+		quest_data = get_plot(data, quest_guid.A_STIFF_DRINK)
 
 		if has_flag(quest_data, bella.BELLA_IN_CHARGE_FLAG) or has_flag(quest_data, bella.BELLA_BUYS_FLAG):
 			response.result = bella.OWNER
@@ -157,7 +158,7 @@ class bevin:
 	def get_result(data):
 		response = responses.side_quest_response(bevin.ORDER, bevin.TITLE)
 
-		quest_data = data.get(quest_guid.A_MISSING_CHILD, 0)
+		quest_data = get_plot(data, quest_guid.A_MISSING_CHILD)
 
 		if has_flag(quest_data, bevin.BEVIN_FOUND_FLAG):
 			if has_flag(quest_data, bevin.KAITLYN_RICH) or has_flag(quest_data, bevin.KAITLYN_ALMOST_RICH):
@@ -187,7 +188,7 @@ class valena:
 	def get_result(data):
 		response = responses.side_quest_response(valena.ORDER, valena.TITLE)
 
-		quest_data = data.get(quest_guid.LOST_IN_THE_CASTLE, 0)
+		quest_data = get_plot(data, quest_guid.LOST_IN_THE_CASTLE)
 
 		if has_flag(quest_data, valena.VALENA_SAFE_OWEN_SAFE_FLAG) or has_flag(quest_data, valena.VALENA_SAFE_OWEN_DEAD_FLAG):
 			response.result = valena.RESCUE
@@ -210,8 +211,8 @@ class isolde:
 	def get_result(data):
 		response = responses.side_quest_response(isolde.ORDER, isolde.TITLE)
 
-		connor_data = data.get(quest_guid.THE_POSSESSED_CHILD, 0)
-		isolde_codex = data.get(quest_guid.CODEX_ISOLDE, 0)
+		# connor_data = get_plot(data, quest_guid.THE_POSSESSED_CHILD)
+		isolde_codex = get_plot(data, quest_guid.CODEX_ISOLDE)
 
 		if has_flag(isolde_codex, isolde.ISOLDE_DIES_FLAG):
 			response.result = isolde.SACRIFICED

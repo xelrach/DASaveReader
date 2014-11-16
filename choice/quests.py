@@ -88,3 +88,12 @@ class TheUrnOfSacredAshes:
 	@staticmethod
 	def get_side_quests():
 		return inspect.getmembers(urn, inspect.isclass)
+
+class Denerim:
+	@staticmethod
+	def get_name():
+		return "Denerim"
+
+	@staticmethod
+	def get_side_quests():
+		return inspect.getmembers(denerim, inspect.isclass)

@@ -35,6 +35,15 @@ class Hero:
 	def get_side_quests():
 		return inspect.getmembers(hero, inspect.isclass)
 
+class Companions:
+	@staticmethod
+	def get_name():
+		return "Companions"
+
+	@staticmethod
+	def get_side_quests():
+		return inspect.getmembers(companions, inspect.isclass)
+
 class Prolog:
 	@staticmethod
 	def get_name():

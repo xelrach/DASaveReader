@@ -28,6 +28,10 @@ def warden_killed_archdemon(data):
 	quest_data = get_plot(data, quest_guid.CLIMAX_ARCHDEMON)
 	return has_flag(quest_data, battle_denerim.PC_KILL_FLAG)
 
+def loghain_killed_archdemon(data):
+	quest_data = get_plot(data, quest_guid.CLIMAX_ARCHDEMON)
+	return has_flag(quest_data, battle_denerim.LOGHAIN_KILL_FLAG)
+
 class battle_denerim:
 	ORDER = 0
 	TITLE = "Who killed the Archdemon?"
@@ -49,9 +53,9 @@ class battle_denerim:
 
 		if alistair_killed_archdemon(data):
 			response.result = battle_denerim.ALISTAIR
-		elif has_flag(quest_data, battle_denerim.LOGHAIN_KILL_FLAG):
+		elif loghain_killed_archdemon(data):
 			response.result = battle_denerim.LOGHAIN
-		elif has_flag(quest_data, battle_denerim.PC_KILL_FLAG):
+		elif warden_killed_archdemon(data):
 			response.result = battle_denerim.WARDEN
 		else:
 			result.DEFAULT

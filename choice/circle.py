@@ -23,12 +23,24 @@ def mages_dead(data):
 	circle_data = get_plot(data, quest_guid.BROKEN_CIRCLE)
 	return has_flag(circle_data, cullen.MAGES_DEAD_FLAG)
 
+def wynne_recruited(data):
+	quest_data = get_plot(data, quest_guid.BROKEN_CIRCLE)
+	return not has_flag(quest_data, broken_circle.WYNNE_DOESNT_JOIN_FLAG)
+
+def wynne_killed(data):
+	quest_data = get_plot(data, quest_guid.BROKEN_CIRCLE)
+	return has_flag(quest_data, broken_circle.WYNNE_KILLED_FLAG) \
+			or has_flag(quest_data, broken_circle.WYNNE_KILLED_CULLEN_FLAG)
+
 class broken_circle:
 	ORDER = 0
 	TITLE = "Who did the Warden support at the Broken Circle?"
 
 	MAGE_FLAG = 5
 	TEMPLAR_FLAG = 4
+	WYNNE_DOESNT_JOIN_FLAG = 25
+	WYNNE_KILLED_FLAG = 6
+	WYNNE_KILLED_CULLEN_FLAG = 51
 
 	MAGES = "Mages supported"
 	TEMPLARS = "Templars supported"

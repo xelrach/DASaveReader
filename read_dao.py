@@ -18,18 +18,20 @@ import sys
 import choice.quests
 import convert
 
-def main(args):
-	data = convert.convert_file(args[1])
+def read(filename):
+	data = convert.convert_file(filename)
 	results = get_results(data)
-	print_results(results)
+	return format_results(results)
 
-def print_results(results):
+def format_results(results):
+	formatted = ""
 	for quest_name, quest_results in results.iteritems():
-		print(quest_name)
+		formatted += quest_name + "\n"
 		for subquest in quest_results:
-			print("  " + subquest.title)
-			print("    " + subquest.result)
-		print("")
+			formatted += "  " + subquest.title + "\n"
+			formatted += "    " + subquest.result + "\n"
+		formatted += "\n"
+	return formatted
 
 
 def get_results(data):
@@ -46,4 +48,5 @@ def get_results(data):
 	return results
 
 if __name__ == "__main__":
-	main(sys.argv)
+	results = read(sys.argv[1])
+	print(results)

@@ -21,8 +21,22 @@ from utils import has_flag, get_plot
 import companions
 
 def alistair_executed(data):
-		quest_data = get_plot(data, quest_guid.THE_LANDSMEET)
-		return has_flag(quest_data, landsmeet.ALISTAIR_KILLED_FLAG)
+	quest_data = get_plot(data, quest_guid.THE_LANDSMEET)
+	return has_flag(quest_data, landsmeet.ALISTAIR_KILLED_FLAG)
+
+def alistair_king(data):
+	quest_data = get_plot(data, quest_guid.THE_LANDSMEET)
+	return has_flag(quest_data, landsmeet.ALISTAIR_FLAG) \
+			or has_flag(quest_data, landsmeet.ALISTAIR_ANORA_FLAG) \
+			or has_flag(quest_data, landsmeet.ALISTAIR_WAREDN_FLAG)
+
+def alistair_exiled(data):
+	quest_data = get_plot(data, quest_guid.THE_LANDSMEET)
+	return has_flag(quest_data, landsmeet.ALISTAIR_LEAVES_FOREVER_FLAG)
+
+def warden_queen(data):
+	quest_data = get_plot(data, quest_guid.THE_LANDSMEET)
+	return has_flag(quest_data, landsmeet.ALISTAIR_WAREDN_FLAG)
 
 class landsmeet:
 	ORDER = 0
@@ -32,6 +46,7 @@ class landsmeet:
 	ALISTAIR_ANORA_FLAG = 3
 	ANORA_FLAG = 4
 	ANORA_WARDEN_FLAG = 5
+	ALISTAIR_LEAVES_FOREVER_FLAG = 16
 	ALISTAIR_KILLED_FLAG = 17
 	ALISTAIR_WAREDN_FLAG = 56
 

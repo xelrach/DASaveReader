@@ -8,7 +8,7 @@ if platform == "win32":
 
 info = {
 	'name' : 'DASaveReader',
-	'version' : 'snapshot',
+	'version' : 'alpha1',
 	'description' : 'Dragon Age Save Reader',
 	'author' : 'Charles Noneman',
 	'url' : 'https://github.com/xelrach/DASaveReader',

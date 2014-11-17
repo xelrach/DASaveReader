@@ -119,7 +119,7 @@ class filda:
 
 
 class the_chant_in_the_deeps:
-	ORDER = 3
+	ORDER = 7
 	TITLE = "Did the Warden help Brother Burkel create a Chantry in Orzammar?"
 
 	HELPED_FLAG = 1
@@ -141,7 +141,7 @@ class the_chant_in_the_deeps:
 		return response
 
 class zerlinda:
-	ORDER = 4
+	ORDER = 8
 	TITLE = "What was the fate of Zerlinda and her son?"
 
 	CONVINCED_FLAG = 2
@@ -175,7 +175,7 @@ class zerlinda:
 		return response
 
 class orta:
-	ORDER = 5
+	ORDER = 9
 	TITLE = "Did the Warden help Orta find the proof she needs to join the Assembly as a member of House Ortan?"
 
 	ORTA_RETURNS_FLAG = 4
@@ -198,7 +198,7 @@ class orta:
 
 class dagna:
 	# Don't see stay with father
-	ORDER = 6
+	ORDER = 3
 	TITLE = "How did the Warden deal with Dagna's request to become a scholar at the Circle Tower?"
 
 	CIRCLE_FLAG = 2
@@ -229,25 +229,41 @@ class dagna:
 
 		return response
 
-#class mardy:
-#	ORDER = 7
-#	TITLE = "Did the Warden have relations with Mardy before being cast out of Orzammar?"
+class mardy:
+	ORDER = 4
+	TITLE = "Did the Warden have relations with Mardy before being cast out of Orzammar?"
 
-#	NOTHING = "Didn't encounter Mardy"
-#	NO = "Didn't have relations with Mardy"
-#	YES = "Had relations with Mardy"
+	NOTHING = "Didn't encounter Mardy"
+	NO = "Didn't have relations with Mardy"
+	YES = "Had relations with Mardy"
 
-#class mardy_son:
-#	ORDER = 8
-#	TITLE = "Did the Warden restore Mardy's son's birthright?"
+	@staticmethod
+	def get_result(data):
+		response = responses.side_quest_response(mardy.ORDER, mardy.TITLE)
 
-#	NO_SON = "Didn't have son with Mardy"
-#	NO = "Didn't restore Mardy's son's birthright"
-#	YES = "Restored Mardy's son's birthright"
-#	NO_MEET = "Didn't encounter Mardy's son"
+		response.result = result.INCOMPLETE
+
+		return response
+
+class mardy_son:
+	ORDER = 5
+	TITLE = "Did the Warden restore Mardy's son's birthright?"
+
+	NO_SON = "Didn't have son with Mardy"
+	NO = "Didn't restore Mardy's son's birthright"
+	YES = "Restored Mardy's son's birthright"
+	NO_MEET = "Didn't encounter Mardy's son"
+
+	@staticmethod
+	def get_result(data):
+		response = responses.side_quest_response(mardy_son.ORDER, mardy_son.TITLE)
+
+		response.result = result.INCOMPLETE
+
+		return response
 
 class legion_of_dead:
-	ORDER = 9
+	ORDER = 6
 	TITLE = "Did the Warden prove to the Shaperate that the Legion of the Dead was connected with a noble house?"
 
 	ADDED_TO_MEMORIES_FLAG = 2
@@ -270,7 +286,7 @@ class legion_of_dead:
 
 
 class shaperate_tome:
-	ORDER = 10
+	ORDER = 7
 	TITLE = "What did the Warden decide to do with the tome stolen from the Shaperate?"
 
 	RETURNED_FLAG = 3
@@ -296,7 +312,7 @@ class shaperate_tome:
 		return response
 
 class rogek:
-	ORDER = 11
+	ORDER = 10
 	TITLE = "Did the Warden complete Rogek's lyrium deal?"
 
 	COMPLETED_FLAG = 5

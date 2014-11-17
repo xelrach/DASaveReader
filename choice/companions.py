@@ -176,7 +176,7 @@ class sten_sword:
 		return response
 
 class wynne_recruit:
-	ORDER = 5
+	ORDER = 9
 	TITLE = "Did the Warden recruit Wynne?"
 
 	RECRUITED_FLAG = 5
@@ -196,7 +196,7 @@ class wynne_recruit:
 		return response
 
 class wynne_fate:
-	ORDER = 6
+	ORDER = 10
 	TITLE = "What was Wynne's fate?"
 
 
@@ -221,7 +221,7 @@ class wynne_fate:
 		return response
 
 class morrigan_baby:
-	ORDER = 7
+	ORDER = 11
 	TITLE = "Did Morrigan have a baby?"
 
 	ALISTAIR_FLAG = 2
@@ -254,7 +254,7 @@ class morrigan_baby:
 		return response
 
 class loghain:
-	ORDER = 8
+	ORDER = 5
 	TITLE = "What happened to Loghain?"
 
 	KILLED_FLAG = 6
@@ -293,7 +293,7 @@ def oghren_recruited(data):
 	return has_flag(quest_data, oghren_recruit.LEAVES_ORZAMMAR_FLAG)
 
 class oghren_recruit:
-	ORDER = 9
+	ORDER = 6
 	TITLE = "Did the Warden recruit Oghren?"
 
 	LEAVES_ORZAMMAR_FLAG = 32
@@ -317,7 +317,7 @@ def zevran_recruited(data):
 	return has_flag(quest_data, zevran_recruit.RECRUITED_FLAG)
 
 class zevran_recruit:
-	ORDER = 10
+	ORDER = 7
 	TITLE = "Did the Warden recruit Zevran?"
 
 	FIRST_HIRED_FLAG = 32
@@ -338,7 +338,7 @@ class zevran_recruit:
 		return response
 
 class zevran_fate:
-	ORDER = 11
+	ORDER = 8
 	TITLE = "What happened to Zevran?"
 
 	KILLED_NOT_HIRED_FLAG = 34
@@ -401,13 +401,15 @@ class alistair_mistress:
 	def get_result(data):
 		response = responses.side_quest_response(alistair_mistress.ORDER, alistair_mistress.TITLE)
 
-		if alistair_romanced(data) and not alistair_dead(data):
-			if landsmeet.warden_queen(data):
-				response.result = alistair_mistress.QUEEN
-			else:
-				pass
-		else:
-			response.result = alistair_mistress.NOT_LOVERS
+#		if alistair_romanced(data) and not alistair_dead(data):
+#			if landsmeet.warden_queen(data):
+#				response.result = alistair_mistress.QUEEN
+#			else:
+#				pass
+#		else:
+#			response.result = alistair_mistress.NOT_LOVERS
+
+		response.result = result.INCOMPLETE
 
 		return response
 
@@ -428,16 +430,18 @@ class leliana_fate:
 	def get_result(data):
 		response = responses.side_quest_response(leliana_fate.ORDER, leliana_fate.TITLE)
 
-		quest_data = get_plot(data, quest_guid.LELIANAS_PAST)
+#		quest_data = get_plot(data, quest_guid.LELIANAS_PAST)
+#
+#		if has_flag(quest_data, leliana_fate.ATTACK_PC_FLAG):
+#			response.result = leliana_fate.KILLED
+#		elif has_flag(quest_data, leliana_fate.LEAVES_FLAG):
+#			response.result = leliana_fate.LEFT
+#		elif has_flag(quest_data, leliana_fate.JOIN_FLAG):
+#			response.result = leliana_fate.ALIVE
+#		else:
+#			response.result = leliana_fate.NOT_RECRUITED
 
-		if has_flag(quest_data, leliana_fate.ATTACK_PC_FLAG):
-			response.result = leliana_fate.KILLED
-		elif has_flag(quest_data, leliana_fate.LEAVES_FLAG):
-			response.result = leliana_fate.LEFT
-		elif has_flag(quest_data, leliana_fate.JOIN_FLAG):
-			response.result = leliana_fate.ALIVE
-		else:
-			response.result = leliana_fate.NOT_RECRUITED
+		response.result = result.INCOMPLETE
 
 		return response
 

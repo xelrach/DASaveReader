@@ -18,6 +18,12 @@ import sys
 import choice.quests
 import convert
 
+class quest_result:
+	def __init__(self, name, order, results):
+		self.name = name
+		self.order = order
+		self.results = results
+
 def read(filename):
 	data = convert.convert_file(filename)
 	results = get_results(data)
@@ -25,9 +31,9 @@ def read(filename):
 
 def format_results(results):
 	formatted = ""
-	for quest_name, quest_results in results.iteritems():
-		formatted += quest_name + "\n"
-		for subquest in quest_results:
+	for result in results:
+		formatted += result.name + "\n"
+		for subquest in result.results:
 			formatted += "  " + subquest.title + "\n"
 			formatted += "    " + subquest.result + "\n"
 		formatted += "\n"
@@ -35,15 +41,11 @@ def format_results(results):
 
 
 def get_results(data):
-	results = {}
+	results = []
 	quests = inspect.getmembers(choice.quests, inspect.isclass)
 	for quest_name, quest in quests:
-		quest_results = []
-		for side_quest_name, side_quest in quest.get_side_quests():
-			result = side_quest.get_result(data)
-			quest_results.append(result)
-		quest_results.sort(key=lambda result: result.order)
-		results[quest.get_name()] = quest_results
+		results.append(quest_result(quest.get_name(), quest.ORDER, choice.quests.get_quest_results(data, quest)))
+	results.sort(key = lambda result: result.order)
 
 	return results
 

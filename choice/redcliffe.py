@@ -105,7 +105,7 @@ def village_destroyed(data):
 	return has_flag(prep_data, prepare.ABANDONED_FLAG) or has_flag(fight_data, fight.DESTROYED_FLAG)
 
 class bella:
-	ORDER = 3
+	ORDER = 7
 	TITLE = "What was the fate of Bella the tavern waitress?"
 
 	BELLA_IN_CHARGE_FLAG = 14
@@ -135,7 +135,7 @@ class bella:
 		return response
 
 class bevin:
-	ORDER = 4
+	ORDER = 3
 	TITLE = "What did the Warden do to help Kaitlyn find her brother Bevin?"
 
 	BEVIN_FOUND_FLAG = 6
@@ -175,7 +175,7 @@ class bevin:
 		return response
 
 class valena:
-	ORDER = 5
+	ORDER = 4
 	TITLE = "Did the Warden rescue Owen the Blacksmith's daughter, Valena?"
 
 	VALENA_SAFE_OWEN_SAFE_FLAG = 4
@@ -198,7 +198,7 @@ class valena:
 		return response
 
 class isolde:
-	ORDER = 6
+	ORDER = 5
 	TITLE = "What happened to Isolde?"
 
 	# ISOLDE_SACRIFICE_FLAG = 21

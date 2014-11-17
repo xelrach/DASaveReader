@@ -134,7 +134,7 @@ class amulet:
 
 
 class goldanna:
-	ORDER = 5
+	ORDER = 9
 	TITLE = "Did the Warden help Alistair track down his half-sister Goldanna?"
 
 	WANT_TO_MEET_GOLDANNA = 16
@@ -160,7 +160,7 @@ class goldanna:
 		return response
 
 class scroll:
-	ORDER = 6
+	ORDER = 5
 	TITLE = "Did the Warden bring the ancient encrypted scroll to Sister Justine in Denerim?"
 
 	BROUGHT_SCROLL_FLAG = 6
@@ -182,7 +182,7 @@ class scroll:
 		return response
 
 class pearl:
-	ORDER = 7
+	ORDER = 6
 	TITLE = "Did the Warden help Sergeant Kylon clear the White Falcons out of the Pearl?"
 
 	MERCENARIES_LEFT_FLAG = 5
@@ -205,7 +205,7 @@ class pearl:
 		return response
 
 class crimson_oars:
-	ORDER = 8
+	ORDER = 7
 	TITLE = "Did the Warden handle the Crimson Oars for Sergeant Kylon in Denerim?"
 
 	OARS_GONE_OR_DEAD_FLAG = 1
@@ -227,7 +227,7 @@ class crimson_oars:
 		return response
 
 class ignacio:
-	ORDER = 9
+	ORDER = 8
 	TITLE = "Did the Warden complete Master Ignacio's assassination missions?"
 
 	KILLED_IGNACIO_FLAG = 17

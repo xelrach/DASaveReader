@@ -26,7 +26,18 @@ import prologue
 import redcliffe
 import urn
 
+def get_quest_results(data, quest):
+	quest_results = []
+	for side_quest_name, side_quest in quest.get_side_quests():
+		result = side_quest.get_result(data)
+		quest_results.append(result)
+	quest_results.sort(key=lambda result: result.order)
+
+	return quest_results
+
 class Hero:
+	ORDER = 0
+
 	@staticmethod
 	def get_name():
 		return "Hero"
@@ -36,6 +47,8 @@ class Hero:
 		return inspect.getmembers(hero, inspect.isclass)
 
 class Companions:
+	ORDER = 1
+
 	@staticmethod
 	def get_name():
 		return "Companions"
@@ -45,6 +58,8 @@ class Companions:
 		return inspect.getmembers(companions, inspect.isclass)
 
 class Prolog:
+	ORDER = 2
+
 	@staticmethod
 	def get_name():
 		return "Prolog"
@@ -54,6 +69,8 @@ class Prolog:
 		return inspect.getmembers(prologue, inspect.isclass)
 
 class NatureOfTheBeast:
+	ORDER = 5
+
 	@staticmethod
 	def get_name():
 		return "Nature of the Beast"
@@ -63,6 +80,8 @@ class NatureOfTheBeast:
 		return inspect.getmembers(nature, inspect.isclass)
 
 class BrokenCircle:
+	ORDER = 7
+
 	@staticmethod
 	def get_name():
 		return "Broken Circle"
@@ -72,6 +91,8 @@ class BrokenCircle:
 		return inspect.getmembers(circle, inspect.isclass)
 
 class ParagonOfHerKind:
+	ORDER = 6
+
 	@staticmethod
 	def get_name():
 		return "A Paragon of Her Kind"
@@ -81,6 +102,8 @@ class ParagonOfHerKind:
 		return inspect.getmembers(paragon, inspect.isclass)
 
 class TheArlOfRedcliff:
+	ORDER = 4
+
 	@staticmethod
 	def get_name():
 		return "The Arl of Redcliff"
@@ -90,6 +113,8 @@ class TheArlOfRedcliff:
 		return inspect.getmembers(redcliffe, inspect.isclass)
 
 class TheUrnOfSacredAshes:
+	ORDER = 3
+
 	@staticmethod
 	def get_name():
 		return "The Urn Of Sacred Ashes"
@@ -99,6 +124,8 @@ class TheUrnOfSacredAshes:
 		return inspect.getmembers(urn, inspect.isclass)
 
 class Denerim:
+	ORDER = 8
+
 	@staticmethod
 	def get_name():
 		return "Denerim"
@@ -108,6 +135,8 @@ class Denerim:
 		return inspect.getmembers(denerim, inspect.isclass)
 
 class Landsmeet:
+	ORDER = 9
+
 	@staticmethod
 	def get_name():
 		return "Landsmeet"
@@ -117,6 +146,8 @@ class Landsmeet:
 		return inspect.getmembers(landsmeet, inspect.isclass)
 
 class BattleOfDenerim:
+	ORDER = 10
+
 	@staticmethod
 	def get_name():
 		return "Battle of Denerim"

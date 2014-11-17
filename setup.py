@@ -1,5 +1,6 @@
 from distutils.core import setup
 from sys import platform
+from glob import glob
 
 is_windows = False
 if platform == "win32":
@@ -7,6 +8,7 @@ if platform == "win32":
 	is_windows = True
 
 VERSION = 'snapshot'
+DLL_LOCATION = r''
 
 info = {
 	'name' : 'DASaveReader',
@@ -26,5 +28,6 @@ info = {
 
 if is_windows:
 	info['windows'] = [{"script": "da_reader_gui.py"}]
+	info['data_files'] = [("Microsoft.VC90.CRT", glob(DLL_LOCATION))]
 
 setup(**info)

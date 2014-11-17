@@ -6,9 +6,11 @@ if platform == "win32":
 	import py2exe
 	is_windows = True
 
+VERSION = 'snapshot'
+
 info = {
 	'name' : 'DASaveReader',
-	'version' : 'alpha1',
+	'version' : VERSION,
 	'description' : 'Dragon Age Save Reader',
 	'author' : 'Charles Noneman',
 	'url' : 'https://github.com/xelrach/DASaveReader',

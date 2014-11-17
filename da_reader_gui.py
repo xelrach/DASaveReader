@@ -15,7 +15,7 @@
 from os.path import expanduser
 import wx
 
-import read_dao
+import da_reader
 
 class reader_frame(wx.Frame):
 	"""We simply derive a new class of Frame"""
@@ -41,7 +41,7 @@ class reader_frame(wx.Frame):
 		dlg = wx.FileDialog(self, "Choose a save file", expanduser("~"), "", "*.das", wx.OPEN)
 		if dlg.ShowModal() == wx.ID_OK:
 				filename = dlg.GetPath()
-				results = read_dao.read(filename)
+				results = da_reader.read(filename)
 				self.control.SetValue(results)
 		dlg.Destroy()
 

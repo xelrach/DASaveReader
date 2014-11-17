@@ -14,14 +14,15 @@
 
 from os.path import expanduser
 import wx
+import wx.richtext
 
 import da_reader
 
 class reader_frame(wx.Frame):
 	"""We simply derive a new class of Frame"""
 	def __init__(self, parent, title):
-		wx.Frame.__init__(self, parent, title=title, size=(600, 700))
-		self.control = wx.TextCtrl(self, style = wx.TE_MULTILINE | wx.TE_READONLY)
+		wx.Frame.__init__(self, parent, title=title, size=(640, 700))
+		self.control = wx.richtext.RichTextCtrl(self, style = wx.TE_MULTILINE | wx.TE_READONLY)
 
 		menu_bar = wx.MenuBar()
 		self.SetMenuBar(menu_bar)
@@ -42,13 +43,32 @@ class reader_frame(wx.Frame):
 		if dlg.ShowModal() == wx.ID_OK:
 				filename = dlg.GetPath()
 				results = da_reader.read(filename)
-				self.control.SetValue(results)
+				self.set_text(results)
 		dlg.Destroy()
 
 	def on_exit(self, e):
 		self.Close(True)
 
+	def set_text(self, results):
+		for result in results:
+			self.control.BeginBold()
+			self.control.BeginUnderline()
+			self.control.WriteText(result.name)
+			self.control.EndBold()
+			self.control.EndUnderline()
+			self.control.Newline()
+			for subquest in result.results:
+				self.control.BeginBold()
+				self.control.WriteText("  " + subquest.title)
+				self.control.EndBold()
+				self.control.Newline()
+				self.control.BeginItalic()
+				self.control.WriteText("    " + subquest.result)
+				self.control.EndItalic()
+				self.control.Newline()
+			self.control.Newline()
+
 app = wx.App(False)
-frame = reader_frame(None, "DA Save Reader")
+frame = reader_frame(None, "Dragon Age Save Reader")
 frame.Show(True)
 app.MainLoop()

@@ -27,7 +27,7 @@ class quest_result:
 def read(filename):
 	data = convert.convert_file(filename)
 	results = get_results(data)
-	return format_results(results)
+	return results
 
 def format_results(results):
 	formatted = ""
@@ -51,4 +51,4 @@ def get_results(data):
 
 if __name__ == "__main__":
 	results = read(sys.argv[1])
-	print(results)
+	print(format_results(results))

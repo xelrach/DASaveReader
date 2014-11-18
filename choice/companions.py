@@ -262,7 +262,7 @@ class loghain:
 	LIVES_FLAG = 8
 	PC_EXECUTE_FLAG = 20
 	ALISTAIR_EXECUTE_FLAG = 22
-	ALISTAIR_DUEL = 24
+	ALISTAIR_DUEL_FLAG = 24
 
 	WARDEN_EXECUTED = "Loghain executed by Warden"
 	ALISTAIR_EXECUTED = "Loghain executed by Alistair"
@@ -280,7 +280,7 @@ class loghain:
 			response.result = loghain.ALISTAIR_EXECUTED
 		elif has_flag(quest_data, loghain.PC_EXECUTE_FLAG):
 			response.result = loghain.WARDEN_EXECUTED
-		elif has_flag(quest_data, loghain.ALISTAIR_DUEL) and has_flag(quest_data, loghain.KILLED_FLAG):
+		elif has_flag(quest_data, loghain.ALISTAIR_DUEL_FLAG) and has_flag(quest_data, loghain.KILLED_FLAG):
 			response.result = loghain.ALISTAIR_DUEL
 		elif battle_denerim.loghain_killed_archdemon(data) and not morrgans_ritual_completed(data):
 			response.result = loghain.ARCHDEMON

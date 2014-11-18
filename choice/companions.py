@@ -23,6 +23,7 @@ import battle_denerim
 import circle
 import hero
 import landsmeet
+import recruit
 
 def morrgans_ritual_completed(data):
 	quest_data = get_plot(data, quest_guid.MORRIGANS_RITUAL)
@@ -84,8 +85,6 @@ class dog_recruit:
 	ORDER = 1
 	TITLE = "Did the Warden recruit Dog?"
 
-	RECRUITED_FLAG = 26
-
 	NO = "Didn't recruit Dog"
 	YES = "Recruited Dog"
 
@@ -93,9 +92,7 @@ class dog_recruit:
 	def get_result(data):
 		response = responses.side_quest_response(dog_recruit.ORDER, dog_recruit.TITLE)
 
-		quest_data = get_plot(data, quest_guid.DOG_MAIN)
-
-		if hero.is_human_noble(data) or has_flag(quest_data, dog_recruit.RECRUITED_FLAG):
+		if recruit.dog_recruited(data):
 			response.result = dog_recruit.YES
 		else:
 			response.result = dog_recruit.NO
@@ -148,7 +145,10 @@ class sten_recruit:
 	def get_result(data):
 		response = responses.side_quest_response(sten_recruit.ORDER, sten_recruit.TITLE)
 
-		response.result = result.INCOMPLETE
+		if recruit.sten_recruited(data):
+			response.result = sten_recruit.YES
+		else:
+			response.result = sten_recruit.NO
 
 		return response
 
@@ -170,8 +170,10 @@ class sten_sword:
 
 		if has_flag(quest_data, sten_sword.SWORD_FLAG):
 			response.result = sten_sword.YES
-		else:
+		elif recruit.sten_recruited(data):
 			response.result = sten_sword.NO
+		else:
+			response.result = sten_sword.NOT_RECRUITED
 
 		return response
 
@@ -188,7 +190,7 @@ class wynne_recruit:
 	def get_result(data):
 		response = responses.side_quest_response(wynne_recruit.ORDER, wynne_recruit.TITLE)
 
-		if circle.wynne_recruited(data):
+		if recruit.wynne_recruited(data):
 			response.result = wynne_recruit.YES
 		else:
 			response.result = wynne_recruit.NO
@@ -198,7 +200,6 @@ class wynne_recruit:
 class wynne_fate:
 	ORDER = 10
 	TITLE = "What was Wynne's fate?"
-
 
 	NOT_RECRUITED = "Wynne not recruited"
 	ALIVE = "Wynne alive & well"
@@ -213,7 +214,7 @@ class wynne_fate:
 			response.result = wynne_fate.DIED_BROKEN_CIRCLE
 		elif False:
 			response.result = wynne_fate.WARDEN_KILLED
-		elif circle.wynne_recruited(data):
+		elif recruit.wynne_recruited(data):
 			response.result = wynne_fate.ALIVE
 		else:
 			response.result = wynne_fate.NOT_RECRUITED
@@ -288,15 +289,9 @@ class loghain:
 
 		return response
 
-def oghren_recruited(data):
-	quest_data = get_plot(data, quest_guid.CHARACTER_OGHREN)
-	return has_flag(quest_data, oghren_recruit.LEAVES_ORZAMMAR_FLAG)
-
 class oghren_recruit:
 	ORDER = 6
 	TITLE = "Did the Warden recruit Oghren?"
-
-	LEAVES_ORZAMMAR_FLAG = 32
 
 	NO = "Didn't recruit Oghren"
 	YES = "Recruited Oghren"
@@ -305,23 +300,16 @@ class oghren_recruit:
 	def get_result(data):
 		response = responses.side_quest_response(oghren_recruit.ORDER, oghren_recruit.TITLE)
 
-		if oghren_recruited(data):
+		if recruit.oghren_recruited(data):
 			response.result = oghren_recruit.YES
 		else:
 			response.result = oghren_recruit.NO
 
 		return response
 
-def zevran_recruited(data):
-	quest_data = get_plot(data, quest_guid.CHARACTER_ZEVRAN)
-	return has_flag(quest_data, zevran_recruit.RECRUITED_FLAG)
-
 class zevran_recruit:
 	ORDER = 7
 	TITLE = "Did the Warden recruit Zevran?"
-
-	FIRST_HIRED_FLAG = 32
-	RECRUITED_FLAG = 39
 
 	NO = "Didn't recruit Zevran"
 	YES = "Recruited Zevran"
@@ -330,7 +318,7 @@ class zevran_recruit:
 	def get_result(data):
 		response = responses.side_quest_response(zevran_recruit.ORDER, zevran_recruit.TITLE)
 
-		if zevran_recruited(data):
+		if recruit.zevran_recruited(data):
 			response.result = zevran_recruit.YES
 		else:
 			response.result = zevran_recruit.NO
@@ -430,18 +418,16 @@ class leliana_fate:
 	def get_result(data):
 		response = responses.side_quest_response(leliana_fate.ORDER, leliana_fate.TITLE)
 
-#		quest_data = get_plot(data, quest_guid.LELIANAS_PAST)
-#
-#		if has_flag(quest_data, leliana_fate.ATTACK_PC_FLAG):
-#			response.result = leliana_fate.KILLED
-#		elif has_flag(quest_data, leliana_fate.LEAVES_FLAG):
-#			response.result = leliana_fate.LEFT
-#		elif has_flag(quest_data, leliana_fate.JOIN_FLAG):
-#			response.result = leliana_fate.ALIVE
-#		else:
-#			response.result = leliana_fate.NOT_RECRUITED
+		quest_data = get_plot(data, quest_guid.LELIANAS_PAST)
 
-		response.result = result.INCOMPLETE
+		if has_flag(quest_data, leliana_fate.ATTACK_PC_FLAG):
+			response.result = leliana_fate.KILLED
+		elif has_flag(quest_data, leliana_fate.LEAVES_FLAG):
+			response.result = leliana_fate.LEFT
+		elif recruit.leliana_recruited(data):
+			response.result = leliana_fate.ALIVE
+		else:
+			response.result = leliana_fate.NOT_RECRUITED
 
 		return response
 

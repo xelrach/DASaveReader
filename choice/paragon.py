@@ -229,9 +229,18 @@ class dagna:
 
 		return response
 
+def slept_with_mardy(data):
+		quest_data = get_plot(data, quest_guid.NOBLE_HUNTERS)
+		return has_flag(quest_data, mardy.SEX_MARDY_FLAG) or has_flag(quest_data, mardy.SEX_BOTH_FLAG)
+
 class mardy:
 	ORDER = 4
 	TITLE = "Did the Warden have relations with Mardy before being cast out of Orzammar?"
+
+	TALK_HUNTERS_FLAG = 3
+
+	SEX_MARDY_FLAG = 3
+	SEX_BOTH_FLAG = 4
 
 	NOTHING = "Didn't encounter Mardy"
 	NO = "Didn't have relations with Mardy"
@@ -241,13 +250,24 @@ class mardy:
 	def get_result(data):
 		response = responses.side_quest_response(mardy.ORDER, mardy.TITLE)
 
-		response.result = result.INCOMPLETE
+		talk_data = get_plot(data, quest_guid.TALK_DWARF_NOBLE)
+
+		if slept_with_mardy(data):
+			response.result = mardy.YES
+		elif has_flag(talk_data, mardy.TALK_HUNTERS_FLAG):
+			response.result = mardy.NO
+		else:
+			response.result = mardy.NOTHING
 
 		return response
 
 class mardy_son:
 	ORDER = 5
 	TITLE = "Did the Warden restore Mardy's son's birthright?"
+
+	FAIL_FLAG = 1
+	COMPLETE_FLAG = 2
+	REFUSE_FLAG = 4
 
 	NO_SON = "Didn't have son with Mardy"
 	NO = "Didn't restore Mardy's son's birthright"
@@ -258,7 +278,17 @@ class mardy_son:
 	def get_result(data):
 		response = responses.side_quest_response(mardy_son.ORDER, mardy_son.TITLE)
 
-		response.result = result.INCOMPLETE
+		quest_data = get_plot(data, quest_guid.OF_NOBLE_BIRTH)
+
+		if slept_with_mardy(data):
+			if has_flag(quest_data, mardy_son.COMPLETE_FLAG):
+				response.result = mardy_son.YES
+			elif has_flag(quest_data, mardy_son.FAIL_FLAG) or has_flag(quest_data, mardy_son.REFUSE_FLAG):
+				response.result = mardy_son.NO
+			else:
+				response.result = mardy_son.NO_MEET
+		else:
+			response.result = mardy_son.NO_SON
 
 		return response
 

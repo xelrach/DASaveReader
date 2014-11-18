@@ -23,10 +23,6 @@ def mages_dead(data):
 	circle_data = get_plot(data, quest_guid.BROKEN_CIRCLE)
 	return has_flag(circle_data, cullen.MAGES_DEAD_FLAG)
 
-def wynne_recruited(data):
-	quest_data = get_plot(data, quest_guid.BROKEN_CIRCLE)
-	return not has_flag(quest_data, broken_circle.WYNNE_DOESNT_JOIN_FLAG)
-
 def wynne_killed(data):
 	quest_data = get_plot(data, quest_guid.BROKEN_CIRCLE)
 	return has_flag(quest_data, broken_circle.WYNNE_KILLED_FLAG) \
@@ -94,7 +90,7 @@ class cullen:
 
 	@staticmethod
 	def get_result(data):
-		response = responses.side_quest_response(irving.ORDER, irving.TITLE)
+		response = responses.side_quest_response(cullen.ORDER, cullen.TITLE)
 
 		circle_data = get_plot(data, quest_guid.BROKEN_CIRCLE)
 

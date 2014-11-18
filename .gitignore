@@ -1,3 +1,5 @@
 *.pyc
 *.swp
 dist
+build
+*.zip

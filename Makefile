@@ -1,9 +1,12 @@
-VERSION="snapshot"
+VERSION="alpha3"
 
 clean:
 	find . -type f -name "*.pyc" -delete
-	rm -rf dist
+	rm -rf DASaveReader
+	rm -f DASaveReader-*.zip
 
 zip: clean
+	mkdir DASaveReader
 	mkdir dist
-	zip -qr dist/DASaveReader-$(VERSION).zip pygff/ choice/ README LICENSE *.py
+	cp -r pygff/ choice/ README LICENSE *.py DASaveReader
+	zip -qr dist/DASaveReader-$(VERSION).zip DASaveReader

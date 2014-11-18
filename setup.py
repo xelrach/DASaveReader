@@ -7,7 +7,7 @@ if platform == "win32":
 	import py2exe
 	is_windows = True
 
-VERSION = 'snapshot'
+VERSION = 'alpha3'
 DLL_LOCATION = r''
 
 info = {

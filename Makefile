@@ -1,8 +1,8 @@
-VERSION="snapshot"
+VERSION="alpha4"
 
 clean:
 	find . -type f -name "*.pyc" -delete
-	rm -rf DASaveReader
+	rm -rf DASaveReader dist
 	rm -f DASaveReader-*.zip
 
 zip: clean

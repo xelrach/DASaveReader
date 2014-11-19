@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Borken Circle choices
+"""Broken Circle choices"""
 
 import quest_guid
 import result
@@ -62,7 +62,7 @@ class irving:
 
 	IRVING_DEAD_FLAG = 4
 
-	DIED = "First Enchanter Irving died in battle"
+	DEAD = "First Enchanter Irving died in battle"
 	ALIVE = "First Enchanter Irving survived battle"
 
 	@staticmethod

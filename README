@@ -1,1 +1,21 @@
 A Save File Reader For Dragon Age
+
+Windows Users:
+
+ Download DASaveReaderGui
+ Extract The File
+ Double Click On da_reader_gui.exe
+ Go To 'File' -> 'Open'
+ Choose Your Save File
+ Read your world state and input it into Keep
+
+
+OSX and Linux Users:
+
+ Make sure that you have Python installed
+ Download the DASaveReader ZIP file and extract it
+ Open a terminal window
+ Go into the extracted directory
+ Enter the following: python da_reader.py path/to/my/save/file.das
+ If you have wxPython installed, you can run: python da_reader_gui.py
+ Read your world state and input it into Keep

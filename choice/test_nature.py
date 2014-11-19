@@ -15,13 +15,14 @@
 import unittest
 
 from nature import nature_of_the_beast
+import plot
 import quest_guid
 
 class nature_test(unittest.TestCase):
 	def test_nature_of_the_beast_elves(self):
 		data = {}
 		flags = 2**nature_of_the_beast.ELF_FLAG
-		data[quest_guid.NATURE_OF_THE_BEAST] = flags
+		data[quest_guid.NATURE_OF_THE_BEAST] = plot.plot(flags)
 
 		response = nature_of_the_beast.get_result(data)
 
@@ -30,7 +31,7 @@ class nature_test(unittest.TestCase):
 	def test_nature_of_the_beast_werewolves(self):
 		data = {}
 		flags = 2**nature_of_the_beast.WEREWOLF_FLAG
-		data[quest_guid.NATURE_OF_THE_BEAST] = flags
+		data[quest_guid.NATURE_OF_THE_BEAST] = plot.plot(flags)
 
 		response = nature_of_the_beast.get_result(data)
 
@@ -39,7 +40,7 @@ class nature_test(unittest.TestCase):
 	def test_nature_of_the_beast_peace(self):
 		data = {}
 		flags = 2**nature_of_the_beast.ELF_FLAG | 2**nature_of_the_beast.ZATHRIAN_FLAG
-		data[quest_guid.NATURE_OF_THE_BEAST] = flags
+		data[quest_guid.NATURE_OF_THE_BEAST] = plot.plot(flags)
 
 		response = nature_of_the_beast.get_result(data)
 

@@ -25,6 +25,7 @@ import paragon
 import prologue
 import redcliffe
 import urn
+import wardens_keep
 
 def get_quest_results(data, quest):
 	quest_results = []
@@ -157,3 +158,14 @@ class BattleOfDenerim:
 	@staticmethod
 	def get_side_quests():
 		return inspect.getmembers(battle_denerim, inspect.isclass)
+
+class WardensKeep:
+	ORDER = 11
+
+	@staticmethod
+	def get_name():
+		return "Warden's Kepp"
+
+	@staticmethod
+	def get_side_quests():
+		return inspect.getmembers(wardens_keep, inspect.isclass)

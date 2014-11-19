@@ -12,13 +12,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-class plot:
-	def __init__(self, flags1, flags2 = 0, flags3 = 0, flags4 = 0):
-		self.flags1 = flags1
-		self.flags2 = flags2
-		self.flags3 = flags3
-		self.flags4 = flags4
+import unittest
 
-	def __repr__(self):
-		return "plot: [" + str(self.flags1) + ", " + str(self.flags2) \
-				+ ", " + str(self.flags3) + ", " + str(self.flags4) + "]"
+import quest_guid
+import plot
+import wardens_keep
+
+class wardens_keep_test(unittest.TestCase):
+	MY_AVERNUS_FLAGS = 9334414
+	MY_SOPHIA_FLAGS = 3778019584
+
+	def test_soldiers_peak_mine(self):
+		data = {}
+		data[quest_guid.CHARACTER_AVERNUS] = plot.plot(wardens_keep_test.MY_AVERNUS_FLAGS)
+		data[quest_guid.CHARACTER_SOPHIA] = plot.plot(wardens_keep_test.MY_SOPHIA_FLAGS)
+
+		response = wardens_keep.soldiers_peak.get_result(data)
+
+		self.assertEquals(wardens_keep.soldiers_peak.GOOD_RESEARCH, response.result)
+

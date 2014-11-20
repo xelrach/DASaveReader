@@ -40,10 +40,6 @@ def leliana_recruited(data):
 	quest_data = get_plot(data, quest_guid.PARTY)
 	return has_flag(quest_data, LELIANA_FLAG)
 
-def morrigan_recruited(data):
-	quest_data = get_plot(data, quest_guid.PARTY)
-	return has_flag(quest_data, MORRIGAN_FLAG)
-
 def oghren_recruited(data):
 	quest_data = get_plot(data, quest_guid.PARTY)
 	return has_flag(quest_data, OGHREN_FLAG)

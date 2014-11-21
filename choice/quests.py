@@ -24,6 +24,7 @@ import nature
 import paragon
 import prologue
 import redcliffe
+import stone
 import urn
 import wardens_keep
 
@@ -164,8 +165,19 @@ class WardensKeep:
 
 	@staticmethod
 	def get_name():
-		return "Warden's Kepp"
+		return "Warden's Keep"
 
 	@staticmethod
 	def get_side_quests():
 		return inspect.getmembers(wardens_keep, inspect.isclass)
+
+class StonePrisoner:
+	ORDER = 12
+
+	@staticmethod
+	def get_name():
+		return "Stone Prisoner"
+
+	@staticmethod
+	def get_side_quests():
+		return inspect.getmembers(stone, inspect.isclass)

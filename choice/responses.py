@@ -12,8 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import numbers
+
 class side_quest_response:
+	result = ""
+
 	def __init__(self, order, title):
+		if not isinstance(order, numbers.Number):
+			raise ValueError(str(order) + " is not a number")
+		if not isinstance(title, basestring):
+			raise ValueError(str(title) + " is not a string")
 		self.order = order
 		self.title = title
 

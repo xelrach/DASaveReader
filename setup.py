@@ -1,3 +1,4 @@
+import sys
 from distutils.core import setup
 from sys import platform
 from glob import glob
@@ -9,7 +10,11 @@ if platform == "win32":
 
 VERSION = 'snapshot'
 
-DLL_LOCATION = r''
+VC_LOCATION = r''
+GDI_LOCATION = r''
+
+sys.path.append(VC_LOCATION)
+sys.path.append(GDI_LOCATION)
 
 info = {
 	'name' : 'DASaveReader',
@@ -17,6 +22,7 @@ info = {
 	'description' : 'Dragon Age Save Reader',
 	'author' : 'Charles Noneman',
 	'url' : 'https://github.com/xelrach/DASaveReader',
+	'packages' : ['pygff.gff4'],
 	'options' : {
 		'py2exe': {
 			'compressed': 1,
@@ -29,6 +35,6 @@ info = {
 
 if is_windows:
 	info['windows'] = [{"script": "da_reader_gui.py"}]
-	info['data_files'] = [("Microsoft.VC90.CRT", glob(DLL_LOCATION))]
+	info['data_files'] = [("Microsoft.VC90.CRT", glob(VC_LOCATION + r'\*.*')), ("gdi", glob(GDI_LOCATION))]
 
 setup(**info)

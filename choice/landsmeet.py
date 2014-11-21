@@ -28,7 +28,7 @@ def alistair_king(data):
 	quest_data = get_plot(data, quest_guid.THE_LANDSMEET)
 	return has_flag(quest_data, landsmeet.ALISTAIR_FLAG) \
 			or has_flag(quest_data, landsmeet.ALISTAIR_ANORA_FLAG) \
-			or has_flag(quest_data, landsmeet.ALISTAIR_WAREDN_FLAG)
+			or has_flag(quest_data, landsmeet.ALISTAIR_WARDEN_FLAG)
 
 def alistair_exiled(data):
 	quest_data = get_plot(data, quest_guid.THE_LANDSMEET)
@@ -36,7 +36,7 @@ def alistair_exiled(data):
 
 def warden_queen(data):
 	quest_data = get_plot(data, quest_guid.THE_LANDSMEET)
-	return has_flag(quest_data, landsmeet.ALISTAIR_WAREDN_FLAG)
+	return has_flag(quest_data, landsmeet.ALISTAIR_WARDEN_FLAG)
 
 class landsmeet:
 	ORDER = 0
@@ -48,7 +48,7 @@ class landsmeet:
 	ANORA_WARDEN_FLAG = 5
 	ALISTAIR_LEAVES_FOREVER_FLAG = 16
 	ALISTAIR_KILLED_FLAG = 17
-	ALISTAIR_WAREDN_FLAG = 56
+	ALISTAIR_WARDEN_FLAG = 56
 
 	ALISTAIR = "Alistair rules"
 	ALISTAIR_ANORA = "Alistair & Anora rule"
@@ -67,7 +67,7 @@ class landsmeet:
 				if has_flag(quest_data, landsmeet.ALISTAIR_FLAG) \
 						or has_flag(quest_data, landsmeet.ALISTAIR_ANORA_FLAG) \
 						or has_flag(quest_data, landsmeet.ANORA_FLAG) \
-						or has_flag(quest_data, landsmeet.ALISTAIR_WAREDN_FLAG):
+						or has_flag(quest_data, landsmeet.ALISTAIR_WARDEN_FLAG):
 					response.result = landsmeet.ANORA
 				elif has_flag(quest_data, landsmeet.ANORA_WARDEN_FLAG):
 					response.result = landsmeet.ANORA_WARDEN
@@ -80,7 +80,7 @@ class landsmeet:
 					response.result = landsmeet.ANORA
 				elif has_flag(quest_data, landsmeet.ANORA_WARDEN_FLAG):
 					response.result = landsmeet.ANORA_WARDEN
-				elif has_flag(quest_data, landsmeet.ALISTAIR_WAREDN_FLAG):
-					response.result = landsmeet.ALISTAIR_WAREDN_FLAG
+				elif has_flag(quest_data, landsmeet.ALISTAIR_WARDEN_FLAG):
+					response.result = landsmeet.ALISTAIR_WARDEN
 
 		return response

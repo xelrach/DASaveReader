@@ -12,19 +12,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import unittest
+
+import quest_guid
 import plot
+import wardens_keep
 
-def has_flag(match_plot, flag):
-	if flag < 32:
-		return bool((2**flag) & match_plot.flags1)
-	elif flag < 64:
-		return bool((2**(flag - 32)) & match_plot.flags2)
-	elif flag < 96:
-		return bool((2**(flag - 64)) & match_plot.flags3)
-	elif flag < 128:
-		return bool((2**(flag - 96)) & match_plot.flags4)
-	else:
-		raise ValueError("flag is over 127")
+class wardens_keep_test(unittest.TestCase):
+	MY_AVERNUS_FLAGS = 9334414
+	MY_SOPHIA_FLAGS = 3778019584
 
-def get_plot(data, guid):
-	return data.get(guid, plot.plot(0, 0, 0, 0))
+	def test_soldiers_peak_mine(self):
+		data = {}
+		data[quest_guid.CHARACTER_AVERNUS] = plot.plot(wardens_keep_test.MY_AVERNUS_FLAGS)
+		data[quest_guid.CHARACTER_SOPHIA] = plot.plot(wardens_keep_test.MY_SOPHIA_FLAGS)
+
+		response = wardens_keep.soldiers_peak.get_result(data)
+
+		self.assertEquals(wardens_keep.soldiers_peak.GOOD_RESEARCH, response.result)
+

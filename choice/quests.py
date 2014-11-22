@@ -14,6 +14,7 @@
 
 import inspect
 
+import awakening
 import battle_denerim
 import circle
 import companions
@@ -24,7 +25,10 @@ import nature
 import paragon
 import prologue
 import redcliffe
+import stone
 import urn
+import wardens_keep
+import witch_hunt
 
 def get_quest_results(data, quest):
 	quest_results = []
@@ -157,3 +161,47 @@ class BattleOfDenerim:
 	@staticmethod
 	def get_side_quests():
 		return inspect.getmembers(battle_denerim, inspect.isclass)
+
+class Awakening:
+	ORDER = 11
+
+	@staticmethod
+	def get_name():
+		return "Awakening"
+
+	@staticmethod
+	def get_side_quests():
+		return inspect.getmembers(awakening, inspect.isclass)
+
+class WitchHunt:
+	ORDER = 12
+
+	@staticmethod
+	def get_name():
+		return "Witch Hunt"
+
+	@staticmethod
+	def get_side_quests():
+		return inspect.getmembers(witch_hunt, inspect.isclass)
+
+class WardensKeep:
+	ORDER = 13
+
+	@staticmethod
+	def get_name():
+		return "Warden's Keep"
+
+	@staticmethod
+	def get_side_quests():
+		return inspect.getmembers(wardens_keep, inspect.isclass)
+
+class StonePrisoner:
+	ORDER = 14
+
+	@staticmethod
+	def get_name():
+		return "Stone Prisoner"
+
+	@staticmethod
+	def get_side_quests():
+		return inspect.getmembers(stone, inspect.isclass)

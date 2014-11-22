@@ -13,7 +13,7 @@
 # limitations under the License.
 
 class plot:
-	def __init__(self, flags1, flags2, flags3, flags4):
+	def __init__(self, flags1, flags2 = 0, flags3 = 0, flags4 = 0):
 		self.flags1 = flags1
 		self.flags2 = flags2
 		self.flags3 = flags3
@@ -22,3 +22,10 @@ class plot:
 	def __repr__(self):
 		return "plot: [" + str(self.flags1) + ", " + str(self.flags2) \
 				+ ", " + str(self.flags3) + ", " + str(self.flags4) + "]"
+
+	def __eq__(self, other):
+		return self.flags1 == other.flags1 and self.flags2 == other.flags2 \
+				and self.flags3 == other.flags3 and self.flags4 == other.flags4
+
+	def __ne__(self, other):
+		return not self.__eq__(other)

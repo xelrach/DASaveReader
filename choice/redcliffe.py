@@ -89,7 +89,8 @@ class connor:
 		fade_data = get_plot(data, quest_guid.INTO_THE_FADE)
 
 		if has_flag(connor_data, connor.CONNOR_FREED_FLAG):
-			if has_flag(fade_data, connor.DEMON_OFFER_ACCEPTED_FLAG) and not has_flag(fade_data, connor.DEMON_INTEMIDATED_FLAG):
+			if has_flag(fade_data, connor.DEMON_OFFER_ACCEPTED_FLAG) \
+					and not has_flag(fade_data, connor.DEMON_INTEMIDATED_FLAG):
 				response.result = connor.POSSESSED
 			else:
 				response.result = connor.SAFE
@@ -102,7 +103,8 @@ def village_destroyed(data):
 	prep_data = get_plot(data, quest_guid.A_VILLAGE_UNDER_SIEGE)
 	fight_data = get_plot(data, quest_guid.THE_ATTACK_AT_NIGHTFALL)
 
-	return has_flag(prep_data, prepare.ABANDONED_FLAG) or has_flag(fight_data, fight.DESTROYED_FLAG)
+	return has_flag(prep_data, prepare.ABANDONED_FLAG) \
+			or has_flag(fight_data, fight.DESTROYED_FLAG)
 
 class bella:
 	ORDER = 7
@@ -123,7 +125,8 @@ class bella:
 
 		quest_data = get_plot(data, quest_guid.A_STIFF_DRINK)
 
-		if has_flag(quest_data, bella.BELLA_IN_CHARGE_FLAG) or has_flag(quest_data, bella.BELLA_BUYS_FLAG):
+		if has_flag(quest_data, bella.BELLA_IN_CHARGE_FLAG) \
+				or has_flag(quest_data, bella.BELLA_BUYS_FLAG):
 			response.result = bella.OWNER
 		elif has_flag(quest_data, bella.BELLA_DENERIM):
 			response.result = bella.BREWERY
@@ -161,11 +164,15 @@ class bevin:
 		quest_data = get_plot(data, quest_guid.A_MISSING_CHILD)
 
 		if has_flag(quest_data, bevin.BEVIN_FOUND_FLAG):
-			if has_flag(quest_data, bevin.KAITLYN_RICH) or has_flag(quest_data, bevin.KAITLYN_ALMOST_RICH):
+			if has_flag(quest_data, bevin.KAITLYN_RICH) \
+					or has_flag(quest_data, bevin.KAITLYN_ALMOST_RICH):
 				response.result = bevin.FREED_PAID
-			elif has_flag(quest_data, bevin.BOUGHT_SMALL_MONRY) or has_flag(quest_data, bevin.BOUGHT_TNIY_MONEY) or has_flag(quest_data, bevin.HAVE_CHEST_KEY):
+			elif has_flag(quest_data, bevin.BOUGHT_SMALL_MONRY) \
+					or has_flag(quest_data, bevin.BOUGHT_TNIY_MONEY) \
+					or has_flag(quest_data, bevin.HAVE_CHEST_KEY):
 				response.result = bevin.FREED_TOOK
-			elif has_flag(quest_data, bevin.BEVIN_DAMAGED) or has_flag(quest_data, bevin.BEVIN_FEARFUL):
+			elif has_flag(quest_data, bevin.BEVIN_DAMAGED) \
+					or has_flag(quest_data, bevin.BEVIN_FEARFUL):
 				response.result = bevin.SCARED
 			else:
 				response.result = bevin.FREED_NOT_FIND
@@ -190,7 +197,8 @@ class valena:
 
 		quest_data = get_plot(data, quest_guid.LOST_IN_THE_CASTLE)
 
-		if has_flag(quest_data, valena.VALENA_SAFE_OWEN_SAFE_FLAG) or has_flag(quest_data, valena.VALENA_SAFE_OWEN_DEAD_FLAG):
+		if has_flag(quest_data, valena.VALENA_SAFE_OWEN_SAFE_FLAG) \
+				or has_flag(quest_data, valena.VALENA_SAFE_OWEN_DEAD_FLAG):
 			response.result = valena.RESCUE
 		else:
 			response.result = valena.NO_RESCUE

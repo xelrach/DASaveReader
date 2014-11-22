@@ -15,7 +15,6 @@
 # Prolog choices
 
 import quest_guid
-import result
 import responses
 from utils import has_flag, get_plot
 
@@ -49,7 +48,8 @@ class prisoner:
 					response.result = prisoner.FED_BOUGHT
 				elif has_flag(quest_data, prisoner.FOOD_FLAG):
 					# Not sure how to differentiate between these
-					response.result = 'Either "' + prisoner.FED_SHARED + '" or "' + prisoner.FED_STOLEN + '"'
+					response.result = 'Either "' + prisoner.FED_SHARED + '" or "' \
+							+ prisoner.FED_STOLEN + '"'
 				else:
 					response.result = prisoner.STOLE
 			else:
@@ -75,7 +75,8 @@ class mabari:
 
 		quest_data = get_plot(data, quest_guid.THE_MABARI_HOUND)
 
-		if has_flag(quest_data, mabari.HEALED_FLAG) or has_flag(quest_data, mabari.FLOWER_NO_QUEST_FLAG):
+		if has_flag(quest_data, mabari.HEALED_FLAG) \
+				or has_flag(quest_data, mabari.FLOWER_NO_QUEST_FLAG):
 			response.result = mabari.CURED
 		elif has_flag(quest_data, mabari.KILLED_FLAG):
 			response.result = mabari.KILLED

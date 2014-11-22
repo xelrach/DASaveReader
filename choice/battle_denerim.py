@@ -47,9 +47,8 @@ class battle_denerim:
 
 	@staticmethod
 	def get_result(data):
-		response = responses.side_quest_response(battle_denerim.ORDER, battle_denerim.TITLE)
-
-		quest_data = get_plot(data, quest_guid.CLIMAX_ARCHDEMON)
+		response = responses.side_quest_response(battle_denerim.ORDER, \
+				battle_denerim.TITLE)
 
 		if alistair_killed_archdemon(data):
 			response.result = battle_denerim.ALISTAIR
@@ -58,6 +57,6 @@ class battle_denerim:
 		elif warden_killed_archdemon(data):
 			response.result = battle_denerim.WARDEN
 		else:
-			result.DEFAULT
+			response.result = result.DEFAULT
 
 		return response

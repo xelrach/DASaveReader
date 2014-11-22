@@ -15,7 +15,6 @@
 # The Urn of Sacred Ashes choices
 
 import quest_guid
-import result
 import responses
 from utils import has_flag, get_plot
 

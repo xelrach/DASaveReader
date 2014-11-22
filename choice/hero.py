@@ -70,7 +70,8 @@ class hero_fate:
 	def get_result(data):
 		response = responses.side_quest_response(hero_fate.ORDER, hero_fate.TITLE)
 
-		if battle_denerim.warden_killed_archdemon(data) and not companions.morrgans_ritual_completed(data):
+		if battle_denerim.warden_killed_archdemon(data) \
+				and not companions.morrgans_ritual_completed(data):
 			response.result = hero_fate.DEAD
 		else:
 			response.result = hero_fate.ALIVE

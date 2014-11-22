@@ -33,7 +33,8 @@ class nature_of_the_beast:
 
 	@staticmethod
 	def get_result(data):
-		response = responses.side_quest_response(nature_of_the_beast.ORDER, nature_of_the_beast.TITLE)
+		response = responses.side_quest_response(nature_of_the_beast.ORDER, \
+				nature_of_the_beast.TITLE)
 
 		quest_data = get_plot(data, quest_guid.NATURE_OF_THE_BEAST)
 
@@ -66,7 +67,9 @@ class cammen:
 
 		quest_data = get_plot(data, quest_guid.CAMMENS_LAMENT)
 
-		if has_flag(quest_data, cammen.SEDUCED_FLAG) or has_flag(quest_data, cammen.BROKE_UP_FLAG) or has_flag(quest_data, cammen.BROKE_UP_2_FLAG):
+		if has_flag(quest_data, cammen.SEDUCED_FLAG) \
+				or has_flag(quest_data, cammen.BROKE_UP_FLAG) \
+				or has_flag(quest_data, cammen.BROKE_UP_2_FLAG):
 			response.result = cammen.BROKE_UP
 		elif has_flag(quest_data, cammen.TOGETHER_FLAG):
 			response.result = cammen.TOGETHER
@@ -138,7 +141,8 @@ class ironbark:
 
 		quest_data = get_plot(data, quest_guid.RARE_IRONBARK)
 
-		if has_flag(quest_data, ironbark.BROUGHT_FLAG) or has_flag(quest_data, ironbark.BROUGHT_NO_CRAFTING_FLAG):
+		if has_flag(quest_data, ironbark.BROUGHT_FLAG) \
+				or has_flag(quest_data, ironbark.BROUGHT_NO_CRAFTING_FLAG):
 			response.result = ironbark.YES
 		else:
 			response.result = ironbark.NO
@@ -163,9 +167,11 @@ class deygan:
 
 		quest_data = get_plot(data, quest_guid.WOUNDED_IN_THE_FOREST)
 
-		if has_flag(quest_data, deygan.COPRSE_CAMP_FLAG) or has_flag(quest_data, deygan.KILLED_LEFT_FLAG):
+		if has_flag(quest_data, deygan.COPRSE_CAMP_FLAG) \
+				or has_flag(quest_data, deygan.KILLED_LEFT_FLAG):
 			response.result = deygan.KILLED
-		elif has_flag(quest_data, deygan.ALIVE_CAMP_FLAG) or has_flag(quest_data, deygan.HEALED_FLAG):
+		elif has_flag(quest_data, deygan.ALIVE_CAMP_FLAG) \
+				or has_flag(quest_data, deygan.HEALED_FLAG):
 			response.result = deygan.RETURNED
 		else:
 			response.result = deygan.NOTHING

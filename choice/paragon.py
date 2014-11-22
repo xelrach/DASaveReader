@@ -34,7 +34,8 @@ class anvil_of_the_void:
 
 	@staticmethod
 	def get_result(data):
-		response = responses.side_quest_response(anvil_of_the_void.ORDER, anvil_of_the_void.TITLE)
+		response = responses.side_quest_response(anvil_of_the_void.ORDER, \
+				anvil_of_the_void.TITLE)
 
 		quest_data = get_plot(data, quest_guid.ANVIL_OF_THE_VOID)
 
@@ -62,7 +63,8 @@ class paragon_of_her_kind:
 
 	@staticmethod
 	def get_result(data):
-		response = responses.side_quest_response(paragon_of_her_kind.ORDER, paragon_of_her_kind.TITLE)
+		response = responses.side_quest_response(paragon_of_her_kind.ORDER, \
+				paragon_of_her_kind.TITLE)
 
 		quest_data = get_plot(data, quest_guid.A_PARAGON_OF_HER_KIND)
 
@@ -107,7 +109,8 @@ class filda:
 				response.result = filda.KILLED_TRUTH
 			else:
 				response.result = filda.KILLED_LIED
-		elif has_flag(quest_data, filda.RUCK_NOT_KILLED_FLAG) or has_flag(quest_data, filda.RUCK_FOUND_FLAG):
+		elif has_flag(quest_data, filda.RUCK_NOT_KILLED_FLAG) \
+				or has_flag(quest_data, filda.RUCK_FOUND_FLAG):
 			if has_flag(quest_data, filda.TOLD_RUCK_DEAD_FLAG):
 				response.result = filda.SAID_RUCK_DIED
 			else:
@@ -129,7 +132,8 @@ class the_chant_in_the_deeps:
 
 	@staticmethod
 	def get_result(data):
-		response = responses.side_quest_response(the_chant_in_the_deeps.ORDER, the_chant_in_the_deeps.TITLE)
+		response = responses.side_quest_response(the_chant_in_the_deeps.ORDER, \
+				the_chant_in_the_deeps.TITLE)
 
 		quest_data = get_plot(data, quest_guid.THE_CHANT_IN_THE_DEEPS)
 
@@ -215,10 +219,10 @@ class dagna:
 	def get_result(data):
 		response = responses.side_quest_response(dagna.ORDER, dagna.TITLE)
 
-		circle_data = get_plot(data, quest_guid.BROKEN_CIRCLE)
 		quest_data = get_plot(data, quest_guid.AN_UNLIKELY_SCHOLAR)
 
-		if has_flag(quest_data, dagna.GREAGOIR_REFUSED_FLAG) or circle.mages_dead(data):
+		if has_flag(quest_data, dagna.GREAGOIR_REFUSED_FLAG) \
+				or circle.mages_dead(data):
 			response.result = dagna.CIRCLE_DESTROYED
 		elif has_flag(quest_data, dagna.CIRCLE_FLAG):
 			response.result = dagna.CIRCLE
@@ -231,7 +235,8 @@ class dagna:
 
 def slept_with_mardy(data):
 		quest_data = get_plot(data, quest_guid.NOBLE_HUNTERS)
-		return has_flag(quest_data, mardy.SEX_MARDY_FLAG) or has_flag(quest_data, mardy.SEX_BOTH_FLAG)
+		return has_flag(quest_data, mardy.SEX_MARDY_FLAG) \
+				or has_flag(quest_data, mardy.SEX_BOTH_FLAG)
 
 class mardy:
 	ORDER = 4
@@ -283,7 +288,8 @@ class mardy_son:
 		if slept_with_mardy(data):
 			if has_flag(quest_data, mardy_son.COMPLETE_FLAG):
 				response.result = mardy_son.YES
-			elif has_flag(quest_data, mardy_son.FAIL_FLAG) or has_flag(quest_data, mardy_son.REFUSE_FLAG):
+			elif has_flag(quest_data, mardy_son.FAIL_FLAG) \
+					or has_flag(quest_data, mardy_son.REFUSE_FLAG):
 				response.result = mardy_son.NO
 			else:
 				response.result = mardy_son.NO_MEET
@@ -303,7 +309,8 @@ class legion_of_dead:
 
 	@staticmethod
 	def get_result(data):
-		response = responses.side_quest_response(legion_of_dead.ORDER, legion_of_dead.TITLE)
+		response = responses.side_quest_response(legion_of_dead.ORDER, \
+				legion_of_dead.TITLE)
 
 		quest_data = get_plot(data, quest_guid.THE_DEAD_CASTE)
 
@@ -328,7 +335,8 @@ class shaperate_tome:
 
 	@staticmethod
 	def get_result(data):
-		response = responses.side_quest_response(shaperate_tome.ORDER, shaperate_tome.TITLE)
+		response = responses.side_quest_response(shaperate_tome.ORDER, \
+				shaperate_tome.TITLE)
 
 		quest_data = get_plot(data, quest_guid.THIEF_IN_THE_HOUSE_OF_LEARNING)
 

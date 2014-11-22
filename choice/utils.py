@@ -14,15 +14,15 @@
 
 import plot
 
-def has_flag(plot, flag):
+def has_flag(match_plot, flag):
 	if flag < 32:
-		return (2**flag) & plot.flags1
+		return (2**flag) & match_plot.flags1
 	elif flag < 64:
-		return (2**(flag - 32)) & plot.flags2
+		return (2**(flag - 32)) & match_plot.flags2
 	elif flag < 96:
-		return (2**(flag - 64)) & plot.flags3
+		return (2**(flag - 64)) & match_plot.flags3
 	elif flag < 128:
-		return (2**(flag - 96)) & plot.flags4
+		return (2**(flag - 96)) & match_plot.flags4
 	else:
 		raise ValueError("flag is over 127")
 

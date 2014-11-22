@@ -15,7 +15,6 @@
 # Denerim choices
 
 import quest_guid
-import result
 import responses
 from utils import has_flag, get_plot
 
@@ -30,7 +29,8 @@ class ser_landry:
 
 	@staticmethod
 	def get_result(data):
-		response = responses.side_quest_response(ser_landry.ORDER, ser_landry.TITLE)
+		response = responses.side_quest_response(ser_landry.ORDER, \
+				ser_landry.TITLE)
 
 		quest_data = get_plot(data, quest_guid.HONOR_BOUND)
 
@@ -58,7 +58,8 @@ class oswyn:
 
 		quest_data = get_plot(data, quest_guid.TORTURD_NOBLE)
 
-		if has_flag(quest_data, oswyn.TOLD_REWARD_FLAG) or has_flag(quest_data, oswyn.TOLD_NO_REWARD_FLAG):
+		if has_flag(quest_data, oswyn.TOLD_REWARD_FLAG) \
+				or has_flag(quest_data, oswyn.TOLD_NO_REWARD_FLAG):
 			response.result = oswyn.YES
 		else:
 			response.result = oswyn.NO
@@ -76,7 +77,8 @@ class crime_wave:
 
 	@staticmethod
 	def get_result(data):
-		response = responses.side_quest_response(crime_wave.ORDER, crime_wave.TITLE)
+		response = responses.side_quest_response(crime_wave.ORDER, \
+				crime_wave.TITLE)
 
 		quest_data = get_plot(data, quest_guid.CRIME_WAVE)
 
@@ -99,11 +101,13 @@ class irminric_ring:
 
 	@staticmethod
 	def get_result(data):
-		response = responses.side_quest_response(irminric_ring.ORDER, irminric_ring.TITLE)
+		response = responses.side_quest_response(irminric_ring.ORDER, \
+				irminric_ring.TITLE)
 
 		quest_data = get_plot(data, quest_guid.LOST_TEMPLAR)
 
-		if has_flag(quest_data, irminric_ring.GAVE_RING_LOCATION_FLAG) or has_flag(quest_data, irminric_ring.GAVE_RING_NO_LOCATION_FLAG):
+		if has_flag(quest_data, irminric_ring.GAVE_RING_LOCATION_FLAG) \
+				or has_flag(quest_data, irminric_ring.GAVE_RING_NO_LOCATION_FLAG):
 			response.result = irminric_ring.YES
 		else:
 			response.result = irminric_ring.NO
@@ -215,7 +219,8 @@ class crimson_oars:
 
 	@staticmethod
 	def get_result(data):
-		response = responses.side_quest_response(crimson_oars.ORDER, crimson_oars.TITLE)
+		response = responses.side_quest_response(crimson_oars.ORDER, \
+				crimson_oars.TITLE)
 
 		quest_data = get_plot(data, quest_guid.THE_CRIMSON_OARS)
 
@@ -266,7 +271,8 @@ class marjolaine:
 
 	@staticmethod
 	def get_result(data):
-		response = responses.side_quest_response(marjolaine.ORDER, marjolaine.TITLE)
+		response = responses.side_quest_response(marjolaine.ORDER, \
+				marjolaine.TITLE)
 
 		quest_data = get_plot(data, quest_guid.LELIANAS_PAST)
 
@@ -278,5 +284,3 @@ class marjolaine:
 			response.result = marjolaine.NOTHING
 
 		return response
-
-

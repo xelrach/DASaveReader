@@ -43,7 +43,8 @@ class broken_circle:
 
 	@staticmethod
 	def get_result(data):
-		response = responses.side_quest_response(broken_circle.ORDER, broken_circle.TITLE)
+		response = responses.side_quest_response(broken_circle.ORDER, \
+				broken_circle.TITLE)
 
 		quest_data = get_plot(data, quest_guid.BROKEN_CIRCLE)
 

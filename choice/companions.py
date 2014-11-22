@@ -21,7 +21,6 @@ from utils import has_flag, get_plot
 
 import battle_denerim
 import circle
-import hero
 import landsmeet
 import recruit
 
@@ -37,7 +36,8 @@ def alistair_died_killing_archdemon(data):
 			and not morrgans_ritual_completed(data)
 
 def alistair_dead(data):
-	return alistair_died_killing_archdemon(data) or landsmeet.alistair_executed(data)
+	return alistair_died_killing_archdemon(data) \
+			or landsmeet.alistair_executed(data)
 
 def morrigan_romanced(data):
 	morrigan_data = get_plot(data, quest_guid.APPROVAL_MORRIGAN)
@@ -90,7 +90,8 @@ class dog_recruit:
 
 	@staticmethod
 	def get_result(data):
-		response = responses.side_quest_response(dog_recruit.ORDER, dog_recruit.TITLE)
+		response = responses.side_quest_response(dog_recruit.ORDER, \
+				dog_recruit.TITLE)
 
 		if recruit.dog_recruited(data):
 			response.result = dog_recruit.YES
@@ -143,7 +144,8 @@ class sten_recruit:
 
 	@staticmethod
 	def get_result(data):
-		response = responses.side_quest_response(sten_recruit.ORDER, sten_recruit.TITLE)
+		response = responses.side_quest_response(sten_recruit.ORDER, \
+				sten_recruit.TITLE)
 
 		if recruit.sten_recruited(data):
 			response.result = sten_recruit.YES
@@ -164,7 +166,8 @@ class sten_sword:
 
 	@staticmethod
 	def get_result(data):
-		response = responses.side_quest_response(sten_sword.ORDER, sten_sword.TITLE)
+		response = responses.side_quest_response(sten_sword.ORDER, \
+				sten_sword.TITLE)
 
 		quest_data = get_plot(data, quest_guid.THE_QUNARI_PRISONER)
 
@@ -188,7 +191,8 @@ class wynne_recruit:
 
 	@staticmethod
 	def get_result(data):
-		response = responses.side_quest_response(wynne_recruit.ORDER, wynne_recruit.TITLE)
+		response = responses.side_quest_response(wynne_recruit.ORDER, \
+				wynne_recruit.TITLE)
 
 		if recruit.wynne_recruited(data):
 			response.result = wynne_recruit.YES
@@ -208,7 +212,8 @@ class wynne_fate:
 
 	@staticmethod
 	def get_result(data):
-		response = responses.side_quest_response(wynne_fate.ORDER, wynne_fate.TITLE)
+		response = responses.side_quest_response(wynne_fate.ORDER, \
+				wynne_fate.TITLE)
 
 		if circle.wynne_killed(data):
 			response.result = wynne_fate.DIED_BROKEN_CIRCLE
@@ -237,7 +242,8 @@ class morrigan_baby:
 
 	@staticmethod
 	def get_result(data):
-		response = responses.side_quest_response(morrigan_baby.ORDER, morrigan_baby.TITLE)
+		response = responses.side_quest_response(morrigan_baby.ORDER, \
+				morrigan_baby.TITLE)
 
 		quest_data = get_plot(data, quest_guid.MORRIGANS_RITUAL)
 
@@ -280,9 +286,11 @@ class loghain:
 			response.result = loghain.ALISTAIR_EXECUTED
 		elif has_flag(quest_data, loghain.PC_EXECUTE_FLAG):
 			response.result = loghain.WARDEN_EXECUTED
-		elif has_flag(quest_data, loghain.ALISTAIR_DUEL_FLAG) and has_flag(quest_data, loghain.KILLED_FLAG):
+		elif has_flag(quest_data, loghain.ALISTAIR_DUEL_FLAG) \
+				and has_flag(quest_data, loghain.KILLED_FLAG):
 			response.result = loghain.ALISTAIR_DUEL
-		elif battle_denerim.loghain_killed_archdemon(data) and not morrgans_ritual_completed(data):
+		elif battle_denerim.loghain_killed_archdemon(data) \
+				and not morrgans_ritual_completed(data):
 			response.result = loghain.ARCHDEMON
 		else:
 			response.result = loghain.ALIVE
@@ -298,7 +306,8 @@ class oghren_recruit:
 
 	@staticmethod
 	def get_result(data):
-		response = responses.side_quest_response(oghren_recruit.ORDER, oghren_recruit.TITLE)
+		response = responses.side_quest_response(oghren_recruit.ORDER, \
+				oghren_recruit.TITLE)
 
 		if recruit.oghren_recruited(data):
 			response.result = oghren_recruit.YES
@@ -316,7 +325,8 @@ class zevran_recruit:
 
 	@staticmethod
 	def get_result(data):
-		response = responses.side_quest_response(zevran_recruit.ORDER, zevran_recruit.TITLE)
+		response = responses.side_quest_response(zevran_recruit.ORDER, \
+				zevran_recruit.TITLE)
 
 		if recruit.zevran_recruited(data):
 			response.result = zevran_recruit.YES
@@ -337,11 +347,13 @@ class zevran_fate:
 
 	@staticmethod
 	def get_result(data):
-		response = responses.side_quest_response(zevran_fate.ORDER, zevran_fate.TITLE)
+		response = responses.side_quest_response(zevran_fate.ORDER, \
+				zevran_fate.TITLE)
 
 		quest_data = get_plot(data, quest_guid.CHARACTER_ZEVRAN)
 
-		if has_flag(quest_data, zevran_fate.KILLED_NOT_HIRED_FLAG) or has_flag(quest_data, zevran_fate.KILLED_HIRED_FLAG):
+		if has_flag(quest_data, zevran_fate.KILLED_NOT_HIRED_FLAG) \
+				or has_flag(quest_data, zevran_fate.KILLED_HIRED_FLAG):
 			response.result = zevran_fate.DEAD
 		else:
 			response.result = zevran_fate.ALIVE
@@ -360,7 +372,8 @@ class alistair_fate:
 
 	@staticmethod
 	def get_result(data):
-		response = responses.side_quest_response(alistair_fate.ORDER, alistair_fate.TITLE)
+		response = responses.side_quest_response(alistair_fate.ORDER, \
+				alistair_fate.TITLE)
 
 		if alistair_died_killing_archdemon(data):
 			response.result = alistair_fate.DIED_ARCHDEMON
@@ -387,7 +400,8 @@ class alistair_mistress:
 
 	@staticmethod
 	def get_result(data):
-		response = responses.side_quest_response(alistair_mistress.ORDER, alistair_mistress.TITLE)
+		response = responses.side_quest_response(alistair_mistress.ORDER, \
+				alistair_mistress.TITLE)
 
 #		if alistair_romanced(data) and not alistair_dead(data):
 #			if landsmeet.warden_queen(data):
@@ -416,7 +430,8 @@ class leliana_fate:
 
 	@staticmethod
 	def get_result(data):
-		response = responses.side_quest_response(leliana_fate.ORDER, leliana_fate.TITLE)
+		response = responses.side_quest_response(leliana_fate.ORDER, \
+				leliana_fate.TITLE)
 
 		quest_data = get_plot(data, quest_guid.LELIANAS_PAST)
 

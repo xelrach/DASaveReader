@@ -49,7 +49,7 @@ class hero:
 		elif has_flag(origin_data, hero.DWARF_NOBLE_FLAG):
 			response.result = "Dwarf Noble"
 		elif has_flag(origin_data, hero.ELF_CITY_FLAG):
-			respponse.result = "City Elf"
+			response.result = "City Elf"
 		elif has_flag(origin_data, hero.ELF_DALISH_FLAG):
 			response.result = "Dalish Elf"
 		elif has_flag(origin_data, hero.CIRCLE_FLAG):

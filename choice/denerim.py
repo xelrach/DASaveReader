@@ -273,7 +273,7 @@ class marjolaine:
 		if has_flag(quest_data, marjolaine.KILLED_FLAG):
 			response.result = marjolaine.KILLED
 		elif has_flag(quest_data, marjolaine.SPARED_FLAG):
-			response.result = marjolaine.SPARED_FLAG
+			response.result = marjolaine.SENT_AWAY
 		else:
 			response.result = marjolaine.NOTHING
 

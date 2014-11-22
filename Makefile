@@ -1,4 +1,4 @@
-VERSION="alpha6"
+VERSION="snapshot"
 
 clean:
 	find . -type f -name "*.pyc" -delete

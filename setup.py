@@ -8,7 +8,7 @@ if platform == "win32":
 	import py2exe
 	is_windows = True
 
-VERSION = 'alpha7'
+VERSION = 'snapshot'
 
 VC_LOCATION = r''
 GDI_LOCATION = r''

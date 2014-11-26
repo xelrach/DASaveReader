@@ -57,7 +57,6 @@ class shale_fate:
 		codex_data = get_plot(data, quest_guid.CODEX_SHALE)
 
 		if recruit.shale_recruited(data):
-			response.result = result.INCOMPLETE
 			if has_flag(shale_data, shale_fate.ATTACK_FLAG) or has_flag(codex_data, shale_fate.DEAD_FLAG):
 				response.result = shale_fate.DIED
 			else:
@@ -72,8 +71,9 @@ class amalia_fate:
 	TITLE = "What was the fate of Kitty and Amalia?"
 
 	MATTHIAS_DEAD_FLAG = 0
-	AMALIA_POSSESSED_FLAG = 8
-	AMALIA_DEAD_FLAG = 21
+	BOTH_FREE_FLAG = 24
+	AMALIA_POSSESSED_FLAG = 25
+	MATTHIAS_ALONE_FLAG = 26
 	MATTHIAS_POSSESSED_FLAG = 27
 
 	BOTH_ALIVE = "Matthias and Amalia both alive, neither possessed"
@@ -88,15 +88,17 @@ class amalia_fate:
 
 		quest_data = get_plot(data, quest_guid.GOLEM)
 
-		if has_flag(quest_data, amalia_fate.MATTHIAS_DEAD_FLAG):
-			response.result = amalia_fate.MATTHIAS_DEAD
-		elif has_flag(quest_data, amalia_fate.AMALIA_DEAD_FLAG):
+		if has_flag(quest_data, amalia_fate.BOTH_FREE_FLAG):
+			response.result = amalia_fate.BOTH_ALIVE
+		elif has_flag(quest_data, amalia_fate.AMALIA_POSSESSED_FLAG):
+			response.result = amalia_fate.AMALIA_POSSESSED
+		elif has_flag(quest_data, amalia_fate.MATTHIAS_ALONE_FLAG):
 			response.result = amalia_fate.AMALIA_DEAD
 		elif has_flag(quest_data, amalia_fate.MATTHIAS_POSSESSED_FLAG):
 			response.result = amalia_fate.MATTHIAS_POSSESSED
-		elif has_flag(quest_data, amalia_fate.AMALIA_POSSESSED_FLAG):
-			response.result = amalia_fate.AMALIA_POSSESSED
+		elif has_flag(quest_data, amalia_fate.MATTHIAS_DEAD_FLAG):
+			response.result = amalia_fate.MATTHIAS_DEAD
 		else:
-			response.result = amalia_fate.BOTH_ALIVE
+			response.result = result.DEFAULT
 
 		return response

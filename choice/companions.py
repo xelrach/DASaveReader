@@ -392,6 +392,8 @@ class alistair_mistress:
 	ORDER = 13
 	TITLE = "Did the Warden remain as King Alistair's mistress?"
 
+	NOT_MISTRESS_FLAG = 2
+
 	NOT_LOVERS = "Warden & Alistair were not lovers"
 	MISTRESS = "Remained Alistair's mistress"
 	NOT_MISTRESS = "Didn't remain Alistair's mistress"
@@ -403,15 +405,20 @@ class alistair_mistress:
 		response = responses.side_quest_response(alistair_mistress.ORDER, \
 				alistair_mistress.TITLE)
 
-#		if alistair_romanced(data) and not alistair_dead(data):
-#			if landsmeet.warden_queen(data):
-#				response.result = alistair_mistress.QUEEN
-#			else:
-#				pass
-#		else:
-#			response.result = alistair_mistress.NOT_LOVERS
+		quest_data = get_plot(data, quest_guid.LANDSMEET_ALISTAIR)
 
-		response.result = result.INCOMPLETE
+		if alistair_romanced(data) and not alistair_dead(data):
+			if landsmeet.alistair_king(data):
+				if landsmeet.warden_queen(data):
+					response.result = alistair_mistress.QUEEN
+				elif has_flag(quest_data, alistair_mistress.NOT_MISTRESS_FLAG):
+					response.result = alistair_mistress.NOT_MISTRESS
+				else:
+					response.result = alistair_mistress.MISTRESS
+			else:
+				response.result = alistair_mistress.WARDENS
+		else:
+			response.result = alistair_mistress.NOT_LOVERS
 
 		return response
 

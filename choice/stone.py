@@ -57,7 +57,8 @@ class shale_fate:
 		codex_data = get_plot(data, quest_guid.CODEX_SHALE)
 
 		if recruit.shale_recruited(data):
-			if has_flag(shale_data, shale_fate.ATTACK_FLAG) or has_flag(codex_data, shale_fate.DEAD_FLAG):
+			if has_flag(shale_data, shale_fate.ATTACK_FLAG) \
+					or has_flag(codex_data, shale_fate.DEAD_FLAG):
 				response.result = shale_fate.DIED
 			else:
 				response.result = shale_fate.ALIVE

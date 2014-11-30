@@ -20,7 +20,6 @@ from utils import has_flag, get_plot
 ALISTAIR_FLAG = 0
 DOG_FLAG = 1
 LELIANA_FLAG = 4
-MORRIGAN_FLAG = 5
 OGHREN_FLAG = 6
 SHALE_FLAG = 7
 WYNNE_FLAG = 8

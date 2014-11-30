@@ -250,7 +250,7 @@ class morrigan_baby:
 		if has_flag(quest_data, morrigan_baby.ALISTAIR_FLAG):
 			response.result = morrigan_baby.ALISTAIR_OLD_GOD
 		elif has_flag(quest_data, morrigan_baby.LOGHAIN_FLAG):
-			response.result = morrigan_baby.LOGHAIN_FLAG
+			response.result = morrigan_baby.LOGHAIN_OLD_GOD
 		elif has_flag(quest_data, morrigan_baby.PC_FLAG):
 			response.result = morrigan_baby.WARDEN_OLD_GOD
 		elif morrigan_romanced(data):

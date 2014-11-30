@@ -32,10 +32,11 @@ import witch_hunt
 
 def get_quest_results(data, quest):
 	quest_results = []
-	for _, side_quest in quest.get_side_quests():
+	for side_quest_name, side_quest in quest.get_side_quests():
 		result = side_quest.get_result(data)
 		if not isinstance(result.result, basestring):
-			raise ValueError(str(result.result) + " is not a string, result=" + str(result))
+			raise ValueError('Result for quest "' + str(side_quest_name) + '" (' \
+					+ str(result.result) + ") is not a string, result=" + str(result))
 		quest_results.append(result)
 	quest_results.sort(key=lambda result: result.order)
 

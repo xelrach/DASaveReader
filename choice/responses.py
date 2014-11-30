@@ -26,4 +26,4 @@ class side_quest_response:
 		self.title = title
 
 	def __repr__(self):
-		return self.title + ": " + self.result
+		return str(self.title) + ": " + str(self.result)

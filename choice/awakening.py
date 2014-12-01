@@ -14,10 +14,10 @@
 
 """Awakening choices"""
 
-import quest_guid
-import result
-import responses
-from utils import has_flag, get_plot
+import choice.quest_guid as quest_guid
+import choice.result as result
+import choice.responses as responses
+from choice.utils import has_flag, get_plot
 
 class architect:
 	ORDER = 0
@@ -28,6 +28,9 @@ class architect:
 
 	DEAD = "Warden killed the Architect"
 	ALIVE = "Warden allowed Architect to live"
+
+	def __init__(self):
+		raise NotImplementedError
 
 	@staticmethod
 	def get_result(data):
@@ -54,6 +57,9 @@ class keep:
 	KEEP = "Keep protected"
 	CITY = "Amaranthine protected"
 	BOTH = "Keep and Amaranthine protected"
+
+	def __init__(self):
+		raise NotImplementedError
 
 	@staticmethod
 	def get_result(data):
@@ -83,6 +89,9 @@ class nathaniel_fate:
 	DEAD = "Nathaniel died"
 	ALIVE = "Nathaniel alive & well"
 
+	def __init__(self):
+		raise NotImplementedError
+
 	@staticmethod
 	def get_result(data):
 		response = responses.side_quest_response(nathaniel_fate.ORDER, \
@@ -105,6 +114,9 @@ class felsi:
 	NOTHING = "The Warden did not help"
 	NO = "Oghren and Felsi parted on bad terms"
 	YES = "Oghren and Felsi reunited"
+
+	def __init__(self):
+		raise NotImplementedError
 
 	@staticmethod
 	def get_result(data):

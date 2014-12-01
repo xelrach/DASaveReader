@@ -14,9 +14,9 @@
 
 import unittest
 
-from nature import nature_of_the_beast
-import plot
-import quest_guid
+from choice.nature import nature_of_the_beast
+import choice.plot as plot
+import choice.quest_guid as quest_guid
 
 class nature_test(unittest.TestCase):
 	def test_nature_of_the_beast_elves(self):

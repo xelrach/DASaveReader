@@ -14,9 +14,9 @@
 
 import unittest
 
-from stone import amalia_fate
-import plot
-import quest_guid
+import choice.plot as plot
+import choice.quest_guid as quest_guid
+from choice.stone import amalia_fate
 
 class stone_test(unittest.TestCase):
 	def test_amalia_fate_both_alive(self):

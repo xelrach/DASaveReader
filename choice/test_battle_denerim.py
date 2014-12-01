@@ -15,6 +15,7 @@
 import unittest
 
 from choice.battle_denerim import battle_denerim
+import choice.companion.fate as fate
 import choice.plot as plot
 import choice.quest_guid as quest_guid
 
@@ -40,7 +41,7 @@ class battle_denerim_test(unittest.TestCase):
 		self.assertEquals(battle_denerim.WARDEN, response.result)
 
 	def test_battle_denerim_loghain(self):
-		flags = 2**battle_denerim.LOGHAIN_KILL_FLAG
+		flags = 2**fate.LOGHAIN_KILL_FLAG
 
 		data = {}
 		data[quest_guid.CLIMAX_ARCHDEMON] = plot.plot(flags)

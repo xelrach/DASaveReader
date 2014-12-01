@@ -14,12 +14,12 @@
 
 """Hero choices"""
 
-import quest_guid
-import result
-import responses
-from utils import has_flag, get_plot
-import battle_denerim
-import companions
+import choice.quest_guid as quest_guid
+import choice.result as result
+import choice.responses as responses
+from choice.utils import has_flag, get_plot
+
+import choice.companion.fate as fate
 
 def is_human_noble(data):
 	origin_data = get_plot(data, quest_guid.HERO_ORIGIN)
@@ -35,6 +35,9 @@ class hero:
 	ELF_CITY_FLAG = 3
 	ELF_DALISH_FLAG = 4
 	HUMAN_NOBLE_FLAG = 7
+
+	def __init__(self):
+		raise NotImplementedError
 
 	@staticmethod
 	def get_result(data):
@@ -66,12 +69,15 @@ class hero_fate:
 	ALIVE = "Warden alive & well"
 	DEAD = "Warden died killing Archdemon"
 
+	def __init__(self):
+		raise NotImplementedError
+
 	@staticmethod
 	def get_result(data):
 		response = responses.side_quest_response(hero_fate.ORDER, hero_fate.TITLE)
 
-		if battle_denerim.warden_killed_archdemon(data) \
-				and not companions.morrgans_ritual_completed(data):
+		if fate.warden_killed_archdemon(data) \
+				and not fate.morrigans_ritual_completed(data):
 			response.result = hero_fate.DEAD
 		else:
 			response.result = hero_fate.ALIVE

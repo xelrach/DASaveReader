@@ -43,12 +43,12 @@ def format_results(results):
 def get_results(data):
 	results = []
 	quests = inspect.getmembers(choice.quests, inspect.isclass)
-	for quest_name, quest in quests:
+	for _, quest in quests:
 		results.append(quest_result(quest.get_name(), quest.ORDER, choice.quests.get_quest_results(data, quest)))
 	results.sort(key = lambda result: result.order)
 
 	return results
 
 if __name__ == "__main__":
-	results = read(sys.argv[1])
-	print(format_results(results))
+	quest_results = read(sys.argv[1])
+	print(format_results(quest_results))

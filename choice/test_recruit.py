@@ -14,9 +14,9 @@
 
 import unittest
 
-import plot
-import recruit
-import quest_guid
+import choice.plot as plot
+import choice.quest_guid as quest_guid
+import choice.companion.recruit as recruit
 
 class recruit_test(unittest.TestCase):
 	MY_PARTY_FLAGS = 134874067

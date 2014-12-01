@@ -14,9 +14,9 @@
 
 import unittest
 
-import quest_guid
-import plot
-import wardens_keep
+import choice.quest_guid as quest_guid
+import choice.plot as plot
+import choice.wardens_keep as wardens_keep
 
 class wardens_keep_test(unittest.TestCase):
 	MY_AVERNUS_FLAGS = 9334414

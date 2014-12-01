@@ -12,12 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Redcliffe choices
+"""Redcliffe choices"""
 
-import quest_guid
-import result
-import responses
-from utils import has_flag, get_plot
+import choice.quest_guid as quest_guid
+import choice.result as result
+import choice.responses as responses
+from choice.utils import has_flag, get_plot
 
 class fight:
 	ORDER = 0
@@ -28,6 +28,9 @@ class fight:
 
 	NO = "Didn't help Redcliffe fight"
 	YES = "Helped Redcliffe fight"
+
+	def __init__(self):
+		raise NotImplementedError
 
 	@staticmethod
 	def get_result(data):
@@ -53,6 +56,9 @@ class prepare:
 
 	NO = "Didn't help Redcliffe prepare"
 	YES = "Helped Redcliffe prepare"
+
+	def __init__(self):
+		raise NotImplementedError
 
 	@staticmethod
 	def get_result(data):
@@ -80,6 +86,9 @@ class connor:
 	DEAD = "Connor died"
 	SAFE = "Connor alive, not possessed"
 	POSSESSED = "Connor alive, possessed"
+
+	def __init__(self):
+		raise NotImplementedError
 
 	@staticmethod
 	def get_result(data):
@@ -119,6 +128,9 @@ class bella:
 	BREWERY = "Bella left to start a brewery"
 	DIED = "Bella died in Redcliffe"
 
+	def __init__(self):
+		raise NotImplementedError
+
 	@staticmethod
 	def get_result(data):
 		response = responses.side_quest_response(bella.ORDER, bella.TITLE)
@@ -157,6 +169,9 @@ class bevin:
 	SCARED = "Scared Bevin back to Chantry"
 	FREED_RETRUNED = "Freed Bevin & returned sword"
 
+	def __init__(self):
+		raise NotImplementedError
+
 	@staticmethod
 	def get_result(data):
 		response = responses.side_quest_response(bevin.ORDER, bevin.TITLE)
@@ -191,6 +206,9 @@ class valena:
 	NO_RESCUE = "Never rescued Owen's daughter"
 	RESCUE = "Helped Owen's daughter escape"
 
+	def __init__(self):
+		raise NotImplementedError
+
 	@staticmethod
 	def get_result(data):
 		response = responses.side_quest_response(valena.ORDER, valena.TITLE)
@@ -214,6 +232,9 @@ class isolde:
 
 	ALIVE = "Isolde is alive"
 	SACRIFICED = "Isolde sacrificed herself"
+
+	def __init__(self):
+		raise NotImplementedError
 
 	@staticmethod
 	def get_result(data):

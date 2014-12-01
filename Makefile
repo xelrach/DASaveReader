@@ -16,4 +16,4 @@ lint:
 	pylint -E choice *.py
 
 test:
-	python choice/test_suite.py
+	python test_suite.py

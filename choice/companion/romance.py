@@ -12,34 +12,28 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""The Urn of Sacred Ashes choices"""
+"""Functions for romance choices"""
 
 import choice.quest_guid as quest_guid
-import choice.responses as responses
 from choice.utils import has_flag, get_plot
 
-class urn:
-	ORDER = 0
-	TITLE = "Did the Warden poison the Urn of Sacred Ashes?"
+DUMPED_FLAG = 13
+ACTIVE_FLAG = 21
+CUT_OFF_FLAG = 27
 
-	POORED_BLOOD_FLAG = 8
-	CULT_FLAG = 0
+def morrigan_romanced(data):
+	morrigan_data = get_plot(data, quest_guid.APPROVAL_MORRIGAN)
+	return has_flag(morrigan_data, ACTIVE_FLAG)
 
-	NOT_POISONED = "Urn not poisoned"
-	POISONED = "Urn poisoned"
+def alistair_romanced(data):
+	alistair_data = get_plot(data, quest_guid.APPROVAL_ALISTAIR)
+	return has_flag(alistair_data, ACTIVE_FLAG)
 
-	def __init__(self):
-		raise NotImplementedError
 
-	@staticmethod
-	def get_result(data):
-		response = responses.side_quest_response(urn.ORDER, urn.TITLE)
+def leliana_romanced(data):
+	leliana_data = get_plot(data, quest_guid.APPROVAL_LELIANA)
+	return  has_flag(leliana_data, ACTIVE_FLAG)
 
-		quest_data = get_plot(data, quest_guid.THE_HIGH_DRAGONS_CHAMPION)
-
-		if has_flag(quest_data, urn.CULT_FLAG):
-			response.result = urn.POISONED
-		else:
-			response.result = urn.NOT_POISONED
-
-		return response
+def zevran_romanced(data):
+	zevran_data = get_plot(data, quest_guid.APPROVAL_ZEVRAN)
+	return has_flag(zevran_data, ACTIVE_FLAG)

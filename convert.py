@@ -30,7 +30,7 @@ PLOT_FLAGS_3 = 16405
 PLOT_FLAGS_4 = 16406
 
 def convert_file(filename):
-  data, header = open_file(filename)
+  data, _ = open_file(filename)
   results = convert_data(data)
   return results
 
@@ -50,5 +50,5 @@ def convert_data(data):
   return results
 
 if __name__ == '__main__':
-  filename = sys.argv[1]
-  print(convert_file(filename))
+  save_filename = sys.argv[1]
+  print(convert_file(save_filename))

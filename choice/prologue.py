@@ -12,11 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Prolog choices
+"""Prologue choices"""
 
-import quest_guid
-import responses
-from utils import has_flag, get_plot
+import choice.quest_guid as quest_guid
+import choice.responses as responses
+from choice.utils import has_flag, get_plot
 
 class prisoner:
 	ORDER = 0
@@ -33,6 +33,9 @@ class prisoner:
 	FED_SHARED = "Fed Ostagar prisoner guard's lunch"
 	FED_BOUGHT = "Bought food to feed Ostagar prisoner"
 	STOLE = "Key stolen from Ostagar prisoner"
+
+	def __init__(self):
+		raise NotImplementedError
 
 	@staticmethod
 	def get_result(data):
@@ -68,6 +71,9 @@ class mabari:
 	NOTHING = "Didn't help mabari hound"
 	CURED = "Cured mabari hound"
 	KILLED = "Put mabari hound out of its misery"
+
+	def __init__(self):
+		raise NotImplementedError
 
 	@staticmethod
 	def get_result(data):

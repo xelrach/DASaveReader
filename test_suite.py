@@ -12,21 +12,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import inspect
-import os
+"""Test suite for running the test modules"""
+
+import importlib
 import pkgutil
-import sys
 import unittest
-
-sys.path.insert(0, os.path.abspath('.'))
-
 import choice
 
 def run():
 	subsuite_list = []
-	for importer, modname, ispkg in pkgutil.iter_modules(choice.__path__):
-		if modname.startswith("test_") and modname != "test_suite":
-			module = __import__(modname)
+	for _, modname, _ in pkgutil.iter_modules(choice.__path__):
+		if modname.startswith("test_"):
+			module = importlib.import_module('choice.' + modname)
 			subsuite = unittest.TestLoader().loadTestsFromModule(module)
 			subsuite_list.append(subsuite)
 	suite = unittest.TestSuite(subsuite_list)

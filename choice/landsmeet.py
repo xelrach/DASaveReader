@@ -12,43 +12,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Landsmeet choices
+"""Landsmeet choices"""
 
-import quest_guid
-import result
-import responses
-from utils import has_flag, get_plot
-import companions
+import choice.result as result
+import choice.responses as responses
 
-def alistair_executed(data):
-	quest_data = get_plot(data, quest_guid.THE_LANDSMEET)
-	return has_flag(quest_data, landsmeet.ALISTAIR_KILLED_FLAG)
-
-def alistair_king(data):
-	quest_data = get_plot(data, quest_guid.THE_LANDSMEET)
-	return has_flag(quest_data, landsmeet.ALISTAIR_FLAG) \
-			or has_flag(quest_data, landsmeet.ALISTAIR_ANORA_FLAG) \
-			or has_flag(quest_data, landsmeet.ALISTAIR_WARDEN_FLAG)
-
-def alistair_exiled(data):
-	quest_data = get_plot(data, quest_guid.THE_LANDSMEET)
-	return has_flag(quest_data, landsmeet.ALISTAIR_LEAVES_FOREVER_FLAG)
-
-def warden_queen(data):
-	quest_data = get_plot(data, quest_guid.THE_LANDSMEET)
-	return has_flag(quest_data, landsmeet.ALISTAIR_WARDEN_FLAG)
+import choice.companion.fate
+from choice.companion.landsmeet import alistair_king, alistair_king_alone, \
+		alistair_with_anora_queen, alistair_with_warden_queen, \
+		anora_queen_alone, anora_with_warden_king
 
 class landsmeet:
 	ORDER = 0
 	TITLE = "Who now rules Ferelden?"
-
-	ALISTAIR_FLAG = 1
-	ALISTAIR_ANORA_FLAG = 3
-	ANORA_FLAG = 4
-	ANORA_WARDEN_FLAG = 5
-	ALISTAIR_LEAVES_FOREVER_FLAG = 16
-	ALISTAIR_KILLED_FLAG = 17
-	ALISTAIR_WARDEN_FLAG = 56
 
 	ALISTAIR = "Alistair rules"
 	ALISTAIR_ANORA = "Alistair & Anora rule"
@@ -56,31 +32,29 @@ class landsmeet:
 	ANORA = "Anora rules"
 	ANORA_WARDEN = "Anora & the Warden rule"
 
+	def __init__(self):
+		raise NotImplementedError
+
 	@staticmethod
 	def get_result(data):
 		response = responses.side_quest_response(landsmeet.ORDER, landsmeet.TITLE)
 		response.result = result.DEFAULT
 
-		quest_data = get_plot(data, quest_guid.THE_LANDSMEET)
-
-		if companions.alistair_dead(data):
-				if has_flag(quest_data, landsmeet.ALISTAIR_FLAG) \
-						or has_flag(quest_data, landsmeet.ALISTAIR_ANORA_FLAG) \
-						or has_flag(quest_data, landsmeet.ANORA_FLAG) \
-						or has_flag(quest_data, landsmeet.ALISTAIR_WARDEN_FLAG):
+		if choice.companion.fate.alistair_dead(data):
+				if alistair_king(data) or anora_queen_alone(data):
 					response.result = landsmeet.ANORA
-				elif has_flag(quest_data, landsmeet.ANORA_WARDEN_FLAG):
+				elif anora_with_warden_king(data):
 					response.result = landsmeet.ANORA_WARDEN
 		else:
-				if has_flag(quest_data, landsmeet.ALISTAIR_FLAG):
+				if alistair_king_alone(data):
 					response.result = landsmeet.ALISTAIR
-				elif has_flag(quest_data, landsmeet.ALISTAIR_ANORA_FLAG):
+				elif alistair_with_anora_queen(data):
 					response.result = landsmeet.ALISTAIR_ANORA
-				elif has_flag(quest_data, landsmeet.ANORA_FLAG):
+				elif anora_queen_alone(data):
 					response.result = landsmeet.ANORA
-				elif has_flag(quest_data, landsmeet.ANORA_WARDEN_FLAG):
+				elif anora_with_warden_king(data):
 					response.result = landsmeet.ANORA_WARDEN
-				elif has_flag(quest_data, landsmeet.ALISTAIR_WARDEN_FLAG):
+				elif alistair_with_warden_queen(data):
 					response.result = landsmeet.ALISTAIR_WARDEN
 
 		return response

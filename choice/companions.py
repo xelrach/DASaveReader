@@ -12,48 +12,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Companion choices
+"""Companion choices"""
 
-import quest_guid
-import result
-import responses
-from utils import has_flag, get_plot
+import choice.quest_guid as quest_guid
+import choice.responses as responses
+from choice.utils import has_flag, get_plot
 
-import battle_denerim
-import circle
-import landsmeet
-import recruit
+import choice.circle as circle
+import choice.companion.landsmeet as landsmeet
+import choice.companion.recruit as recruit
+import choice.companion.fate as fate
+import choice.companion.romance as romance
 
-def morrgans_ritual_completed(data):
-	quest_data = get_plot(data, quest_guid.MORRIGANS_RITUAL)
-
-	return has_flag(quest_data, morrigan_baby.ALISTAIR_FLAG) \
-			or has_flag(quest_data, morrigan_baby.LOGHAIN_FLAG) \
-			or has_flag(quest_data, morrigan_baby.PC_FLAG)
-
-def alistair_died_killing_archdemon(data):
-	return battle_denerim.alistair_killed_archdemon(data) \
-			and not morrgans_ritual_completed(data)
-
-def alistair_dead(data):
-	return alistair_died_killing_archdemon(data) \
-			or landsmeet.alistair_executed(data)
-
-def morrigan_romanced(data):
-	morrigan_data = get_plot(data, quest_guid.APPROVAL_MORRIGAN)
-	return has_flag(morrigan_data, romance.ACTIVE_FLAG)
-
-def alistair_romanced(data):
-	alistair_data = get_plot(data, quest_guid.APPROVAL_ALISTAIR)
-	return has_flag(alistair_data, romance.ACTIVE_FLAG)
-
-class romance:
+class warden_romance:
 	ORDER = 0
 	TITLE = "Whom did the Warden romance?"
-
-	DUMPED_FLAG = 13
-	ACTIVE_FLAG = 21
-	CUT_OFF_FLAG = 27
 
 	ALISTAIR = "Romanced Alistair"
 	MORRIGAN = "Romanced Morrigan"
@@ -61,23 +34,24 @@ class romance:
 	ZEVRAN = "Romanced Zevran"
 	NONE = "No one romanced"
 
+	def __init__(self):
+		raise NotImplementedError
+
 	@staticmethod
 	def get_result(data):
-		response = responses.side_quest_response(romance.ORDER, romance.TITLE)
+		response = responses.side_quest_response(warden_romance.ORDER, \
+				warden_romance.TITLE)
 
-		leliana_data = get_plot(data, quest_guid.APPROVAL_LELIANA)
-		zevran_data = get_plot(data, quest_guid.APPROVAL_ZEVRAN)
-
-		if morrigan_romanced(data):
-			response.result = romance.MORRIGAN
-		elif alistair_romanced(data):
-			response.result = romance.ALISTAIR
-		elif has_flag(leliana_data, romance.ACTIVE_FLAG):
-			response.result = romance.LELIANA
-		elif has_flag(zevran_data, romance.ACTIVE_FLAG):
-			response.result = romance.ZEVRAN
+		if romance.morrigan_romanced(data):
+			response.result = warden_romance.MORRIGAN
+		elif romance.alistair_romanced(data):
+			response.result = warden_romance.ALISTAIR
+		elif romance.leliana_romanced(data):
+			response.result = warden_romance.LELIANA
+		elif romance.zevran_romanced(data):
+			response.result = warden_romance.ZEVRAN
 		else:
-			response.result = romance.NONE
+			response.result = warden_romance.NONE
 
 		return response
 
@@ -87,6 +61,9 @@ class dog_recruit:
 
 	NO = "Didn't recruit Dog"
 	YES = "Recruited Dog"
+
+	def __init__(self):
+		raise NotImplementedError
 
 	@staticmethod
 	def get_result(data):
@@ -115,6 +92,9 @@ class sten_free:
 	PERSUATION = "Persuaded Revered Mother to free Sten"
 	COERCE = "Intimidated Revered Mother to free Sten"
 
+	def __init__(self):
+		raise NotImplementedError
+
 	@staticmethod
 	def get_result(data):
 		response = responses.side_quest_response(sten_free.ORDER, sten_free.TITLE)
@@ -142,6 +122,9 @@ class sten_recruit:
 	NO = "Didn't recruit Sten"
 	YES = "Recruited Sten"
 
+	def __init__(self):
+		raise NotImplementedError
+
 	@staticmethod
 	def get_result(data):
 		response = responses.side_quest_response(sten_recruit.ORDER, \
@@ -163,6 +146,9 @@ class sten_sword:
 	NOT_RECRUITED = "Didn't recruit Sten"
 	NO = "Didn't return Sten's sword"
 	YES = "Returned Sten's sword"
+
+	def __init__(self):
+		raise NotImplementedError
 
 	@staticmethod
 	def get_result(data):
@@ -189,6 +175,9 @@ class wynne_recruit:
 	NO = "Didn't recruit Wynne"
 	YES = "Recruited Wynne"
 
+	def __init__(self):
+		raise NotImplementedError
+
 	@staticmethod
 	def get_result(data):
 		response = responses.side_quest_response(wynne_recruit.ORDER, \
@@ -210,6 +199,9 @@ class wynne_fate:
 	DIED_BROKEN_CIRCLE = "Wynne died at Broken Circle"
 	WARDEN_KILLED = "Warden killed Wynne"
 
+	def __init__(self):
+		raise NotImplementedError
+
 	@staticmethod
 	def get_result(data):
 		response = responses.side_quest_response(wynne_fate.ORDER, \
@@ -230,30 +222,27 @@ class morrigan_baby:
 	ORDER = 11
 	TITLE = "Did Morrigan have a baby?"
 
-	ALISTAIR_FLAG = 2
-	PC_FLAG = 4
-	LOGHAIN_FLAG = 12
-
 	NO = "Morrigan did not have a baby"
 	WARDEN_OLD_GOD = "Morrigan had an old god baby with the Warden"
 	ALISTAIR_OLD_GOD = "Morrigan had an old god baby with Alistair"
 	LOGHAIN_OLD_GOD = "Morrigan had an old god baby with Loghain"
 	WARDEN_HUMAN = "Morrigan had a human baby with the Warden"
 
+	def __init__(self):
+		raise NotImplementedError
+
 	@staticmethod
 	def get_result(data):
 		response = responses.side_quest_response(morrigan_baby.ORDER, \
 				morrigan_baby.TITLE)
 
-		quest_data = get_plot(data, quest_guid.MORRIGANS_RITUAL)
-
-		if has_flag(quest_data, morrigan_baby.ALISTAIR_FLAG):
+		if fate.old_god_baby_alistair(data):
 			response.result = morrigan_baby.ALISTAIR_OLD_GOD
-		elif has_flag(quest_data, morrigan_baby.LOGHAIN_FLAG):
+		elif fate.old_god_baby_loghain(data):
 			response.result = morrigan_baby.LOGHAIN_OLD_GOD
-		elif has_flag(quest_data, morrigan_baby.PC_FLAG):
+		elif fate.old_god_baby_warden(data):
 			response.result = morrigan_baby.WARDEN_OLD_GOD
-		elif morrigan_romanced(data):
+		elif romance.morrigan_romanced(data):
 			response.result = morrigan_baby.WARDEN_HUMAN
 		else:
 			response.result = morrigan_baby.NO
@@ -276,6 +265,9 @@ class loghain:
 	ARCHDEMON = "Loghain died killing Archdemon"
 	ALIVE = "Loghain alive & well"
 
+	def __init__(self):
+		raise NotImplementedError
+
 	@staticmethod
 	def get_result(data):
 		response = responses.side_quest_response(loghain.ORDER, loghain.TITLE)
@@ -289,8 +281,8 @@ class loghain:
 		elif has_flag(quest_data, loghain.ALISTAIR_DUEL_FLAG) \
 				and has_flag(quest_data, loghain.KILLED_FLAG):
 			response.result = loghain.ALISTAIR_DUEL
-		elif battle_denerim.loghain_killed_archdemon(data) \
-				and not morrgans_ritual_completed(data):
+		elif fate.loghain_killed_archdemon(data) \
+				and not fate.morrigans_ritual_completed(data):
 			response.result = loghain.ARCHDEMON
 		else:
 			response.result = loghain.ALIVE
@@ -303,6 +295,9 @@ class oghren_recruit:
 
 	NO = "Didn't recruit Oghren"
 	YES = "Recruited Oghren"
+
+	def __init__(self):
+		raise NotImplementedError
 
 	@staticmethod
 	def get_result(data):
@@ -322,6 +317,9 @@ class zevran_recruit:
 
 	NO = "Didn't recruit Zevran"
 	YES = "Recruited Zevran"
+
+	def __init__(self):
+		raise NotImplementedError
 
 	@staticmethod
 	def get_result(data):
@@ -344,6 +342,9 @@ class zevran_fate:
 
 	DEAD = "Zevran died"
 	ALIVE = "Zevran alive & well"
+
+	def __init__(self):
+		raise NotImplementedError
 
 	@staticmethod
 	def get_result(data):
@@ -370,12 +371,15 @@ class alistair_fate:
 	WARDEN = "Alistair stayed with Wardens"
 	DRUNK = "Alistair became a drunk"
 
+	def __init__(self):
+		raise NotImplementedError
+
 	@staticmethod
 	def get_result(data):
 		response = responses.side_quest_response(alistair_fate.ORDER, \
 				alistair_fate.TITLE)
 
-		if alistair_died_killing_archdemon(data):
+		if fate.alistair_died_killing_archdemon(data):
 			response.result = alistair_fate.DIED_ARCHDEMON
 		elif landsmeet.alistair_executed(data):
 			response.result = alistair_fate.DIED_EXECUTED
@@ -400,6 +404,9 @@ class alistair_mistress:
 	QUEEN = "Warden is Alistair's Queen"
 	WARDENS = "Remained with Grey Wardens and the Warden"
 
+	def __init__(self):
+		raise NotImplementedError
+
 	@staticmethod
 	def get_result(data):
 		response = responses.side_quest_response(alistair_mistress.ORDER, \
@@ -407,9 +414,9 @@ class alistair_mistress:
 
 		quest_data = get_plot(data, quest_guid.LANDSMEET_ALISTAIR)
 
-		if alistair_romanced(data) and not alistair_dead(data):
+		if romance.alistair_romanced(data) and not fate.alistair_dead(data):
 			if landsmeet.alistair_king(data):
-				if landsmeet.warden_queen(data):
+				if landsmeet.alistair_with_warden_queen(data):
 					response.result = alistair_mistress.QUEEN
 				elif has_flag(quest_data, alistair_mistress.NOT_MISTRESS_FLAG):
 					response.result = alistair_mistress.NOT_MISTRESS
@@ -434,6 +441,9 @@ class leliana_fate:
 	ALIVE = "Leliana alive & well"
 	KILLED = "Killed Leliana after poisoning the Urn"
 	LEFT = "Leliana Left"
+
+	def __init__(self):
+		raise NotImplementedError
 
 	@staticmethod
 	def get_result(data):
@@ -463,6 +473,9 @@ class grimoire:
 	NO = "Did not acquire grimoire"
 	PEACEFUL = "Acquired grimoire peacefully"
 	VIOLENT = "Acquired grimoire by defeating Flemeth"
+
+	def __init__(self):
+		raise NotImplementedError
 
 	@staticmethod
 	def get_result(data):

@@ -17,13 +17,13 @@
 import importlib
 import pkgutil
 import unittest
-import choice
+import test
 
 def run():
 	subsuite_list = []
-	for _, modname, _ in pkgutil.iter_modules(choice.__path__):
+	for _, modname, _ in pkgutil.iter_modules(test.__path__):
 		if modname.startswith("test_"):
-			module = importlib.import_module('choice.' + modname)
+			module = importlib.import_module('test.' + modname)
 			subsuite = unittest.TestLoader().loadTestsFromModule(module)
 			subsuite_list.append(subsuite)
 	suite = unittest.TestSuite(subsuite_list)

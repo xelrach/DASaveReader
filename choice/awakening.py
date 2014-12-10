@@ -101,7 +101,7 @@ class nathaniel_fate:
 
 		if has_flag(quest_data, nathaniel_fate.HANGED_FLAG) \
 				or has_flag(quest_data, nathaniel_fate.KILLED_FLAG):
-				response.result = nathaniel_fate.DEAD
+			response.result = nathaniel_fate.DEAD
 		else:
 			response.result = nathaniel_fate.ALIVE
 

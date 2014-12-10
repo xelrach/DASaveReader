@@ -12,8 +12,8 @@ zip: lint test clean
 	zip -qr dist/DASaveReader-$(VERSION).zip DASaveReader
 	@echo "ZIP created"
 
-lint:
+lint: clean
 	pylint -E choice *.py
 
-test:
+test: clean
 	python test_suite.py

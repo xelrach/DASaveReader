@@ -41,20 +41,20 @@ class landsmeet:
 		response.result = result.DEFAULT
 
 		if choice.companion.fate.alistair_dead(data):
-				if alistair_king(data) or anora_queen_alone(data):
-					response.result = landsmeet.ANORA
-				elif anora_with_warden_king(data):
-					response.result = landsmeet.ANORA_WARDEN
+			if alistair_king(data) or anora_queen_alone(data):
+				response.result = landsmeet.ANORA
+			elif anora_with_warden_king(data):
+				response.result = landsmeet.ANORA_WARDEN
 		else:
-				if alistair_king_alone(data):
-					response.result = landsmeet.ALISTAIR
-				elif alistair_with_anora_queen(data):
-					response.result = landsmeet.ALISTAIR_ANORA
-				elif anora_queen_alone(data):
-					response.result = landsmeet.ANORA
-				elif anora_with_warden_king(data):
-					response.result = landsmeet.ANORA_WARDEN
-				elif alistair_with_warden_queen(data):
-					response.result = landsmeet.ALISTAIR_WARDEN
+			if alistair_king_alone(data):
+				response.result = landsmeet.ALISTAIR
+			elif alistair_with_anora_queen(data):
+				response.result = landsmeet.ALISTAIR_ANORA
+			elif anora_queen_alone(data):
+				response.result = landsmeet.ANORA
+			elif anora_with_warden_king(data):
+				response.result = landsmeet.ANORA_WARDEN
+			elif alistair_with_warden_queen(data):
+				response.result = landsmeet.ALISTAIR_WARDEN
 
 		return response

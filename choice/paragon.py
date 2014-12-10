@@ -48,7 +48,7 @@ class anvil_of_the_void:
 		elif has_flag(quest_data, anvil_of_the_void.BRANKA_SUICIDE_FLAG):
 			response.result = anvil_of_the_void.BRNKA_SUICIDE
 		elif has_flag(quest_data, anvil_of_the_void.BRANKA_KILLED_FLAG):
-		    response.result = anvil_of_the_void.BRANKA_DEFEATED
+			response.result = anvil_of_the_void.BRANKA_DEFEATED
 		else:
 			response.result = result.DEFAULT
 
@@ -256,9 +256,9 @@ class dagna:
 		return response
 
 def slept_with_mardy(data):
-		quest_data = get_plot(data, quest_guid.NOBLE_HUNTERS)
-		return has_flag(quest_data, mardy.SEX_MARDY_FLAG) \
-				or has_flag(quest_data, mardy.SEX_BOTH_FLAG)
+	quest_data = get_plot(data, quest_guid.NOBLE_HUNTERS)
+	return has_flag(quest_data, mardy.SEX_MARDY_FLAG) \
+		or has_flag(quest_data, mardy.SEX_BOTH_FLAG)
 
 class mardy:
 	ORDER = 4

@@ -20,6 +20,7 @@ import unittest
 import test
 
 def run():
+	"""Runs all of the tests"""
 	subsuite_list = []
 	for _, modname, _ in pkgutil.iter_modules(test.__path__):
 		if modname.startswith("test_"):

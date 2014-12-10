@@ -25,11 +25,13 @@ class quest_result:
 		self.results = results
 
 def read(filename):
+	"""Reads a save file and returns the choices made"""
 	data = convert.convert_file(filename)
 	results = get_results(data)
 	return results
 
 def format_results(results):
+	"""Formats the results for CLI output"""
 	formatted = ""
 	for result in results:
 		formatted += result.name + "\n"
@@ -39,12 +41,13 @@ def format_results(results):
 		formatted += "\n"
 	return formatted
 
-
 def get_results(data):
+	"""Takes a dict of GUID to plot and returns the choices that were made"""
 	results = []
 	quests = inspect.getmembers(choice.quests, inspect.isclass)
 	for _, quest in quests:
-		results.append(quest_result(quest.get_name(), quest.ORDER, choice.quests.get_quest_results(data, quest)))
+		results.append(quest_result(quest.get_name(), quest.ORDER, \
+				choice.quests.get_quest_results(data, quest)))
 	results.sort(key = lambda result: result.order)
 
 	return results

@@ -1,27 +1,29 @@
+from __future__ import print_function
+
 from warnings import warn
 from functools import partial
-from gff4 import *
+from .gff4 import *
 from array import array
 
 class LazyStructure(object):
     def __init__(self, *args, **kwargs):
         self._changed = set()
         super(LazyStructure, self).__init__(*args, **kwargs)
-    
+
     def __getitem__(self, key):
         value = super(LazyStructure, self).__getitem__(key)
         if isinstance(value, partial):
             value = value()
             self._dict[key] = value
         return value
-    
+
     def __setitem__(self, key, value):
         super(LazyStructure, self).__setitem__(key, value)
         self._changed.add(key)
-    
+
     def isloaded(self, key):
         return key in self._dict and not isinstance(self._dict[key], partial)
-    
+
     def ischanged(self, key):
         return key in self._changed
 
@@ -31,7 +33,7 @@ class LazyList(object):
         self._offsets = []
         self._original_size = 0
         super(LazyList, self).__init__(*args, **kwargs)
-    
+
     def __getitem__(self, i):
         value = super(LazyList, self).__getitem__(i)
         if isinstance(i, slice):
@@ -41,7 +43,7 @@ class LazyList(object):
             value = value()
             self._list[i] = value
         return value
-    
+
     def __setitem__(self, i, value):
         super(LazyList, self).__setitem__(i, value)
         self._changed = True
@@ -49,17 +51,17 @@ class LazyList(object):
             self._offsets[i] = [None]*len(value)
         else:
             self._offsets[i] = None
-    
+
     def __delitem__(self, i):
         super(LazyList, self).__delitem__(i)
         self._changed = True
         del self._offsets[i]
-    
+
     def insert(self, i, value):
         super(LazyList, self).insert(i, value)
         self._changed = True
         self._offsets.insert(i, None)
-    
+
     def _append(self, value, offset):
         self._list.append(value)
         self._offsets.append(offset)
@@ -72,12 +74,12 @@ class LazyGFF4(object):
         self._headerdata = f.read(self.oldheader.string_offset)
         self._bigendian = isbeplatform(self.oldheader.platform)
         version = real_version(self.oldheader.version, self.oldheader.platform)
-        self.use_cstring = (version >= 'V4.1')
+        self.use_cstring = (version >= b'V4.1')
         self._preload_embedded_structs = True
         self._preload_references = preload
         self._off2obj = dict()
         self._objid2off = dict()
-        
+
         headerstructs = self.oldheader.structs
         structrange = xrange(len(headerstructs))
         queue = set(structrange)
@@ -100,7 +102,7 @@ class LazyGFF4(object):
             elif issubclass(kind, Structure):
                 kind = make_structure(headerstructs.index(kind))
             elif kind is None and not field.indirect:
-                raise ValueError, 'Cannot have a generic field that is not a reference'
+                raise ValueError('Cannot have a generic field that is not a reference')
             return Field(field.label, kind, field.indirect, field.offset)
         def make_structure(i, root=False):
             if not root:
@@ -108,17 +110,17 @@ class LazyGFF4(object):
             if i not in structs:
                 oldstruct = headerstructs[i]
                 struct = type(oldstruct.__name__+'Lazy', (LazyStructure, oldstruct), dict(__slots__=()))
-                
+
                 structs[i] = struct
                 queue.remove(i)
-                
+
                 fields = tuple(make_field(field) for field in oldstruct.fields)
                 fieldsbylabel = dict((field.label, field) for field in fields)
                 def getfieldbylabel(self, label):
                     return fieldsbylabel[label]
                 struct.fields = fields
                 struct.getfieldbylabel = getfieldbylabel
-                
+
                 return struct
             else:
                 return structs[i]
@@ -127,7 +129,7 @@ class LazyGFF4(object):
         self._header = self.oldheader._replace(structs=tuple(structs[i] for i in structrange))
         self.roots = set(structrange).difference(not_roots)
         self._root = None
-        
+
         if self.use_cstring:
             f.seek(self.header.string_offset)
             strings = f.read(self.header.data_offset - self.header.string_offset)
@@ -137,10 +139,10 @@ class LazyGFF4(object):
             self.stringcache = [s.decode('utf-8') for s in strings]
         else:
             self.stringcache = dict()
-        
+
         f.seek(self.header.data_offset)
         self._data = f.read()
-    
+
     @property
     def root(self):
         if self._root is None:
@@ -148,11 +150,11 @@ class LazyGFF4(object):
             root.gff = self
             root.header = self._header
         return self._root
-    
+
     @property
     def header(self):
         return self._header
-    
+
     def __getitem__(self, i):
         if i == 0:
             return self.header
@@ -160,10 +162,10 @@ class LazyGFF4(object):
             return self.root
         else:
             raise IndexError
-    
+
     def __len__(self):
         return 2
-    
+
     def __iter__(self):
         yield self.header
         yield self.root
@@ -193,20 +195,20 @@ class LazyGFF4(object):
                 return self._defer_struct(fieldtype, offset)
         else:
             return self._read_value(fieldtype, offset)
-    
+
     def _read_list(self, listtype, offset):
         elemtype = listtype.elem_type
         bigendian = self._bigendian
-        
+
         #print f.tell(), elemtype, listtype.indirect
-        
+
         length, = UINT32.format[bigendian].unpack_from(self._data, offset)
         elem_offset = offset + UINT32.size
         res = listtype()
         res._original_size = length
         self._off2obj[offset] = res
         self._objid2off[id(res)] = offset
-        
+
         if listtype.indirect:
             if elemtype is None:
                 for i in xrange(length):
@@ -247,7 +249,7 @@ class LazyGFF4(object):
                 res._append(self._read_value(elemtype, elem_offset), elem_offset)
                 elem_offset += elemtype.size
         return res
-    
+
     def _read_reference(self, reftype, offset):
         if reftype is None:
             g_ref = self._read_generic(offset)
@@ -288,13 +290,13 @@ class LazyGFF4(object):
                 return TlkString(label, 0)
         else:
             return datatype(*datatype.format[self._bigendian].unpack_from(self._data, offset))
-    
+
     def _read_string(self, offset, tlk=None):
         if self.use_cstring:
             try:
                 s = self.stringcache[offset]
             except IndexError:
-                raise IndexError, ('list index out of range', offset, len(self.stringcache))
+                raise IndexError('list index out of range', offset, len(self.stringcache))
         else:
             try:
                 s = self.stringcache[offset]
@@ -312,51 +314,51 @@ class LazyGFF4(object):
         type_flags, type_id = type_id >> 16, type_id & 0xffff
         is_list, is_struct, is_reference = unpack_flags(type_flags, address != 0xFFFFFFFF)
         return Generic(type_id, is_list, is_struct, is_reference, address)
-    
+
     def _defer_struct(self, structtype, offset):
         if self._preload_references:
             return self._read_struct(structtype, offset)
         else:
             return partial(self._read_struct, structtype, offset)
-    
+
     def _defer_list(self, listtype, offset):
         if self._preload_references:
             return self._read_list(listtype, offset)
         else:
             return partial(self._read_list, listtype, offset)
-    
+
     def _defer_value(self, datatype, offset):
         if self._preload_references:
             return self._read_value(datatype, offset)
         else:
             return partial(self._read_value, datatype, offset)
-    
+
     def _defer_string(self, offset, tlk=None):
         if self._preload_references:
             return self._read_string(offset, tlk)
         else:
             return partial(self._read_string, offset, tlk)
-    
+
     def tofile(self, f):
         if self.use_cstring:
             string_list = list(self.stringcache)
             string_cache = dict((s, i) for i, s in enumerate(self.stringcache))
         else:
             string_cache = dict()
-        
+
         def_align = 4
         data_section = array('c', self._data)
         header = self.header
         version = real_version(header.version, header.platform)
         bigendian = self._bigendian
-        
+
         type2struct = dict()
         for i, struct in enumerate(header.structs):
             if struct.fourcc in type2struct:
-                raise ValueError, 'Does not support different struct definitions with the same label'
+                raise ValueError('Does not support different struct definitions with the same label')
             else:
                 type2struct[struct.fourcc] = i
-        
+
         def align_end(align=def_align):
             offset = len(data_section)
             if offset % align:
@@ -364,7 +366,7 @@ class LazyGFF4(object):
                 data_section.extend(repeat('\xFF', padding))
                 offset += padding
             return offset
-        
+
         def allocate(size, align=def_align):
             offset = len(data_section)
             if offset % align:
@@ -417,7 +419,7 @@ class LazyGFF4(object):
                 else:
                     elem_size = datatype.size
                 size = 4 + len(data) * elem_size
-                
+
                 data_changed = data._changed if hasattr(data, '_changed') else True
                 address = self._objid2off.get(id(data))
                 in_data = address is not None
@@ -427,14 +429,14 @@ class LazyGFF4(object):
                     else:
                         address = align_end()
                     changed = True
-                
+
                 if data_changed or not in_data:
                     #print 'full list rebuild'
                     UINT32.format[bigendian].pack_into(data_section, address, len(data))
                     elem_start = address + UINT32.size
                     elem_end = address + size
                     elem_offsets = xrange(elem_start, elem_end, elem_size)
-                    
+
                     if data.indirect:
                         if datatype is None:
                             def write(datatype, item, elem_offset, elem_changed):
@@ -449,12 +451,12 @@ class LazyGFF4(object):
                         def write(datatype, item, elem_offset, elem_changed):
                             if elem_changed:
                                 write_value(datatype, item, elem_offset)
-                    
+
                     if in_data:
                         orig_offsets = data._offsets
                     else:
                         orig_offsets = [None] * len(data)
-                    
+
                     for elem_offset, orig_offset, item in zip(elem_offsets, orig_offsets, data._list):
                         elem_changed = True
                         if orig_offset is None and issubclass(datatype, Structure):
@@ -474,12 +476,12 @@ class LazyGFF4(object):
                                 #print 'unwrapping'
                                 item = item()
                         write(datatype, item, elem_offset, elem_changed)
-                
+
                 else:
                     if changed:
                         #print 'list copy and save'
                         data_section.extend(self._data[address:address+size])
-                    
+
                     if data.indirect:
                         if datatype is None:
                             def write(datatype, item, elem_offset):
@@ -492,12 +494,12 @@ class LazyGFF4(object):
                             write_struct(datatype, item, elem_offset, False)
                     else:
                         write = None
-                    
+
                     if write is not None:
                         for orig_offset, item in zip(data._offsets, data._list):
                             if not isinstance(item, partial):
                                 write(datatype, item, orig_offset)
-                
+
                 if changed:
                     UINT32.format[bigendian].pack_into(data_section, offset, address)
 
@@ -542,7 +544,7 @@ class LazyGFF4(object):
                     if datatype is not ECString:
                         address = allocate(datatype.size)
                         write_value(datatype, data, address)
-                    else: 
+                    else:
                         address = cache_string(data, datatype)
                     Generic.format[bigendian].pack_into(data_section, offset, datatype.id, address)
                 elif type(data) is Generic:
@@ -574,7 +576,7 @@ class LazyGFF4(object):
                     Reference.format[bigendian].pack_into(data_section, offset, address)
             elif isinstance(data, Structure):
                 write_struct(datatype, data, self._objid2off[id(data)], False)
-        
+
         if self.use_cstring:
             def cache_string(data, datatype):
                 data = unicode(data).replace(u'\0', '')
@@ -600,13 +602,13 @@ class LazyGFF4(object):
                 data_section.extend(UINT32.format[bigendian].pack(len(data)))
                 data_section.extend(data.encode('utf_16le'))
                 return offset
-        
+
         #import time
         #start = time.time()
         write_struct(type(self.root), self.root, 0, False)
         #print 'finished building data'
         #data_finish = time.time()
-        
+
         if self.use_cstring:
             string_section = array('c')
             for s in string_list:
@@ -615,19 +617,19 @@ class LazyGFF4(object):
         else:
             string_section = ''
         #string_finish = time.time()
-        
+
         header_section = array('c', self._headerdata)
         string_offset = len(header_section)
         data_offset = string_offset + len(string_section)
         if data_offset % 16:
             data_offset += 16 - data_offset % 16
-        
+
         if version == 'V4.0':
             Header40Format[bigendian].pack_into(header_section, 12, header.file_type, header.file_version, len(header.structs), data_offset)
         elif version == 'V4.1':
             Header41Format[bigendian].pack_into(header_section, 12, header.file_type, header.file_version, len(header.structs), len(string_list), string_offset, data_offset)
         #header_finish = time.time()
-        
+
         f.write(header_section.tostring())
         if self.use_cstring:
             f.seek(string_offset)
@@ -639,40 +641,40 @@ class LazyGFF4(object):
         #print data_finish - start, string_finish - data_finish, header_finish - string_finish, write_finish - header_finish
 
 if __name__ == '__main__':
-    import sys, gff4
-    from gff4 import write_gff4, read_gff4
-    from cStringIO import StringIO
+    import sys
+    from .gff4 import write_gff4, read_gff4, _DEBUG_COMPARISONS
+    from io import BytesIO
     from time import clock
-    
+
     filename = sys.argv[1]
-    
-    gff4._DEBUG_COMPARISONS = True
-    
+
+    _DEBUG_COMPARISONS = True
+
     t = clock()
     with open(filename, 'rb') as f:
-        mem = StringIO(f.read())
-    print 'file read in %.2f seconds'%(clock()-t)
-    
+        mem = BytesIO(f.read())
+    print('file read in %.2f seconds' % (clock() - t))
+
     t = clock()
     gff = LazyGFF4(mem)
     data, header = gff.root, gff.header
-    print 'data loaded in %.2f seconds'%(clock()-t)
-    
+    print('data loaded in %.2f seconds' % (clock() - t))
+
     #from gff4.toyaml import gff2yamlevents
     #import yaml
     #yaml.emit(gff2yamlevents(data, header, True), sys.stdout)
-    
+
     t = clock()
-    hold = StringIO()
+    hold = BytesIO()
     write_gff4(hold, data, header)
-    print 'data dumped in %.2f seconds'%(clock()-t)
-        
+    print('data dumped in %.2f seconds' % (clock() - t))
+
     t = clock()
     hold.seek(0)
     data2, header2 = read_gff4(hold)
-    print 'data reloaded in %.2f seconds'%(clock()-t)
-    
+    print('data reloaded in %.2f seconds' % (clock() - t))
+
     t = clock()
     if data != data2:
-        print 'data dumped is not the same as that that was loaded'
-    print 'data compared in %.2f seconds'%(clock()-t)
+        print('data dumped is not the same as that that was loaded')
+    print('data compared in %.2f seconds' % (clock() - t))

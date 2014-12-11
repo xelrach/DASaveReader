@@ -34,7 +34,7 @@ def get_quest_results(data, quest):
 	quest_results = []
 	for side_quest_name, side_quest in quest.get_side_quests():
 		result = side_quest.get_result(data)
-		if not isinstance(result.result, basestring):
+		if not isinstance(result.result, str):
 			raise ValueError('Result for quest "' + str(side_quest_name) + '" (' \
 					+ str(result.result) + ") is not a string, result=" + str(result))
 		quest_results.append(result)

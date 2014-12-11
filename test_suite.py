@@ -14,6 +14,8 @@
 
 """Test suite for running the test modules"""
 
+from __future__ import print_function
+
 import importlib
 import pkgutil
 import unittest

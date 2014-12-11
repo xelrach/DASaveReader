@@ -14,9 +14,11 @@
 
 """Convert a save file into a dict of plot GUIDs to flags"""
 
+from __future__ import print_function
+
 import sys
 from pygff.lazy import LazyGFF4
-from cStringIO import StringIO
+from io import BytesIO
 
 import choice.plot as plot
 
@@ -38,7 +40,7 @@ def convert_file(filename):
 def open_file(filename):
 	"""Open and parse a GFF file"""
 	with open(filename, 'rb') as handle:
-		mem = StringIO(handle.read())
+		mem = BytesIO(handle.read())
 	gff = LazyGFF4(mem)
 	return gff.root, gff.header
 

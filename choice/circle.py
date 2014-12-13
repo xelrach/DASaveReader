@@ -14,10 +14,10 @@
 
 """Broken Circle choices"""
 
-import quest_guid
-import result
-import responses
-from utils import has_flag, get_plot
+import choice.quest_guid as quest_guid
+import choice.result as result
+import choice.responses as responses
+from choice.utils import has_flag, get_plot
 
 def mages_dead(data):
 	circle_data = get_plot(data, quest_guid.BROKEN_CIRCLE)
@@ -40,6 +40,9 @@ class broken_circle:
 
 	MAGES = "Mages supported"
 	TEMPLARS = "Templars supported"
+
+	def __init__(self):
+		raise NotImplementedError
 
 	@staticmethod
 	def get_result(data):
@@ -66,6 +69,9 @@ class irving:
 	DEAD = "First Enchanter Irving died in battle"
 	ALIVE = "First Enchanter Irving survived battle"
 
+	def __init__(self):
+		raise NotImplementedError
+
 	@staticmethod
 	def get_result(data):
 		response = responses.side_quest_response(irving.ORDER, irving.TITLE)
@@ -88,6 +94,9 @@ class cullen:
 
 	NO = "Did not agree to Cullen's request"
 	YES = "Agreed to Cullen's request"
+
+	def __init__(self):
+		raise NotImplementedError
 
 	@staticmethod
 	def get_result(data):

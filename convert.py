@@ -14,11 +14,13 @@
 
 """Convert a save file into a dict of plot GUIDs to flags"""
 
+from __future__ import print_function
+
 import sys
 from pygff.lazy import LazyGFF4
-from cStringIO import StringIO
+from io import BytesIO
 
-import choice.plot
+import choice.plot as plot
 
 PARTY_LIST = 16003
 PLOT_MANAGER = 16400
@@ -30,25 +32,29 @@ PLOT_FLAGS_3 = 16405
 PLOT_FLAGS_4 = 16406
 
 def convert_file(filename):
-  data, header = open_file(filename)
-  results = convert_data(data)
-  return results
+	"""Open a save file and convert it into a dict of GUID to plot"""
+	data, _ = open_file(filename)
+	results = convert_data(data)
+	return results
 
 def open_file(filename):
-  with open(filename, 'rb') as f:
-      mem = StringIO(f.read())
-  gff = LazyGFF4(mem)
-  return gff.root, gff.header
+	"""Open and parse a GFF file"""
+	with open(filename, 'rb') as handle:
+		mem = BytesIO(handle.read())
+	gff = LazyGFF4(mem)
+	return gff.root, gff.header
 
 def convert_data(data):
-  results = {}
-  quests = data[PARTY_LIST][PLOT_MANAGER][PLOT_LIST]
-  for quest in quests:
-    guid = str(quest[PLOT_GUID]).rstrip("\0")
-    p = choice.plot.plot(quest[PLOT_FLAGS_1], quest[PLOT_FLAGS_2], quest[PLOT_FLAGS_3], quest[PLOT_FLAGS_4])
-    results[guid] = p
-  return results
+	"""Convert GFF data into a dict of GUID to plot"""
+	results = {}
+	quests = data[PARTY_LIST][PLOT_MANAGER][PLOT_LIST]
+	for quest in quests:
+		guid = str(quest[PLOT_GUID]).rstrip("\0")
+		saved_plot = plot.plot(quest[PLOT_FLAGS_1], quest[PLOT_FLAGS_2], quest[PLOT_FLAGS_3], \
+			quest[PLOT_FLAGS_4])
+		results[guid] = saved_plot
+	return results
 
 if __name__ == '__main__':
-  filename = sys.argv[1]
-  print(convert_file(filename))
+	save_filename = sys.argv[1]
+	print(convert_file(save_filename))

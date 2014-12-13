@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import plot
+import choice.plot as plot
 
 def has_flag(match_plot, flag):
 	if flag < 32:

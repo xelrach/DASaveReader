@@ -12,13 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Paragon of Her Kind and Orzammar choices
+"""Paragon of Her Kind and Orzammar choices"""
 
-import quest_guid
-import result
-import responses
-from utils import has_flag, get_plot
-import circle
+import choice.quest_guid as quest_guid
+import choice.result as result
+import choice.responses as responses
+from choice.utils import has_flag, get_plot
+
+import choice.circle as circle
 
 class anvil_of_the_void:
 	ORDER = 0
@@ -32,6 +33,9 @@ class anvil_of_the_void:
 	BRNKA_SUICIDE = "Branka ended her own life"
 	CARIDIN_DEFEATED = "Joined forces against Caridin"
 
+	def __init__(self):
+		raise NotImplementedError
+
 	@staticmethod
 	def get_result(data):
 		response = responses.side_quest_response(anvil_of_the_void.ORDER, \
@@ -44,7 +48,7 @@ class anvil_of_the_void:
 		elif has_flag(quest_data, anvil_of_the_void.BRANKA_SUICIDE_FLAG):
 			response.result = anvil_of_the_void.BRNKA_SUICIDE
 		elif has_flag(quest_data, anvil_of_the_void.BRANKA_KILLED_FLAG):
-		    response.result = anvil_of_the_void.BRANKA_DEFEATED
+			response.result = anvil_of_the_void.BRANKA_DEFEATED
 		else:
 			response.result = result.DEFAULT
 
@@ -60,6 +64,9 @@ class paragon_of_her_kind:
 
 	HARROWMONT = "Harrowmont rules Orzammar"
 	BHELEN = "Bhelen rules Orzammar"
+
+	def __init__(self):
+		raise NotImplementedError
 
 	@staticmethod
 	def get_result(data):
@@ -96,6 +103,9 @@ class filda:
 	KILLED_TRUTH = "Killed Ruck & told truth"
 	KILLED_HERO = "Killed Ruck, said he died heroically"
 
+	def __init__(self):
+		raise NotImplementedError
+
 	@staticmethod
 	def get_result(data):
 		response = responses.side_quest_response(filda.ORDER, filda.TITLE)
@@ -130,6 +140,9 @@ class the_chant_in_the_deeps:
 	NO = "Didn't help Burkel create Chantry"
 	YES = "Helped Burkel create Chantry"
 
+	def __init__(self):
+		raise NotImplementedError
+
 	@staticmethod
 	def get_result(data):
 		response = responses.side_quest_response(the_chant_in_the_deeps.ORDER, \
@@ -159,6 +172,9 @@ class zerlinda:
 	CHANTRY = "Zerlinda taken in by Burkel's chantry"
 	DEEP_ROADS = "Zerlinda left son in the Deep Roads"
 
+	def __init__(self):
+		raise NotImplementedError
+
 	@staticmethod
 	def get_result(data):
 		response = responses.side_quest_response(zerlinda.ORDER, zerlinda.TITLE)
@@ -186,6 +202,9 @@ class orta:
 
 	NO = "Didn't help Orta join Assembly"
 	YES = "Helped Orta join Assembly"
+
+	def __init__(self):
+		raise NotImplementedError
 
 	@staticmethod
 	def get_result(data):
@@ -215,6 +234,9 @@ class dagna:
 	CIRCLE = "Dagna left to study"
 	CIRCLE_DESTROYED = "Told Dagna the Circle destroyed"
 
+	def __init__(self):
+		raise NotImplementedError
+
 	@staticmethod
 	def get_result(data):
 		response = responses.side_quest_response(dagna.ORDER, dagna.TITLE)
@@ -234,9 +256,9 @@ class dagna:
 		return response
 
 def slept_with_mardy(data):
-		quest_data = get_plot(data, quest_guid.NOBLE_HUNTERS)
-		return has_flag(quest_data, mardy.SEX_MARDY_FLAG) \
-				or has_flag(quest_data, mardy.SEX_BOTH_FLAG)
+	quest_data = get_plot(data, quest_guid.NOBLE_HUNTERS)
+	return has_flag(quest_data, mardy.SEX_MARDY_FLAG) \
+		or has_flag(quest_data, mardy.SEX_BOTH_FLAG)
 
 class mardy:
 	ORDER = 4
@@ -250,6 +272,9 @@ class mardy:
 	NOTHING = "Didn't encounter Mardy"
 	NO = "Didn't have relations with Mardy"
 	YES = "Had relations with Mardy"
+
+	def __init__(self):
+		raise NotImplementedError
 
 	@staticmethod
 	def get_result(data):
@@ -279,6 +304,9 @@ class mardy_son:
 	YES = "Restored Mardy's son's birthright"
 	NO_MEET = "Didn't encounter Mardy's son"
 
+	def __init__(self):
+		raise NotImplementedError
+
 	@staticmethod
 	def get_result(data):
 		response = responses.side_quest_response(mardy_son.ORDER, mardy_son.TITLE)
@@ -307,6 +335,9 @@ class legion_of_dead:
 	NO = "Didn't prove Legion of Dead connected to noble house"
 	YES = "Proved Legion of Dead connected to noble house"
 
+	def __init__(self):
+		raise NotImplementedError
+
 	@staticmethod
 	def get_result(data):
 		response = responses.side_quest_response(legion_of_dead.ORDER, \
@@ -333,6 +364,9 @@ class shaperate_tome:
 	RETURNED = "Returned tome to Shaperate"
 	SOLD = "Sold tome to a fence"
 
+	def __init__(self):
+		raise NotImplementedError
+
 	@staticmethod
 	def get_result(data):
 		response = responses.side_quest_response(shaperate_tome.ORDER, \
@@ -357,6 +391,9 @@ class rogek:
 
 	NO = "Didn't complete Rogek's lyrium deal"
 	YES = "Completed Rogek's lyrium deal"
+
+	def __init__(self):
+		raise NotImplementedError
 
 	@staticmethod
 	def get_result(data):

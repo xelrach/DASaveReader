@@ -14,10 +14,10 @@
 
 """Witch Hunt choices"""
 
-import quest_guid
-import result
-import responses
-from utils import has_flag, get_plot
+import choice.quest_guid as quest_guid
+import choice.result as result
+import choice.responses as responses
+from choice.utils import has_flag, get_plot
 
 class witch_hunt:
 	ORDER = 0
@@ -30,6 +30,9 @@ class witch_hunt:
 	YES = "Went through the eluvian"
 	NO = "Didn't go through the eluvian"
 	STAB = "Warden stabbed Morrigan"
+
+	def __init__(self):
+		raise NotImplementedError
 
 	@staticmethod
 	def get_result(data):

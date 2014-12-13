@@ -20,7 +20,7 @@ class side_quest_response:
 	def __init__(self, order, title):
 		if not isinstance(order, numbers.Number):
 			raise ValueError(str(order) + " is not a number")
-		if not isinstance(title, basestring):
+		if not isinstance(title, str):
 			raise ValueError(str(title) + " is not a string")
 		self.order = order
 		self.title = title

@@ -14,27 +14,27 @@
 
 import inspect
 
-import awakening
-import battle_denerim
-import circle
-import companions
-import denerim
-import hero
-import landsmeet
-import nature
-import paragon
-import prologue
-import redcliffe
-import stone
-import urn
-import wardens_keep
-import witch_hunt
+import choice.awakening as awakening
+import choice.battle_denerim as battle_denerim
+import choice.circle as circle
+import choice.companions as companions
+import choice.denerim as denerim
+import choice.hero as hero
+import choice.landsmeet as landsmeet
+import choice.nature as nature
+import choice.paragon as paragon
+import choice.prologue as prologue
+import choice.redcliffe as redcliffe
+import choice.stone as stone
+import choice.urn as urn
+import choice.wardens_keep as wardens_keep
+import choice.witch_hunt as witch_hunt
 
 def get_quest_results(data, quest):
 	quest_results = []
 	for side_quest_name, side_quest in quest.get_side_quests():
 		result = side_quest.get_result(data)
-		if not isinstance(result.result, basestring):
+		if not isinstance(result.result, str):
 			raise ValueError('Result for quest "' + str(side_quest_name) + '" (' \
 					+ str(result.result) + ") is not a string, result=" + str(result))
 		quest_results.append(result)
@@ -44,6 +44,9 @@ def get_quest_results(data, quest):
 
 class Hero:
 	ORDER = 0
+
+	def __init__(self):
+		raise NotImplementedError
 
 	@staticmethod
 	def get_name():
@@ -56,6 +59,9 @@ class Hero:
 class Companions:
 	ORDER = 1
 
+	def __init__(self):
+		raise NotImplementedError
+
 	@staticmethod
 	def get_name():
 		return "Companions"
@@ -66,6 +72,9 @@ class Companions:
 
 class Prolog:
 	ORDER = 2
+
+	def __init__(self):
+		raise NotImplementedError
 
 	@staticmethod
 	def get_name():
@@ -78,6 +87,9 @@ class Prolog:
 class NatureOfTheBeast:
 	ORDER = 5
 
+	def __init__(self):
+		raise NotImplementedError
+
 	@staticmethod
 	def get_name():
 		return "Nature of the Beast"
@@ -88,6 +100,9 @@ class NatureOfTheBeast:
 
 class BrokenCircle:
 	ORDER = 7
+
+	def __init__(self):
+		raise NotImplementedError
 
 	@staticmethod
 	def get_name():
@@ -100,6 +115,9 @@ class BrokenCircle:
 class ParagonOfHerKind:
 	ORDER = 6
 
+	def __init__(self):
+		raise NotImplementedError
+
 	@staticmethod
 	def get_name():
 		return "A Paragon of Her Kind"
@@ -110,6 +128,9 @@ class ParagonOfHerKind:
 
 class TheArlOfRedcliff:
 	ORDER = 4
+
+	def __init__(self):
+		raise NotImplementedError
 
 	@staticmethod
 	def get_name():
@@ -122,6 +143,9 @@ class TheArlOfRedcliff:
 class TheUrnOfSacredAshes:
 	ORDER = 3
 
+	def __init__(self):
+		raise NotImplementedError
+
 	@staticmethod
 	def get_name():
 		return "The Urn Of Sacred Ashes"
@@ -132,6 +156,9 @@ class TheUrnOfSacredAshes:
 
 class Denerim:
 	ORDER = 8
+
+	def __init__(self):
+		raise NotImplementedError
 
 	@staticmethod
 	def get_name():
@@ -144,6 +171,9 @@ class Denerim:
 class Landsmeet:
 	ORDER = 9
 
+	def __init__(self):
+		raise NotImplementedError
+
 	@staticmethod
 	def get_name():
 		return "Landsmeet"
@@ -154,6 +184,9 @@ class Landsmeet:
 
 class BattleOfDenerim:
 	ORDER = 10
+
+	def __init__(self):
+		raise NotImplementedError
 
 	@staticmethod
 	def get_name():
@@ -166,6 +199,9 @@ class BattleOfDenerim:
 class Awakening:
 	ORDER = 11
 
+	def __init__(self):
+		raise NotImplementedError
+
 	@staticmethod
 	def get_name():
 		return "Awakening"
@@ -176,6 +212,9 @@ class Awakening:
 
 class WitchHunt:
 	ORDER = 12
+
+	def __init__(self):
+		raise NotImplementedError
 
 	@staticmethod
 	def get_name():
@@ -188,6 +227,9 @@ class WitchHunt:
 class WardensKeep:
 	ORDER = 13
 
+	def __init__(self):
+		raise NotImplementedError
+
 	@staticmethod
 	def get_name():
 		return "Warden's Keep"
@@ -198,6 +240,9 @@ class WardensKeep:
 
 class StonePrisoner:
 	ORDER = 14
+
+	def __init__(self):
+		raise NotImplementedError
 
 	@staticmethod
 	def get_name():

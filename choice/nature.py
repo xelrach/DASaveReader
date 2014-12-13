@@ -14,10 +14,10 @@
 
 """Nature of the Beast choices"""
 
-import quest_guid
-import result
-import responses
-from utils import has_flag, get_plot
+import choice.quest_guid as quest_guid
+import choice.result as result
+import choice.responses as responses
+from choice.utils import has_flag, get_plot
 
 class nature_of_the_beast:
 	ORDER = 0
@@ -30,6 +30,9 @@ class nature_of_the_beast:
 	PEACE = "Brokered peace"
 	WEREWOLVES = "Sided with werewolves"
 	ELVES = "Sided with elves"
+
+	def __init__(self):
+		raise NotImplementedError
 
 	@staticmethod
 	def get_result(data):
@@ -61,6 +64,9 @@ class cammen:
 	TOGETHER_FLAG = 4
 	BROKE_UP_2_FLAG = 29
 
+	def __init__(self):
+		raise NotImplementedError
+
 	@staticmethod
 	def get_result(data):
 		response = responses.side_quest_response(cammen.ORDER, cammen.TITLE)
@@ -89,6 +95,9 @@ class elora:
 	SAVED = "Saved the halla"
 	KILLED = "Allowed halla to be killed"
 
+	def __init__(self):
+		raise NotImplementedError
+
 	@staticmethod
 	def get_result(data):
 		response = responses.side_quest_response(elora.ORDER, elora.TITLE)
@@ -113,6 +122,9 @@ class athras:
 	NO_TELL = "Didn't tell Athras about wife's fate"
 	TOLD = "Told Athras about wife's fate"
 
+	def __init__(self):
+		raise NotImplementedError
+
 	@staticmethod
 	def get_result(data):
 		response = responses.side_quest_response(athras.ORDER, athras.TITLE)
@@ -134,6 +146,9 @@ class ironbark:
 
 	NO = "Didn't bring Varathorn ironbark"
 	YES = "Brought Varathorn ironbark"
+
+	def __init__(self):
+		raise NotImplementedError
 
 	@staticmethod
 	def get_result(data):
@@ -160,6 +175,9 @@ class deygan:
 	NOTHING = "Didn't encounter Deygan"
 	RETURNED = "Returned Deygan to Dalish camp"
 	KILLED = "Killed Deygan"
+
+	def __init__(self):
+		raise NotImplementedError
 
 	@staticmethod
 	def get_result(data):

@@ -14,8 +14,8 @@
 
 """Recruitment choices"""
 
-import quest_guid
-from utils import has_flag, get_plot
+import choice.quest_guid as quest_guid
+from choice.utils import has_flag, get_plot
 
 ALISTAIR_FLAG = 0
 DOG_FLAG = 1

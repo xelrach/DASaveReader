@@ -31,7 +31,7 @@ class reader_frame(wx.Frame):
 		menu_bar.Append(file_menu, "&File")
 
 		menu_open = file_menu.Append(wx.ID_OPEN, "&Open", " Open save file")
-		menu_exit = file_menu.Append(wx.ID_EXIT,"E&xit", " Terminate the program")
+		menu_exit = file_menu.Append(wx.ID_EXIT, "E&xit", " Terminate the program")
 
 		self.Bind(wx.EVT_MENU, self.on_exit, menu_exit)
 		self.Bind(wx.EVT_MENU, self.on_open, menu_open)
@@ -41,15 +41,16 @@ class reader_frame(wx.Frame):
 	def on_open(self, e):
 		dlg = wx.FileDialog(self, "Choose a save file", expanduser("~"), "", "*.das", wx.OPEN)
 		if dlg.ShowModal() == wx.ID_OK:
-				filename = dlg.GetPath()
-				results = da_reader.read(filename)
-				self.set_text(results)
+			filename = dlg.GetPath()
+			results = da_reader.read(filename)
+			self.set_text(results)
 		dlg.Destroy()
 
 	def on_exit(self, e):
 		self.Close(True)
 
 	def set_text(self, results):
+		"""Format the results and put them in the GUI"""
 		for result in results:
 			self.control.BeginBold()
 			self.control.BeginUnderline()

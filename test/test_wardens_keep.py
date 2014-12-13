@@ -14,24 +14,20 @@
 
 import unittest
 
-from stone import amalia_fate
-import plot
-import quest_guid
+import choice.quest_guid as quest_guid
+import choice.plot as plot
+import choice.wardens_keep as wardens_keep
 
-class stone_test(unittest.TestCase):
-	def test_amalia_fate_both_alive(self):
-		mine = [4044605670, 177, 0, 0]
-		destaerie = [4043427022, 185, 0, 0]
-		felther = [4043426022, 185, 0, 0]
-		starelle = [4043427022, 177, 0, 0]
+class wardens_keep_test(unittest.TestCase):
+	MY_AVERNUS_FLAGS = 9334414
+	MY_SOPHIA_FLAGS = 3778019584
 
-		characters = [mine, destaerie, felther, starelle]
+	def test_soldiers_peak_mine(self):
+		data = {}
+		data[quest_guid.CHARACTER_AVERNUS] = plot.plot(wardens_keep_test.MY_AVERNUS_FLAGS)
+		data[quest_guid.CHARACTER_SOPHIA] = plot.plot(wardens_keep_test.MY_SOPHIA_FLAGS)
 
-		for flags in characters:
-			data = {}
-			data[quest_guid.GOLEM] = plot.plot(*flags)
+		response = wardens_keep.soldiers_peak.get_result(data)
 
-			response = amalia_fate.get_result(data)
-
-			self.assertEquals(amalia_fate.BOTH_ALIVE, response.result)
+		self.assertEquals(wardens_keep.soldiers_peak.GOOD_RESEARCH, response.result)
 

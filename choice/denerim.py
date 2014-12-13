@@ -12,11 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Denerim choices
+"""Denerim choices"""
 
-import quest_guid
-import responses
-from utils import has_flag, get_plot
+import choice.quest_guid as quest_guid
+import choice.responses as responses
+from choice.utils import has_flag, get_plot
 
 class ser_landry:
 	ORDER = 0
@@ -26,6 +26,9 @@ class ser_landry:
 
 	ALIVE = "Ser Landry alive"
 	DEAD = "Ser Landry killed"
+
+	def __init__(self):
+		raise NotImplementedError
 
 	@staticmethod
 	def get_result(data):
@@ -52,6 +55,9 @@ class oswyn:
 	NO = "Didn't tell Bann Sighard about Oswyn"
 	YES = "Told Bann Sighard about Oswyn"
 
+	def __init__(self):
+		raise NotImplementedError
+
 	@staticmethod
 	def get_result(data):
 		response = responses.side_quest_response(oswyn.ORDER, oswyn.TITLE)
@@ -74,6 +80,9 @@ class crime_wave:
 
 	NO = "Didn't complete Slim Couldry's crime wave"
 	YES = "Completed Slim Couldry's crime wave"
+
+	def __init__(self):
+		raise NotImplementedError
 
 	@staticmethod
 	def get_result(data):
@@ -99,6 +108,9 @@ class irminric_ring:
 	NO = "Didn't give Alfstanna Irminric's ring"
 	YES = "Gave Alfstanna Irminric's ring"
 
+	def __init__(self):
+		raise NotImplementedError
+
 	@staticmethod
 	def get_result(data):
 		response = responses.side_quest_response(irminric_ring.ORDER, \
@@ -122,6 +134,9 @@ class amulet:
 
 	NO = "Didn't return amulet to beggar"
 	YES = "Returned amulet to beggar"
+
+	def __init__(self):
+		raise NotImplementedError
 
 	@staticmethod
 	def get_result(data):
@@ -148,6 +163,9 @@ class goldanna:
 	YES = "Helped Alistair find Goldanna"
 	NO = "Did not help Alistair find Goldanna"
 
+	def __init__(self):
+		raise NotImplementedError
+
 	@staticmethod
 	def get_result(data):
 		response = responses.side_quest_response(goldanna.ORDER, goldanna.TITLE)
@@ -172,6 +190,9 @@ class scroll:
 	NO = "Didn't bring scroll to Sister Justine"
 	YES = "Brought scroll to Sister Justine"
 
+	def __init__(self):
+		raise NotImplementedError
+
 	@staticmethod
 	def get_result(data):
 		response = responses.side_quest_response(scroll.ORDER, scroll.TITLE)
@@ -195,6 +216,9 @@ class pearl:
 	NO = "Didn't help clear customers out of Pearl"
 	YES = "Helped clear customers out of Pearl"
 
+	def __init__(self):
+		raise NotImplementedError
+
 	@staticmethod
 	def get_result(data):
 		response = responses.side_quest_response(pearl.ORDER, pearl.TITLE)
@@ -216,6 +240,9 @@ class crimson_oars:
 
 	NO = "Didn't handle the Crimson Oars"
 	YES = "Handled the Crimson Oars"
+
+	def __init__(self):
+		raise NotImplementedError
 
 	@staticmethod
 	def get_result(data):
@@ -241,6 +268,9 @@ class ignacio:
 	NO = "Didn't complete Master Ignacio's assassinations"
 	YES = "Completed Master Ignacio's assassinations"
 	KILLED_IGNACIO = "Warden killed Master Ignacio"
+
+	def __init__(self):
+		raise NotImplementedError
 
 	@staticmethod
 	def get_result(data):
@@ -268,6 +298,9 @@ class marjolaine:
 	NOTHING = "Did not encounter Marjolaine"
 	SENT_AWAY = "Sent Marjolaine away"
 	KILLED = "Had Marjolaine killed"
+
+	def __init__(self):
+		raise NotImplementedError
 
 	@staticmethod
 	def get_result(data):

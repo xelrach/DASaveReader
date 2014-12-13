@@ -14,10 +14,10 @@
 
 """Warden's Keep choices"""
 
-import quest_guid
-import result
-import responses
-from utils import has_flag, get_plot
+import choice.quest_guid as quest_guid
+import choice.result as result
+import choice.responses as responses
+from choice.utils import has_flag, get_plot
 
 class soldiers_peak:
 	ORDER = 1
@@ -33,9 +33,13 @@ class soldiers_peak:
 	BAD_RESEARCH = "Slayed Sophia and Avernus continued research"
 	GOOD_RESEARCH = "Slayed Sophia and allowed Avernus ethical research"
 
+	def __init__(self):
+		raise NotImplementedError
+
 	@staticmethod
 	def get_result(data):
-		response = responses.side_quest_response(soldiers_peak.ORDER, soldiers_peak.TITLE)
+		response = responses.side_quest_response(soldiers_peak.ORDER, \
+				soldiers_peak.TITLE)
 
 		avernus_data = get_plot(data, quest_guid.CHARACTER_AVERNUS)
 		sophia_data = get_plot(data, quest_guid.CHARACTER_SOPHIA)
@@ -65,6 +69,9 @@ class blood:
 
 	GAINED = "Gained Power of Blood"
 	NO_DRINK = "Didn't drink concoction"
+
+	def __init__(self):
+		raise NotImplementedError
 
 	@staticmethod
 	def get_result(data):

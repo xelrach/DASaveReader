@@ -14,11 +14,11 @@
 
 """Stone Prisoner choices"""
 
-import quest_guid
-import recruit
-import result
-import responses
-from utils import has_flag, get_plot
+import choice.quest_guid as quest_guid
+import choice.result as result
+import choice.responses as responses
+from choice.utils import has_flag, get_plot
+import choice.companion.recruit as recruit
 
 class shale_recruit:
 	ORDER = 2
@@ -26,6 +26,9 @@ class shale_recruit:
 
 	NO = "Shale not recruited"
 	YES = "Shale recruited"
+
+	def __init__(self):
+		raise NotImplementedError
 
 	@staticmethod
 	def get_result(data):
@@ -48,6 +51,9 @@ class shale_fate:
 	NO_RECRUIT = "Didn't recruit Shale"
 	ALIVE = "Shale is alive and well"
 	DIED = "Shale died when the Warden sided with Branka"
+
+	def __init__(self):
+		raise NotImplementedError
 
 	@staticmethod
 	def get_result(data):
@@ -82,6 +88,9 @@ class amalia_fate:
 	MATTHIAS_POSSESSED = "Matthias and Amalia both alive, Matthias possessed"
 	MATTHIAS_DEAD = "Amalia is alive, Matthias is dead"
 	AMALIA_DEAD = "Amalia is dead, Matthias is alive"
+
+	def __init__(self):
+		raise NotImplementedError
 
 	@staticmethod
 	def get_result(data):

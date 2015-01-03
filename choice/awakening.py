@@ -111,6 +111,9 @@ class felsi:
 	ORDER = 3
 	TITLE = "Did Oghren re-unite with his child and Felsi?"
 
+	TALKED = 6
+	FATHER = 3
+
 	NOTHING = "The Warden did not help"
 	NO = "Oghren and Felsi parted on bad terms"
 	YES = "Oghren and Felsi reunited"
@@ -122,9 +125,16 @@ class felsi:
 	def get_result(data):
 		response = responses.side_quest_response(felsi.ORDER, felsi.TITLE)
 
-		quest_data = get_plot(data, quest_guid.FAMILY_MAN)
+		family_data = get_plot(data, quest_guid.FAMILY_MAN)
+		oghren_data = get_plot(data, quest_guid.OGHREN)
 
-		response.result = result.INCOMPLETE
+		if has_flag(family_data, felsi.TALKED):
+			if has_flag(oghren_data, felsi.FATHER):
+				response.result = felsi.YES
+			else:
+				response.result = felsi.NO
+		else:
+			response.result = felsi.NOTHING
 
 		return response
 

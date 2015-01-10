@@ -25,6 +25,39 @@ def is_human_noble(data):
 	origin_data = get_plot(data, quest_guid.HERO_ORIGIN)
 	return has_flag(origin_data, hero.HUMAN_NOBLE_FLAG)
 
+def get_gender(data):
+	MALE = 1
+	FEMALE = 2
+	if data.get_gender() == MALE:
+		return 'Male'
+	elif data.get_gender() == FEMALE:
+		return 'Female'
+	return 'Unknown'
+
+def get_race(data):
+	HUMAN = 1
+	ELF = 2
+	DWARF = 3
+	if data.get_gender() == HUMAN:
+		return 'Human'
+	elif data.get_gender() == ELF:
+		return 'Elf'
+	elif data.get_gender() == DWARF:
+		return 'Dwarf'
+	return 'Unknown'
+
+def get_class(data):
+	WARRIOR = 1
+	MAGE = 2
+	ROUGE = 3
+	if data.get_class() == WARRIOR:
+		return 'Warrior'
+	elif data.get_class() == MAGE:
+		return 'Mage'
+	elif data.get_class() == ROUGE:
+		return 'Rouge'
+	return 'Unknown'
+
 class hero:
 	ORDER = 0
 	TITLE = "Hero"
@@ -59,6 +92,9 @@ class hero:
 			response.result = "Circle Mage"
 		else:
 			response.result = result.DEFAULT
+
+		response.result += ' Origin -- ' + get_gender(data) + ' ' + get_race(data) + ' ' \
+				+ get_class(data)
 
 		return response
 

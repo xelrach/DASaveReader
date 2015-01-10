@@ -19,3 +19,6 @@ OSX and Linux Users:
  Enter the following: python da_reader.py path/to/my/save/file.das
  If you have wxPython installed, you can run: python da_reader_gui.py
  Read your world state and input it into Keep
+
+Downloads available at: http://www.nexusmods.com/dragonage/mods/4244/
+Source available at: https://github.com/xelrach/DASaveReader

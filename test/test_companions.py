@@ -38,3 +38,13 @@ class companions_test(unittest.TestCase):
 		response = companions.morrigan_baby.get_result(data)
 
 		self.assertEquals(companions.morrigan_baby.NO, response.result)
+
+	def test_sten_sword_returned(self):
+		mine = [1581568, 0, 0, 0]
+
+		data = {}
+		data[quest_guid.STEN_SWORD] = plot.plot(*mine)
+
+		response = companions.sten_sword.get_result(data)
+
+		self.assertEquals(companions.sten_sword.YES, response.result)

@@ -155,7 +155,7 @@ class sten_sword:
 		response = responses.side_quest_response(sten_sword.ORDER, \
 				sten_sword.TITLE)
 
-		quest_data = get_plot(data, quest_guid.THE_QUNARI_PRISONER)
+		quest_data = get_plot(data, quest_guid.STEN_SWORD)
 
 		if has_flag(quest_data, sten_sword.SWORD_FLAG):
 			response.result = sten_sword.YES

@@ -1,4 +1,4 @@
-VERSION="beta1"
+VERSION="beta2"
 
 clean:
 	find . -type f -name "*.pyc" -delete
